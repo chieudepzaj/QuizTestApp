@@ -2,5 +2,5 @@
 const SIGN_IN = '/';
 
 export default {
-    SIGN_IN,
+  SIGN_IN,
 };

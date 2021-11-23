@@ -2,9 +2,9 @@ import { configureStore } from '@reduxjs/toolkit';
 import accountReducer from 'src/store/account';
 
 const store = configureStore({
-    reducer: {
-        account: accountReducer,
-    },
+  reducer: {
+    account: accountReducer,
+  },
 });
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;

@@ -4,11 +4,7 @@ import classnames from 'classnames/bind';
 import stylesSCSS from 'src/';
 
 const Login = () => {
-    return (
-        <>
-            sdsfsfsfsfsfsdf
-        </>
-    );
+  return <>sdsfsfsfsfsfsdf</>;
 };
 
 export default Login;

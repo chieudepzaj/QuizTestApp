@@ -13,8 +13,14 @@ const App: React.FC = () => {
         <React.Suspense fallback={<div>....Loading</div>}>
           <Routes>
             {Object.values(routers).map((route) => {
-               //@ts-ignore
-              return <Route key={route.path} element={route.private? <PrivateRoute component={route.component} /> : <route.component />} {...route} />;
+              //@ts-ignore
+              return (
+                <Route
+                  key={route.path}
+                  element={route.private ? <PrivateRoute component={route.component} /> : <route.component />}
+                  {...route}
+                />
+              );
             })}
           </Routes>
         </React.Suspense>
