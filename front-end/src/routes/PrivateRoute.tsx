@@ -4,16 +4,10 @@ import jwt_decode from 'jwt-decode';
 import { Route, Navigate } from 'react-router-dom';
 import routePath from 'src/constants/routePath';
 
-interface Props {
-  Component: typeof React.Component;
-  auth: boolean;
-  roleAllow: number[];
-}
-
 const PrivateRoute: React.FC<any> = ({
-  Component: Component,
+  Component,
   auth = !!Cookies.get('access_token'),
-  roleAllow,
+  // roleAllow,
   ...rest
 }) => {
   let role = 0;
@@ -22,17 +16,15 @@ const PrivateRoute: React.FC<any> = ({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const tokenDecoded: any = jwt_decode(access_token);
     role = tokenDecoded?.role;
-  } catch (error) {}
+  } catch (error) { }
 
   return (
     <>
-      {auth && roleAllow.includes(Number(role)) ? (
-        <Component />
-      ) : !auth ? (
-        <Navigate to={routePath.SIGN_IN} />
-      ) : (
-        <Navigate to={'/'} />
-      )}
+      {auth
+        // && roleAllow.includes(Number(role)) 
+        ? (
+          <Component />
+        ) : <Navigate to={routePath.SIGN_IN} />}
     </>
   );
 };

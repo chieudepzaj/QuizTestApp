@@ -4,7 +4,6 @@ import 'src/styles/_base.scss';
 import { Routes, useLocation, Route } from 'react-router-dom';
 import routers from 'src/routes/routes';
 import PrivateRoute from './routes/PrivateRoute';
-import Header  from 'src/layouts/header';
 
 const App: React.FC = () => {
   return (
@@ -17,7 +16,7 @@ const App: React.FC = () => {
               return (
                 <Route
                   key={route.path}
-                  element={route.private ? <PrivateRoute component={route.component} /> : <route.component />}
+                  element={route.private ? <PrivateRoute Component={route.component} /> : <route.component />}
                   {...route}
                 />
               );

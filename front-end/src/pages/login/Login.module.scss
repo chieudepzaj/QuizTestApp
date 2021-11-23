@@ -61,18 +61,18 @@
                 border: none;
                 border-radius: .5rem;
                 font-size: 1.8rem;
-            }
-
-            .sign-in-btn {
-                margin-right: 2rem;
                 background-color: $yellow--1;
                 color: #ffff;
             }
 
-            .sign-up-btn {
-                color: $yellow--1;
-                background-color: #ffff;
-                border: 1px solid $yellow--1 !important;
+            .login-signup-text {
+                font-size: 90%;
+                margin-top: 2rem;
+                cursor: pointer;
+
+                > span {
+                    font-weight: 700;
+                }
             }
         }
     }

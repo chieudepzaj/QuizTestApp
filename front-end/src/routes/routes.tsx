@@ -9,15 +9,13 @@ const routers = {
     exact: true,
     path: routePath.SIGN_IN,
     component: Login,
-    route: Route,
     private: false,
   },
   dashboard: {
     exact: true,
     path: routePath.DASHBOARD,
     component: Dashboard,
-    route: Route,
-    private: false,
+    private: true,
   }
 };
 

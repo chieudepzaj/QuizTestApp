@@ -4,8 +4,22 @@ import axiosInstance from 'src/services/axios';
 // import store from 'src/store/store';
 // import jwt_decode from 'jwt-decode';
 import Cookies from 'js-cookie';
+import { signInWithEmailAndPassword } from '@firebase/auth';
+import { auth } from 'src/firebase/firebase';
 
-export const postLogin = createAsyncThunk('admin/postLogin', async (body: any, { rejectWithValue }) => {
+export const login = createAsyncThunk('login', async (body: { email: string; password: string; }, { rejectWithValue }) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, body.email, body.password);
+    return userCredential;
+  } catch (error: any) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.error(errorCode, errorMessage);
+    // openNotification('Signed in!');
+  };
+});
+
+export const signup = createAsyncThunk('signup', async (body: any, { rejectWithValue }) => {
   try {
     const res = await axiosInstance.post('/auth/admin/login', body);
 
@@ -32,21 +46,18 @@ const accountSlice = createSlice({
   },
   extraReducers: {
     // post login
-    [`${postLogin.pending}`]: (state) => {
+    [`${login.pending}`]: (state) => {
       state.loading = true;
     },
-    [`${postLogin.rejected}`]: (state, action) => {
+    [`${login.rejected}`]: (state, action) => {
       state.loading = false;
       state.error = action.error;
     },
-    [`${postLogin.fulfilled}`]: (state, action) => {
+    [`${login.fulfilled}`]: (state, action) => {
       state.loading = false;
-      state.access_token = action.payload?.data.access_token;
-      state.currentAccount = {
-        ...action.payload.data,
-      };
+      state.access_token = action.payload?.user.stsTokenManager.accessToken;
 
-      Cookies.set('access_token', action.payload?.data.access_token);
+      Cookies.set('access_token', action.payload?.user.stsTokenManager.accessToken);
     },
   },
 });
