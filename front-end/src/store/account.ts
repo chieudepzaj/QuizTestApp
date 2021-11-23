@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IAccountInfo } from 'src/interfaces/AccountInfo';
 import axiosInstance from 'src/services/axios';
-import store from 'src/store/store';
-import jwt_decode from 'jwt-decode';
+// import store from 'src/store/store';
+// import jwt_decode from 'jwt-decode';
 import Cookies from 'js-cookie';
 
 export const postLogin = createAsyncThunk('admin/postLogin', async (body: any, { rejectWithValue }) => {

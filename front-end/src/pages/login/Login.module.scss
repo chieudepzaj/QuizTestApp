@@ -1,0 +1,94 @@
+@import '../../styles/variables';
+
+.container {
+    display: grid;
+    grid-template-columns: 35% 65%;
+
+    .form {
+        padding: 5rem 3rem 0;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        font-size: 1.8rem;
+
+        div[class~='ant-form-item'] {
+                margin-bottom: 3rem;
+
+        }
+
+        .welcome-text {
+            text-align: center;
+            margin-bottom: 4rem;
+
+            > span {
+                display: block;
+            }
+        }
+
+        form[class~='ant-form'] {
+            width: 100%;
+
+            label {
+                font-size: 1.5rem;
+            }
+
+            div[class~='ant-form-item-label'] {
+                margin-bottom: 1rem;
+            }
+
+            input {
+                width: 100%;
+                height: 6rem;
+                border-radius: 0.5rem;
+                border: 1px solid $yellow--1;
+                font-size: 1.8rem;
+                padding: 0 1rem;
+
+                &:focus {
+                    outline: none;
+                    border-left: .3rem solid $yellow--1;
+                }
+            }
+        }
+
+        .action {
+            text-align: center;
+
+            button[class~='ant-btn'],
+            button[class~='ant-btn']:hover {
+                width: 16.2rem;
+                height: 5.8rem;
+                border: none;
+                border-radius: .5rem;
+                font-size: 1.8rem;
+            }
+
+            .sign-in-btn {
+                margin-right: 2rem;
+                background-color: $yellow--1;
+                color: #ffff;
+            }
+
+            .sign-up-btn {
+                color: $yellow--1;
+                background-color: #ffff;
+                border: 1px solid $yellow--1 !important;
+            }
+        }
+    }
+
+    .image {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f1dfd1;
+        background-image: linear-gradient(315deg, #f1dfd1 0%, #f6f0ea 74%);
+
+        > img {
+            width: 81.6rem;
+            height: 41.9rem;
+        }
+    }
+}

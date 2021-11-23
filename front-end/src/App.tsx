@@ -1,14 +1,14 @@
 import React from 'react';
 import 'src/styles/_app.scss';
+import 'src/styles/_base.scss';
 import { Routes, useLocation, Route } from 'react-router-dom';
 import routers from 'src/routes/routes';
 import PrivateRoute from './routes/PrivateRoute';
+import Header  from 'src/layouts/header';
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <div className="Navbar"></div>
-
       <div className="Content">
         <React.Suspense fallback={<div>....Loading</div>}>
           <Routes>

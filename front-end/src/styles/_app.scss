@@ -2,5 +2,19 @@
 
 html {
   font-size: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
   font-family: 'Roboto', sans-serif;
+  font-size: 1.6rem;
+  color: #010334;
+}
+
+.App {
+  min-width: 100vw;
+  min-height: 100vh;
 }
