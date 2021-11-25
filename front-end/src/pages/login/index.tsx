@@ -4,7 +4,7 @@ import graduationIcon from 'src/assets/images/graduation_image.png';
 import logoImg from 'src/assets/images/logo.png';
 import { Button, Form, Input, message } from 'antd';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { useAppDispatch } from 'src/store/hooks';
+import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { useNavigate } from 'react-router-dom';
 
 import { REQUIRED_FIELD } from 'src/constants/messages';
@@ -14,6 +14,7 @@ import { auth } from 'src/firebase/firebase';
 import { login } from 'src/store/auth';
 import routePath from 'src/constants/routePath';
 import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
+import { Navigate } from 'react-router-dom';
 
 const cx = classnames.bind(stylesSCSS);
 
@@ -21,23 +22,22 @@ const Login = () => {
   const [actionType, setActionType] = useState(1);// 1-signIn, 2-signUp
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const user = useAppSelector(state => state.account);
 
   const onSubmit = async (values: any) => {
     if (actionType === 1) {
       const res = await login({ email: values.email, password: values.password, });
-      if (res) navigate(routePath.DASHBOARD);
     }
 
     if (actionType === 2) {
       createUserWithEmailAndPassword(auth, values.email, values.password)
         .then((userCredential) => {
           const user = userCredential.user;
-          message.success(`Signed up successfully`);
+          openCustomNotificationWithIcon(NOTIFICATION_TYPE.SUCCESS, 'Signed up successfully', '');
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.error(errorCode, errorMessage);
+          // console.error(error.code, error.message);
+          openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Signed up failed', '');
         });
     }
   };
@@ -46,7 +46,10 @@ const Login = () => {
 
   const onChangePassword = () => { };
 
+  console.log(user.user.accessToken);
   return (
+    <>
+    {user.user.accessToken  && <Navigate to={routePath.DASHBOARD} />}
     <div className={cx('container')}>
       <div className={cx('form')}>
         <img src={logoImg} alt='logo-img' />
@@ -159,7 +162,8 @@ const Login = () => {
       <div className={cx('image')}>
         <img src={graduationIcon} alt='graduation-icon' />
       </div>
-    </div>);
+    </div>
+    </>);
 };
 
 export default Login;

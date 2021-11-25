@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IAccountInfo } from 'src/interfaces/AccountInfo';
 import axiosInstance from 'src/services/axios';
 // import store from 'src/store/store';
 // import jwt_decode from 'jwt-decode';
@@ -21,15 +20,6 @@ export const login = async (body: { email: string; password: string; }) => {
   };
 };
 
-export const signout = createAsyncThunk('login', async (body, { rejectWithValue }) => {
-  try {
-    await signOut(auth);
-  } catch (error: any) {
-    openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Sign out failed', '');
-    return rejectWithValue(error.response.data);
-  };
-});
-
 export const signup = createAsyncThunk('signup', async (body: any, { rejectWithValue }) => {
   try {
     const res = await axiosInstance.post('/auth/admin/login', body);
@@ -41,10 +31,9 @@ export const signup = createAsyncThunk('signup', async (body: any, { rejectWithV
 });
 
 const initialState = {
-  currentAccount: <IAccountInfo>{},
+  user: {} as any,
   error: '',
   loading: false,
-  access_token: '',
 };
 
 const accountSlice = createSlice({
@@ -52,12 +41,12 @@ const accountSlice = createSlice({
   initialState,
   reducers: {
     handleLogin: (state, action: PayloadAction<any>) => {
-      state.access_token = action.payload?.accessToken;
-      Cookies.set('access_token', action.payload?.accessToken);
+      state.user = action.payload;
+      // Cookies.set('access_token', action.payload?.accessToken);
     },
     handleLogout: (state, action: PayloadAction<any>) => {
-      state.access_token = '';
-      Cookies.remove('access_token');
+      state.user = action.payload;
+      // Cookies.remove('access_token');
     },
   },
   extraReducers: {

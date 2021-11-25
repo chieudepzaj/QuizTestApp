@@ -24,16 +24,31 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
 export const db = getFirestore(app);
-export const teachersDB = collection(db, 'teachers');
-export const snapshot = getDocs(teachersDB);
+export const teachersRef = collection(db, 'teachers');
+// export const snapshot = getDocs(teachersDB);
 
 console.log('### INITIALIZE FIREBASE');
 onAuthStateChanged(auth, user => {
     if(user !== null) {
       store.dispatch(handleLogin({accessToken: user.accessToken}));
-      // console.log('loged in!');
+      console.log('### LOGED IN !');
+
+      // if() {
+      //   openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Sign out failed', '');
+      //    console.log('### EMAIL NOT VERIFIED !');
+      // }
+
+//       import { collection, doc, setDoc } from "firebase/firestore"; 
+
+// const citiesRef = collection(db, "cities");
+
+// await setDoc(doc(citiesRef, "SF"), {
+//     name: "San Francisco", state: "CA", country: "USA",
+//     capital: false, population: 860000,
+//     regions: ["west_coast", "norcal"] });
+
     } else {
-      // console.log('No User'); 
+      console.log('### NO USER'); 
     };
 });
 
