@@ -24,7 +24,7 @@ const Login = () => {
 
   const onSubmit = async (values: any) => {
     if (actionType === 1) {
-      const res = dispatch(login({ email: values.email, password: values.password, }));
+      const res = await login({ email: values.email, password: values.password, });
       if (res) navigate(routePath.DASHBOARD);
     }
 

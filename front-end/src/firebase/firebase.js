@@ -2,6 +2,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "@firebase/auth";
 import {getFirestore, collection, getDoc, getDocs} from "@firebase/firestore";
+import store from "src/store/store";
+import { handleLogin } from "src/store/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,15 +23,17 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 
-// const db = getFirestore(app);
-// const teachersDB = collection(db, 'teachers');
-// const snapshot = await getDocs(teachersDB);
+export const db = getFirestore(app);
+export const teachersDB = collection(db, 'teachers');
+export const snapshot = await getDocs(teachersDB);
 
+console.log('### INITIALIZE FIREBASE');
 onAuthStateChanged(auth, user => {
     if(user !== null) {
-      console.log('loged in!');
+      if(user) store.dispatch(handleLogin({accessToken: user.accessToken}));
+      // console.log('loged in!');
     } else {
-      console.log('No User'); 
+      // console.log('No User'); 
     };
 });
 
