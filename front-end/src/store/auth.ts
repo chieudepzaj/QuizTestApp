@@ -6,16 +6,21 @@ import axiosInstance from 'src/services/axios';
 import Cookies from 'js-cookie';
 import { signInWithEmailAndPassword } from '@firebase/auth';
 import { auth } from 'src/firebase/firebase';
+import { message } from 'antd';
+import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
 
 export const login = createAsyncThunk('login', async (body: { email: string; password: string; }, { rejectWithValue }) => {
+    console.log('log in');
+
   try {
     const userCredential = await signInWithEmailAndPassword(auth, body.email, body.password);
+    openCustomNotificationWithIcon(NOTIFICATION_TYPE.SUCCESS, 'Loged in successfully', '');
+
     return userCredential;
   } catch (error: any) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.error(errorCode, errorMessage);
-    // openNotification('Signed in!');
+    // console.error(error.code, error.message);
+    openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Loged in failed', '');
+    return rejectWithValue(error.response.data);
   };
 });
 

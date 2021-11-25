@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import classnames from 'classnames/bind';
 import graduationIcon from 'src/assets/images/graduation_image.png';
 import logoImg from 'src/assets/images/logo.png';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { useAppDispatch } from 'src/store/hooks';
 import { useNavigate } from 'react-router-dom';
@@ -11,9 +11,9 @@ import { REQUIRED_FIELD } from 'src/constants/messages';
 import stylesSCSS from './Login.module.scss';
 import { PATTERN_VALIDATE_EMAIL } from 'src/helpers/regex';
 import { auth } from 'src/firebase/firebase';
-import { openNotification } from 'src/components/notification';
 import { login } from 'src/store/auth';
 import routePath from 'src/constants/routePath';
+import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
 
 const cx = classnames.bind(stylesSCSS);
 
@@ -23,21 +23,22 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (values: any) => {
+    if (actionType === 1) {
+      const res = dispatch(login({ email: values.email, password: values.password, }));
+      if (res) navigate(routePath.DASHBOARD);
+    }
+
     if (actionType === 2) {
       createUserWithEmailAndPassword(auth, values.email, values.password)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log('sign-up', user);
+          message.success(`Signed up successfully`);
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.error(errorCode, errorMessage);
         });
-    }
-
-    if (actionType === 1) {
-      if(dispatch(login)) navigate(routePath.DASHBOARD);
     }
   };
 
@@ -57,8 +58,6 @@ const Login = () => {
 
         <Form
           name="basic"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
           initialValues={{
             emailAddress: '',
             password: '',
