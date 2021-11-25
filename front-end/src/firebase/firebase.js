@@ -25,12 +25,12 @@ export const auth = getAuth(app);
 
 export const db = getFirestore(app);
 export const teachersDB = collection(db, 'teachers');
-export const snapshot = await getDocs(teachersDB);
+export const snapshot = getDocs(teachersDB);
 
 console.log('### INITIALIZE FIREBASE');
 onAuthStateChanged(auth, user => {
     if(user !== null) {
-      if(user) store.dispatch(handleLogin({accessToken: user.accessToken}));
+      store.dispatch(handleLogin({accessToken: user.accessToken}));
       // console.log('loged in!');
     } else {
       // console.log('No User'); 
