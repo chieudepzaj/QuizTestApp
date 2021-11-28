@@ -1,4 +1,5 @@
 import React from 'react';
+import '@fontsource/roboto';
 import 'src/styles/_app.scss';
 import 'src/styles/_base.scss';
 import { Routes, Route } from 'react-router-dom';

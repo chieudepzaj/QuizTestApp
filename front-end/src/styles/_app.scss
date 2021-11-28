@@ -22,10 +22,31 @@ html {
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 1.6rem;
-  color: #010334;
+  color: #4e4b66;
 }
 
 .App {
   min-width: 100%;
   min-height: 100%;
+}
+
+button {
+  border: none;
+}
+
+.ant-input {
+  border-radius: 0.5rem;
+  height: 5rem;
+  font-size: 1.8rem;
+}
+
+.ant-select, .ant-select-selector, .ant-select-selector input {
+  border-radius: 0.5rem !important;
+  height: 5rem !important;
+  font-size: 1.8rem;
+}
+
+.ant-select-selection-item {
+  display: flex;
+  align-items: center;
 }

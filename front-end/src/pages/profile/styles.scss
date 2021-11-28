@@ -13,11 +13,63 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 2rem;
+
+  .ant-form {
+     font-size: 2rem;
+  }
 
   .profile-form {
     width: 60rem;
     border-radius: 1rem;
     background-color: #fff;
     padding: 3rem;
+
+    &__title {
+      text-align: center;
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 3rem;
+    }
+
+    &__edit-icon {
+      border: 1px solid #4e4b66;
+      border-radius: 0.3rem;
+      padding: 0.5rem;
+      margin-left: 1rem;
+
+      > svg {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+
+    &__label,
+    label {
+      font-weight: 500;
+      display: inline-block;
+      width: 20%;
+      font-size: 2rem;
+    }
+
+    &__label {
+      margin-bottom: 3rem;
+    }
+
+    &__btn {
+      margin-top: 3rem;
+      text-align: center;
+
+      > button:not(:last-child) {
+        margin-right: 1rem;
+      }
+    }
+
+    &__home-page-btn, .sign-in-btn {
+      border-radius: 1rem;
+      padding: 1rem;
+      width: 15rem;
+      height: 4.5rem;
+    }
   }
 }

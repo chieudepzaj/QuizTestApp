@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import classnames from 'classnames/bind';
 import graduationIcon from 'src/assets/images/graduation_image.png';
 import logoImg from 'src/assets/images/logo.png';
-import { Button, Form, Input, message } from 'antd';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { useAppDispatch, useAppSelector } from 'src/store/hooks';
-import { useNavigate } from 'react-router-dom';
+import { Button, Form, Input } from 'antd';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useAppSelector } from 'src/store/hooks';
 
 import { REQUIRED_FIELD } from 'src/constants/messages';
 import stylesSCSS from './Login.module.scss';
@@ -20,23 +19,21 @@ const cx = classnames.bind(stylesSCSS);
 
 const Login = () => {
   const [actionType, setActionType] = useState(1); // 1-signIn, 2-signUp
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const user = useAppSelector((state) => state.account);
 
   const onSubmit = async (values: any) => {
     if (actionType === 1) {
-      const res = await login({ email: values.email, password: values.password });
+      await login({ email: values.email, password: values.password });
     }
 
     if (actionType === 2) {
       createUserWithEmailAndPassword(auth, values.email, values.password)
         .then((userCredential) => {
-          const user = userCredential.user;
+          userCredential.user;
           openCustomNotificationWithIcon(NOTIFICATION_TYPE.SUCCESS, 'Signed up successfully', '');
         })
         .catch((error) => {
-          // console.error(error.code, error.message);
+          console.error(error.code, error.message);
           openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Signed up failed', '');
         });
     }
@@ -89,14 +86,22 @@ const Login = () => {
                   required: true,
                   message: REQUIRED_FIELD,
                 },
-                ({ getFieldValue }) => ({
+                (
+                  {
+                    //  getFieldValue
+                  },
+                ) => ({
                   validator(_, value) {
                     if (/^[^@$#=(){}!^%\/~;*'"`?<>&\-_.,:\+\\\]\[/]*$/.test(value)) {
                       return Promise.resolve();
                     } else return Promise.reject(new Error('Sorry, number and special characters are not allowed.'));
                   },
                 }),
-                ({ getFieldValue }) => ({
+                (
+                  {
+                    // getFieldValue
+                  },
+                ) => ({
                   validator(_, value) {
                     if (value.length >= 6) {
                       return Promise.resolve();
@@ -105,7 +110,7 @@ const Login = () => {
                 }),
               ]}
             >
-              <Input onChange={onChangeEmail} placeholder="Password" />
+              <Input onChange={onChangePassword} placeholder="Password" />
             </Form.Item>
 
             <Form.Item className={cx('action')}>

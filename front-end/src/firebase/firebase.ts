@@ -7,6 +7,7 @@ import { handleLogin } from 'src/store/auth';
 import { IUserInfo } from 'src/interfaces';
 import { UserRole } from 'src/constants/constants';
 import { DbsName } from 'src/constants/db';
+import Cookies from 'js-cookie';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -69,8 +70,10 @@ onAuthStateChanged(auth, async (userAuth: any) => {
       }),
     );
 
+    Cookies.set('accessToken', userAuth.accessToken);
     console.log('### LOGED IN !');
   } else {
+    Cookies.remove('accessToken');
     console.log('### NO USER');
   }
 });
