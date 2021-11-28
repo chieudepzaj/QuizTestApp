@@ -122,19 +122,19 @@ const Login = () => {
               {actionType === 1 ? (
                 <>
                   <Button className={cx('sign-in-btn')} type="primary" htmlType="submit">
-                    Sign In
+                    SIGN IN
                   </Button>
-                  <div className={cx('login-signup-text')} onClick={() => setActionType(2)}>
-                    Click here to <span>SIGN UP!</span>
+                  <div className={cx('login-in-text')} onClick={() => setActionType(2)}>
+                    Click here to <span>SIGN UP</span>
                   </div>
                 </>
               ) : (
                 <>
                   <Button className={cx('sign-up-btn')} type="primary" htmlType="submit">
-                    Sign Up
+                    SIGN UP
                   </Button>
                   <div className={cx('login-signup-text')} onClick={() => setActionType(1)}>
-                    Click here to <span>LOG IN!</span>
+                    Click here to <span>LOG IN</span>
                   </div>
                 </>
               )}

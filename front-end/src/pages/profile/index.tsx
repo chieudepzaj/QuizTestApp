@@ -24,7 +24,6 @@ const Profile = () => {
   const [classes, setClasses] = useState<{ label: string; value: string }[]>([]);
   const [viewMode, setViewMode] = useState(false);
   const [editMode, setEditMode] = useState(false);
-
   console.log(provideProfile, viewMode);
 
   const dispatch = useAppDispatch();
@@ -74,69 +73,64 @@ const Profile = () => {
 
       <div className={'profile-container'}>
         <div className={'profile-form'}>
-          {provideProfile ||
-            (editMode && (
-              <>
-                <div className={'profile-form__title'}>
-                  {provideProfile ? (
-                    <span>Please provide your info to continue</span>
-                  ) : (
-                    <span>Hi, {user.fullname}</span>
-                  )}
+          {(provideProfile || editMode) && (
+            <>
+              <div className={'profile-form__title'}>
+                {provideProfile ? <span>Please provide your info to continue</span> : <span>Hi, {user.fullname}</span>}
+              </div>
+
+              <Form
+                name="profile"
+                initialValues={{
+                  fullname: user.fullname ? user.fullname : '',
+                  classID: classes.find((classInfo) => classInfo.value === user.classID)
+                    ? classes.find((classInfo) => classInfo.value === user.classID)?.value
+                    : '',
+                }}
+                onFinish={onSubmit}
+                autoComplete="off"
+              >
+                <Form.Item label="Full name" name="fullname" rules={[{ required: true, message: REQUIRED_FIELD }]}>
+                  <Input onChange={() => {}} placeholder="Full name" />
+                </Form.Item>
+
+                <div>
+                  <span className="profile-form__label">Email</span> {user.email}
                 </div>
 
-                <Form
-                  name="profile"
-                  initialValues={{
-                    fullname: user.fullname ? user.fullname : '',
-                    classID: classes.find((classInfo) => classInfo.value === user.classID)
-                      ? classes.find((classInfo) => classInfo.value === user.classID)?.value
-                      : '',
-                  }}
-                  onFinish={onSubmit}
-                  autoComplete="off"
-                >
-                  <Form.Item label="Full name" name="fullname" rules={[{ required: true, message: REQUIRED_FIELD }]}>
-                    <Input onChange={() => {}} placeholder="Full name" />
+                {user.role === UserRole.STUDENT && (
+                  <Form.Item label="Class" name="classID" rules={[{ required: true, message: REQUIRED_FIELD }]}>
+                    <Select
+                      showSearch
+                      placeholder="Select your class"
+                      optionFilterProp="children"
+                      onChange={() => {}}
+                      onFocus={() => {}}
+                      onBlur={() => {}}
+                      onSearch={() => {}}
+                      // filterOption={(input, option: any) =>
+                      //     option.children.toLowerCPase().indexOf(input.toLowerCase()) >= 0
+                      // }
+                    >
+                      {classes.map((classE) => (
+                        <Option key={classE.value} value={classE.value}>
+                          {classE.label}
+                        </Option>
+                      ))}
+                    </Select>
                   </Form.Item>
+                )}
 
-                  <div>
-                    <span className="profile-form__label">Email</span> {user.email}
+                <Form.Item className={'action'}>
+                  <div className="profile-form__btn">
+                    <Button className={'sign-in-btn'} type="primary" htmlType="submit">
+                      SAVE
+                    </Button>
                   </div>
-
-                  {user.role === UserRole.STUDENT && (
-                    <Form.Item label="Class" name="classID" rules={[{ required: true, message: REQUIRED_FIELD }]}>
-                      <Select
-                        showSearch
-                        placeholder="Select your class"
-                        optionFilterProp="children"
-                        onChange={() => {}}
-                        onFocus={() => {}}
-                        onBlur={() => {}}
-                        onSearch={() => {}}
-                        // filterOption={(input, option: any) =>
-                        //     option.children.toLowerCPase().indexOf(input.toLowerCase()) >= 0
-                        // }
-                      >
-                        {classes.map((classE) => (
-                          <Option key={classE.value} value={classE.value}>
-                            {classE.label}
-                          </Option>
-                        ))}
-                      </Select>
-                    </Form.Item>
-                  )}
-
-                  <Form.Item className={'action'}>
-                    <div className="profile-form__btn">
-                      <Button className={'sign-in-btn'} type="primary" htmlType="submit">
-                        SAVE
-                      </Button>
-                    </div>
-                  </Form.Item>
-                </Form>
-              </>
-            ))}
+                </Form.Item>
+              </Form>
+            </>
+          )}
 
           {viewMode && (
             <>

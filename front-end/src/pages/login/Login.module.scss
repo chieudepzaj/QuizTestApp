@@ -17,7 +17,7 @@
 
     .welcome-text {
       text-align: center;
-      margin-bottom: 4rem;
+      margin-bottom: 3rem;
 
       > span {
         display: block;
@@ -42,7 +42,7 @@
       width: 100%;
 
       label {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
       }
 
       div[class~='ant-form-item-label'] {
@@ -73,19 +73,28 @@
         height: 5.8rem;
         border: none;
         border-radius: 0.5rem;
-        font-size: 1.8rem;
+        font-size: 2rem;
         background-color: $yellow--1;
         color: #ffff;
       }
 
-      .login-signup-text {
-        font-size: 90%;
+      .login-signup-text,
+      .login-in-text {
+        font-size: 1.8rem;
         margin-top: 2rem;
+        margin-bottom: 3rem;
         cursor: pointer;
+        text-decoration: underline;
 
         > span {
           font-weight: 700;
         }
+      }
+
+      .sign-up-btn {
+        border: 0.2rem solid $yellow--1 !important;
+        background-color: #fff !important;
+        color: $yellow--1 !important;
       }
     }
   }

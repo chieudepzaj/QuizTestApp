@@ -14,7 +14,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      {/* {!user.fullname && <Navigate to={routePath.PROFILE} />} */}
+      {!user.fullname && <Navigate to={routePath.PROFILE} />}
 
       <Header />
       <div className="dashboard">

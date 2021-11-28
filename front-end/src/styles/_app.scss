@@ -52,3 +52,9 @@ button {
   display: flex;
   align-items: center;
 }
+
+.ant-form-item-label {
+  > label::after {
+    display: none;
+  }
+}
