@@ -1,4 +1,3 @@
-// const SIGN_IN = '/sign-in';
 const DASHBOARD = '/';
 const SIGN_IN = '/sign-in';
 const PROFILE = '/profile';

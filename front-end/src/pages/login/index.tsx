@@ -3,7 +3,7 @@ import classnames from 'classnames/bind';
 import graduationIcon from 'src/assets/images/graduation_image.png';
 import logoImg from 'src/assets/images/logo.png';
 import { Button, Form, Input, message } from 'antd';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,14 +19,14 @@ import { Navigate } from 'react-router-dom';
 const cx = classnames.bind(stylesSCSS);
 
 const Login = () => {
-  const [actionType, setActionType] = useState(1);// 1-signIn, 2-signUp
+  const [actionType, setActionType] = useState(1); // 1-signIn, 2-signUp
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useAppSelector(state => state.account);
+  const user = useAppSelector((state) => state.account);
 
   const onSubmit = async (values: any) => {
     if (actionType === 1) {
-      const res = await login({ email: values.email, password: values.password, });
+      const res = await login({ email: values.email, password: values.password });
     }
 
     if (actionType === 2) {
@@ -42,128 +42,101 @@ const Login = () => {
     }
   };
 
-  const onChangeEmail = () => { };
+  const onChangeEmail = () => {};
 
-  const onChangePassword = () => { };
+  const onChangePassword = () => {};
 
-  console.log(user.user.accessToken);
   return (
     <>
-    {user.user.accessToken  && <Navigate to={routePath.DASHBOARD} />}
-    <div className={cx('container')}>
-      <div className={cx('form')}>
-        <img src={logoImg} alt='logo-img' />
+      {user.user.accessToken && <Navigate to={routePath.DASHBOARD} />}
+      <div className={cx('container')}>
+        <div className={cx('form')}>
+          <img src={logoImg} alt="logo-img" />
 
-        <div className={cx('welcome-text')}>
-          <span>Welcome  back!</span>
-          <span>Please login/Signup to your account.</span>
-        </div>
+          <div className={cx('welcome-text')}>
+            <span>Welcome back!</span>
+            <span>Please login/Signup to your account.</span>
+          </div>
 
-        <Form
-          name="basic"
-          initialValues={{
-            emailAddress: '',
-            password: '',
-          }}
-          onFinish={onSubmit}
-          autoComplete="off"
-        >
-          <Form.Item
-            label="Email address"
-            name="email"
-            rules={[
-              { required: true, message: REQUIRED_FIELD },
-              {
-                pattern: PATTERN_VALIDATE_EMAIL,
-                message: "Please enter a correct email.",
-              },
-            ]}
+          <Form
+            name="basic"
+            initialValues={{
+              emailAddress: '',
+              password: '',
+            }}
+            onFinish={onSubmit}
+            autoComplete="off"
           >
-            <Input
-              onChange={onChangeEmail}
-              placeholder="Email address"
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: REQUIRED_FIELD,
-              },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (
-                    /^[^@$#=(){}!^%\/~;*'"`?<>&\-_.,:\+\\\]\[/]*$/.test(value)
-                  ) {
-                    return Promise.resolve();
-                  } else
-                    return Promise.reject(
-                      new Error(
-                        "Sorry, number and special characters are not allowed."
-                      )
-                    );
+            <Form.Item
+              label="Email address"
+              name="email"
+              rules={[
+                { required: true, message: REQUIRED_FIELD },
+                {
+                  pattern: PATTERN_VALIDATE_EMAIL,
+                  message: 'Please enter a correct email.',
                 },
-              }),
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (value.length >= 6) {
-                    return Promise.resolve();
-                  } else
-                    return Promise.reject(
-                      new Error(
-                        "Password should be at least 6 characters."
-                      )
-                    );
-                },
-              }),
-            ]}
-          >
-            <Input
-              onChange={onChangeEmail}
-              placeholder="Password"
-            />
-          </Form.Item>
+              ]}
+            >
+              <Input onChange={onChangeEmail} placeholder="Email address" />
+            </Form.Item>
 
-          <Form.Item className={cx('action')}>
-            {actionType === 1 ?
-              (<>
-                <Button
-                  className={cx('sign-in-btn')}
-                  type="primary"
-                  htmlType="submit">
-                  Sign In
-                </Button>
-                <div
-                  className={cx('login-signup-text')}
-                  onClick={() => setActionType(2)}
-                >Click here to <span>SIGN UP!</span></div>
-              </>
-              )
-              : (
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: REQUIRED_FIELD,
+                },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (/^[^@$#=(){}!^%\/~;*'"`?<>&\-_.,:\+\\\]\[/]*$/.test(value)) {
+                      return Promise.resolve();
+                    } else return Promise.reject(new Error('Sorry, number and special characters are not allowed.'));
+                  },
+                }),
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (value.length >= 6) {
+                      return Promise.resolve();
+                    } else return Promise.reject(new Error('Password should be at least 6 characters.'));
+                  },
+                }),
+              ]}
+            >
+              <Input onChange={onChangeEmail} placeholder="Password" />
+            </Form.Item>
+
+            <Form.Item className={cx('action')}>
+              {actionType === 1 ? (
                 <>
-                  <Button
-                    className={cx('sign-up-btn')}
-                    type="primary"
-                    htmlType="submit">
+                  <Button className={cx('sign-in-btn')} type="primary" htmlType="submit">
+                    Sign In
+                  </Button>
+                  <div className={cx('login-signup-text')} onClick={() => setActionType(2)}>
+                    Click here to <span>SIGN UP!</span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Button className={cx('sign-up-btn')} type="primary" htmlType="submit">
                     Sign Up
                   </Button>
-                  <div
-                    className={cx('login-signup-text')}
-                    onClick={() => setActionType(1)}
-                  >Click here to <span>LOG IN!</span></div>
+                  <div className={cx('login-signup-text')} onClick={() => setActionType(1)}>
+                    Click here to <span>LOG IN!</span>
+                  </div>
                 </>
               )}
-          </Form.Item>
-        </Form>
+            </Form.Item>
+          </Form>
+        </div>
+        <div className={cx('image')}>
+          <img src={graduationIcon} alt="graduation-icon" />
+        </div>
       </div>
-      <div className={cx('image')}>
-        <img src={graduationIcon} alt='graduation-icon' />
-      </div>
-    </div>
-    </>);
+    </>
+  );
 };
 
 export default Login;

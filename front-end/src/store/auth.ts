@@ -1,23 +1,19 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axiosInstance from 'src/services/axios';
-// import store from 'src/store/store';
-// import jwt_decode from 'jwt-decode';
-import Cookies from 'js-cookie';
-import { signInWithEmailAndPassword, signOut } from '@firebase/auth';
+import { signInWithEmailAndPassword } from '@firebase/auth';
 import { auth } from 'src/firebase/firebase';
-import { message } from 'antd';
 import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
 
-export const login = async (body: { email: string; password: string; }) => {
+export const login: any = async (body: { email: string; password: string }) => {
   try {
-    const userCredential = await signInWithEmailAndPassword(auth, body.email, body.password);
+    await signInWithEmailAndPassword(auth, body.email, body.password);
     openCustomNotificationWithIcon(NOTIFICATION_TYPE.SUCCESS, 'Loged in successfully', '');
     return true;
   } catch (error: any) {
     // console.error(error.code, error.message);
     openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Loged in failed', '');
     return false;
-  };
+  }
 };
 
 export const signup = createAsyncThunk('signup', async (body: any, { rejectWithValue }) => {
@@ -44,16 +40,18 @@ const accountSlice = createSlice({
       state.user = action.payload;
       // Cookies.set('access_token', action.payload?.accessToken);
     },
+    updateUserInfo: (state, action: PayloadAction<any>) => {
+      state.user = { ...state.user, ...action.payload };
+    },
     handleLogout: (state, action: PayloadAction<any>) => {
       state.user = action.payload;
       // Cookies.remove('access_token');
     },
   },
-  extraReducers: {
-  },
+  extraReducers: {},
 });
 
-export const { handleLogin, handleLogout } = accountSlice.actions;
+export const { handleLogin, updateUserInfo, handleLogout } = accountSlice.actions;
 
 const { reducer: accountReducer } = accountSlice;
 

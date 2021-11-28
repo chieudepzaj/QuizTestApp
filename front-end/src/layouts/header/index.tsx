@@ -13,32 +13,33 @@ import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import './styles.scss';
 
 const Header: React.FC = () => {
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    const user = useAppSelector(state => state.account.user);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const user = useAppSelector((state) => state.account.user);
 
-    const handleSignOut = async () => {
-        try {
-            await signOut(auth);
-            dispatch(handleLogout({}));
-            navigate(routePath.SIGN_IN);
-        } catch (error: any) {
-            openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Sign out failed', '');
-        };
-    };
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      dispatch(handleLogout({}));
+      navigate(routePath.SIGN_IN);
+    } catch (error: any) {
+      openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Sign out failed', '');
+    }
+  };
 
-    return (
-        <div className='header'>
-            <img className='header__logo' src={logoImg} alt='logo' />
+  return (
+    <div className="header">
+      <img className="header__logo" src={logoImg} alt="logo" />
 
-            <div className='header__function'>
-                <div className='header__function__account-icon'>
-                    <img src={profileIcon} alt='logo' />Welcome, {user.name}
-                </div>
-                <Button onClick={handleSignOut}>Logout</Button>
-            </div>
+      <div className="header__function">
+        <div className="header__function__account-icon">
+          <img src={profileIcon} alt="logo" />
+          Welcome, {user.fullname}
         </div>
-    );
+        <Button onClick={handleSignOut}>Logout</Button>
+      </div>
+    </div>
+  );
 };
 
 export default Header;

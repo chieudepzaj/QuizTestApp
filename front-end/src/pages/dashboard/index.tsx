@@ -1,6 +1,7 @@
 import { Button } from 'antd';
 import React from 'react';
-import { Navigate } from 'react-router';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { UserRole } from 'src/constants/constants';
 import routePath from 'src/constants/routePath';
 import Header from 'src/layouts/header';
 import { useAppSelector } from 'src/store/hooks';
@@ -8,36 +9,33 @@ import { useAppSelector } from 'src/store/hooks';
 import './styles.scss';
 
 const Dashboard: React.FC = () => {
-    const user = useAppSelector(user => user.account.user);
+  const user = useAppSelector((user) => user.account.user);
+  const navigate = useNavigate();
 
-    return (
-        <>
-            {!user.name && <Navigate to={routePath.PROFILE} />}
-            <Header />
-            <div className='dashboard'>
-                @@Teacher
-                <Button>
-                    Create new test
-                </Button>
-                <Button>
-                    Manage class
-                </Button>
+  return (
+    <>
+      {!user.fullname && <Navigate to={routePath.PROFILE} />}
 
-                @@Student
-                <Button>
-                    Take test
-                </Button>
-                <Button>
-                    Testing result
-                </Button>
+      <Header />
+      <div className="dashboard">
+        {user.role === UserRole.TEACHER && (
+          <>
+            <Button>Create new test</Button>
+            <Button>Manage class</Button>
+          </>
+        )}
 
-                @@Both
-                <Button>
-                    Manage profile
-                </Button>
-            </div>
-        </>
-    );
+        {user.role === UserRole.STUDENT && (
+          <>
+            <Button>Take test</Button>
+            <Button>Testing result</Button>
+          </>
+        )}
+
+        <Button onClick={() => navigate(routePath.PROFILE)}>Manage profile</Button>
+      </div>
+    </>
+  );
 };
 
 export default Dashboard;

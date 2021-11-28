@@ -1,7 +1,5 @@
 import routePath from 'src/constants/routePath';
 import Login from 'src/pages/login';
-import { UserRole } from 'src/constants/constants';
-import { Route } from 'react-router-dom';
 import Dashboard from 'src/pages/dashboard';
 import Profile from 'src/pages/profile';
 
@@ -23,7 +21,7 @@ const routers = {
     path: routePath.PROFILE,
     component: Profile,
     private: true,
-  }
+  },
 };
 
 export default routers;
