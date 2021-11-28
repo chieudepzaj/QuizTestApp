@@ -33,10 +33,6 @@ export const classesRef = collection(db, DbsName.CLASS);
 
 onAuthStateChanged(auth, async (userAuth: any) => {
   if (userAuth !== null) {
-    // const userInfoSnapshot = await getDocs(
-    //   query(usersRef, where("authID", "==", userAuth.uid))
-    // );
-
     const userInfoDocSnap = await getDoc(doc(db, DbsName.USER, userAuth.uid));
 
     /**
@@ -59,16 +55,16 @@ onAuthStateChanged(auth, async (userAuth: any) => {
           ...newUserInfo,
         }),
       );
+    } else {
+      store.dispatch(
+        handleLogin({
+          uid: userAuth.uid,
+          email: userAuth.email,
+          accessToken: userAuth.accessToken,
+          ...userInfoDocSnap.data(),
+        }),
+      );
     }
-
-    store.dispatch(
-      handleLogin({
-        uid: userAuth.uid,
-        email: userAuth.email,
-        accessToken: userAuth.accessToken,
-        ...userInfoDocSnap.data(),
-      }),
-    );
 
     Cookies.set('accessToken', userAuth.accessToken);
     console.log('### LOGED IN !');

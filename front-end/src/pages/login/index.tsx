@@ -46,6 +46,7 @@ const Login = () => {
   return (
     <>
       {user.user.accessToken && <Navigate to={routePath.DASHBOARD} />}
+
       <div className={cx('container')}>
         <div className={cx('form')}>
           <img src={logoImg} alt="logo-img" />
@@ -53,6 +54,10 @@ const Login = () => {
           <div className={cx('welcome-text')}>
             <span>Welcome back!</span>
             <span>Please login/Signup to your account.</span>
+          </div>
+
+          <div className={cx('welcome-text', 'teacher-notice')}>
+            <span>If you are teacher, please contact with admin to get new account. Thank you.</span>
           </div>
 
           <Form
