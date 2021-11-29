@@ -29,7 +29,7 @@ const Header: React.FC = () => {
 
   return (
     <div className="header">
-      <img className="header__logo" src={logoImg} alt="logo" />
+      <img onClick={() => navigate(routePath.DASHBOARD)} className="header__logo" src={logoImg} alt="logo" />
 
       <div className="header__function">
         <div className="header__function__account-icon">
