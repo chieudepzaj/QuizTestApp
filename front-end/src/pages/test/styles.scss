@@ -1,6 +1,6 @@
 @import '../../styles/variables';
 
-.current {
+.test__current {
   margin-top: 20px;
   width: 100%;
   display: grid;
@@ -26,7 +26,7 @@
   }
 }
 
-.quest-box {
+.test__quest-box {
   margin-top: 20px;
   height: 20rem;
   width: 100%;
@@ -39,7 +39,7 @@
   font-size: 25px;
 }
 
-.answer-box {
+.test__answer-box {
   margin-top: 30px;
   margin-left: 6%;
   width: 90%;
@@ -73,7 +73,7 @@
   }
 }
 
-.navi-butt {
+.test__navi-butt {
   margin-top: 30px;
   width: 100%;
   display: grid;
@@ -103,90 +103,4 @@
       border: solid #fcc822;
     }
   }
-}
-
-.button-right {
-  display: inline-block;
-  border-radius: 4px;
-  background-color: #f4511e;
-  border: none;
-  color: #ffffff;
-  text-align: center;
-  width: 20rem;
-  height: 5rem;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 5px;
-  font-size: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.button span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
-
-.button span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
-}
-
-.button:hover span {
-  padding-right: 25px;
-}
-
-.button:hover span:after {
-  opacity: 1;
-  right: 0;
-}
-
-.button {
-  display: inline-block;
-  border-radius: 4px;
-  background-color: #f4511e;
-  border: none;
-  color: #ffffff;
-  text-align: center;
-  width: 20rem;
-  height: 5rem;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 5px;
-  font-size: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.button span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
-
-.button span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
-}
-
-.button:hover span {
-  padding-right: 25px;
-}
-
-.button:hover span:after {
-  opacity: 1;
-  right: 0;
 }
