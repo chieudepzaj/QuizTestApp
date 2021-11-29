@@ -9,12 +9,12 @@ import { UserRole } from 'src/constants/constants';
 import { useAppSelector } from 'src/store/hooks';
 import { IQuizInfo } from 'src/interfaces';
 
-const TakeTest: React.FC = () => {
+const TakeQuiz: React.FC = () => {
   const user = useAppSelector((user) => user.account.user);
   const navigate = useNavigate();
 
   const QuizInfo = (props: any) => {
-    const { info, testingState } = props;
+    const { info, quizState } = props;
 
     return (
       <div className="quiz-info-container">
@@ -31,7 +31,7 @@ const TakeTest: React.FC = () => {
         </div>
 
         <div className="action-container">
-          <Button onClick={() => navigate(routePath.TEST)}>Start Quiz</Button>
+          <Button onClick={() => navigate(routePath.QUIZ)}>Start Quiz</Button>
         </div>
       </div>
     );
@@ -118,4 +118,4 @@ const TakeTest: React.FC = () => {
   );
 };
 
-export default TakeTest;
+export default TakeQuiz;

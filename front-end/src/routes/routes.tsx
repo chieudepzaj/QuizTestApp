@@ -2,7 +2,8 @@ import routePath from 'src/constants/routePath';
 import Login from 'src/pages/login';
 import Dashboard from 'src/pages/dashboard';
 import Profile from 'src/pages/profile';
-import TakeTest from 'src/pages/take-test/TakeTest';
+import TakeQuiz from 'src/pages/take-quiz/TakeQuiz';
+import CreateQuiz from 'src/pages/create-quiz';
 
 const routers = {
   login: {
@@ -23,10 +24,16 @@ const routers = {
     component: Profile,
     private: true,
   },
-  takeTest: {
+  takeQuiz: {
     exact: true,
-    path: routePath.TAKE_TEST,
-    component: TakeTest,
+    path: routePath.TAKE_QUIZ,
+    component: TakeQuiz,
+    private: true,
+  },
+  createQuiz: {
+    exact: true,
+    path: routePath.CREATE_QUIZ,
+    component: CreateQuiz,
     private: true,
   },
 };

@@ -20,19 +20,19 @@ const Dashboard: React.FC = () => {
       <div className="dashboard">
         {user.role === UserRole.TEACHER && (
           <>
-            <Button>Create new test</Button>
-            <Button>Manage class</Button>
+            <Button>CREATE NEW QUIZ</Button>
+            <Button>MANAGE CLASS</Button>
           </>
         )}
 
         {user.role === UserRole.STUDENT && (
           <>
-            <Button onClick={() => navigate(routePath.TAKE_TEST)}>Take test</Button>
-            <Button>Testing result</Button>
+            <Button onClick={() => navigate(routePath.TAKE_QUIZ)}>TAKE TEST</Button>
+            <Button>TESTING RESULT</Button>
           </>
         )}
 
-        <Button onClick={() => navigate(routePath.PROFILE)}>Manage profile</Button>
+        <Button onClick={() => navigate(routePath.PROFILE)}>MANAGE PROFILE</Button>
       </div>
     </>
   );
