@@ -30,21 +30,21 @@ const Quiz: React.FC = () => {
       <div className="test__answer-box">
         <div className="small-box">
           <div className="choice">A.</div>
-          <Button onClick={() => navigate(routePath.TAKE_QUIZ)}>Choice A</Button>
+          <Button>Choice A</Button>
         </div>
         <div className="small-box">
           <div className="choice">B.</div>
-          <Button onClick={() => navigate(routePath.TAKE_QUIZ)}>
+          <Button>
             Choice qtyuioasdfghjkcjvcsdckvscasusvuyadcohiubuyadge87dwsbifgB
           </Button>
         </div>
         <div className="small-box">
           <div className="choice">C.</div>
-          <Button onClick={() => navigate(routePath.TAKE_QUIZ)}>Choice C</Button>
+          <Button>Choice C</Button>
         </div>
         <div className="small-box">
           <div className="choice">D.</div>
-          <Button onClick={() => navigate(routePath.TAKE_QUIZ)}>Choice D</Button>
+          <Button>Choice D</Button>
         </div>
       </div>
       <div className="test__navi-butt">
