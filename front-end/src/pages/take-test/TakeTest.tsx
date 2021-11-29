@@ -8,20 +8,50 @@ import './styles.scss';
 import quizImg from 'src/assets/images/quiz.png';
 import { useAppSelector } from 'src/store/hooks';
 
-
 const TakeTest: React.FC = () => {
   return <>
-  <Header />
-  <div className='container'>
-    <div className='label'>New:</div>
-    <br></br>
-    <div className='box'>
-      <img className="container__quizImage" src={quizImg} alt="logo" />
-      <div className='box-text'>Hello World</div>
+    <Header />
+
+    <div className='take-test__container'>
+      <div className='title new-quiz-title'>NEW TEST!</div>
+
+      <div className='new-quiz-info-container'>
+        <div className='new-quiz-info'>
+          <img className="quizImage" src={quizImg} alt="logo" />
+
+          <div className='new-quiz-info__text'>
+            <span>Name: Life</span>
+            <span>Level: Easy</span>
+            <span>Number of questions: 20</span>
+          </div>
+        </div>
+
+        <div className='action-container'>
+          <Button>Start Quiz</Button>
+        </div>
+      </div>
+
+      {/* <hr style={{
+        marginTop: '3rem',
+        width: '50%'
+      }} /> */}
+
+      <div className='title other-quiz-title'>OTHER QUIZZES</div>
+
+      <div className='all-quiz-info-container'>
+        <img className="quizImage" src={quizImg} alt="logo" />
+        <img className="quizImage" src={quizImg} alt="logo" />
+        <img className="quizImage" src={quizImg} alt="logo" />
+        <img className="quizImage" src={quizImg} alt="logo" />
+        <img className="quizImage" src={quizImg} alt="logo" />
+        <img className="quizImage" src={quizImg} alt="logo" />
+        <img className="quizImage" src={quizImg} alt="logo" />
+        <img className="quizImage" src={quizImg} alt="logo" />
+        <img className="quizImage" src={quizImg} alt="logo" />
+      </div>
     </div>
-    <br></br>
-    <div className='box'>Hello</div>
-  </div>
+
+
   </>;
 };
 
