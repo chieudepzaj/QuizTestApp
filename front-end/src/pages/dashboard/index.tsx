@@ -27,7 +27,7 @@ const Dashboard: React.FC = () => {
 
         {user.role === UserRole.STUDENT && (
           <>
-            <Button>Take test</Button>
+            <Button onClick={() => navigate(routePath.TAKE_TEST)}>Take test</Button>
             <Button>Testing result</Button>
           </>
         )}

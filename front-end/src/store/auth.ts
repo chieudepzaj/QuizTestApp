@@ -10,8 +10,7 @@ export const login: any = async (body: { email: string; password: string }) => {
     openCustomNotificationWithIcon(NOTIFICATION_TYPE.SUCCESS, 'Loged in successfully', '');
     return true;
   } catch (error: any) {
-    // console.error(error.code, error.message);
-    openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Loged in failed', '');
+    openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Loged in failed', `${new Error(error).message}`);
     return false;
   }
 };
