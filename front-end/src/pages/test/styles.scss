@@ -1,0 +1,196 @@
+@import '../../styles/variables';
+
+
+.current {
+    margin-top: 20px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    .text{
+        padding-right: 20px;
+        text-align: right;
+        font-size: 55px;
+    }
+    .counter{
+        font-size: 30px;
+        color: white;
+        font-style: bold;
+        .box{
+            height: 10rem;
+            width: 10rem;
+            border-radius: 50%;
+            background-color: #FCC822;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+
+
+.quest-box {
+    margin-top: 20px;
+    height: 20rem;
+    width: 100%;
+    padding-top: 25px;
+    padding-bottom: 50px;
+    padding-left: 10%;
+    padding-right: 10%;
+    background-color: #FCC822;
+    color: white;
+    font-size: 25px;
+}
+
+.answer-box {
+    margin-top: 30px;
+    margin-left: 6%;
+    width: 90%;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    margin-bottom: 10rem;
+    justify-content: center;
+    align-items: center;
+    .small-box {
+        width: 20%;
+        .choice {
+            margin-left: 2px;
+            position:absolute;
+            z-index: 3;
+        }
+        .ant-btn {
+            word-wrap: break-word;
+            z-index: 2;
+            width: 30rem;
+            height: 10rem;
+            border: none;
+            background-color: #D1D1D1;
+            color: #fff;
+            border-radius: 0.5rem;
+        }
+        .ant-btn:hover {
+            background-color: #ffffff;
+            color: #FCC822;
+            border: solid #FCC822;
+        }
+    }
+}
+
+.navi-butt{
+    margin-top: 30px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    margin-bottom: 10rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .butt-box {
+        margin-left: auto;
+        margin-right: auto;
+        .ant-btn {
+            word-wrap: break-word;
+            z-index: 2;
+            width: 20rem;
+            height: 5rem;
+            border: none;
+            background-color: #FCC822;
+            color: #fff;
+            border-radius: 0.5rem;
+        }
+        .ant-btn:hover {
+            background-color: #ffffff;
+            color: #FCC822;
+            border: solid #FCC822;
+        }
+    }
+}
+
+.button-right {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    width: 20rem;
+    height: 5rem;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .button:hover span {
+    padding-right: 25px;
+  }
+  
+  
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+
+  .button {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    width: 20rem;
+    height: 5rem;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .button:hover span {
+    padding-right: 25px;
+  }
+  
+  
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
