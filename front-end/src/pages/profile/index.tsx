@@ -75,7 +75,7 @@ const Profile = () => {
         <div className={'profile-form'}>
           {(provideProfile || editMode) && (
             <>
-              <div className={'profile-form__title'}>
+              <div className={'form__title'}>
                 {provideProfile ? <span>Please provide your info to continue</span> : <span>Hi, {user.fullname}</span>}
               </div>
 
@@ -98,7 +98,7 @@ const Profile = () => {
                   <span className="profile-form__label">Email</span> {user.email}
                 </div>
 
-                {user.role === UserRole.STUDENT && (
+                {user.role === UserRole.STUDENT ? (
                   <Form.Item label="Class" name="classID" rules={[{ required: true, message: REQUIRED_FIELD }]}>
                     <Select
                       showSearch
@@ -119,6 +119,11 @@ const Profile = () => {
                       ))}
                     </Select>
                   </Form.Item>
+                ) : (
+                  <div>
+                    <span className="profile-form__label">Class</span>
+                    {classes.find((classInfo) => classInfo.value === user.classID)?.label}
+                  </div>
                 )}
 
                 <Form.Item className={'action'}>
@@ -134,7 +139,7 @@ const Profile = () => {
 
           {viewMode && (
             <>
-              <div className={'profile-form__title'}>
+              <div className={'form__title'}>
                 <span>Hi, {user.fullname}</span>
               </div>
 

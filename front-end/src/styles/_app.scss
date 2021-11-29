@@ -53,8 +53,30 @@ button {
   align-items: center;
 }
 
-.ant-form-item-label {
-  > label::after {
-    display: none;
+.ant-form-item-explain {
+  color: red;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+.ant-btn {
+  cursor: pointer;
+  font-size: 1.8rem;
+}
+
+.ant-form-item {
+  flex-flow: column;
+  margin-bottom: 3rem;
+
+  .ant-form-item-label {
+    text-align: left;
+
+    > label {
+      font-size: 1.9rem;
+    }
+
+    > label::after {
+      display: none;
+    }
   }
 }

@@ -1,0 +1,34 @@
+@import '../../styles/variables';
+
+.create-quiz-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .create-quiz-form {
+    width: 60rem;
+    border: 2px solid #5a586957;
+    padding: 3rem;
+    border-radius: 1rem;
+
+    .upload-csv-file {
+      margin-bottom: 3rem;
+      margin-top: 1rem;
+      display: block;
+    }
+
+    input[type='file']::file-selector-button {
+      border: 1px solid rgba(51, 51, 51, 0.486);
+      padding: 1rem;
+      border-radius: 1em;
+      background-color: #fff;
+      width: 12rem;
+    }
+
+    input[type='file']::file-selector-button:hover {
+      border: 1px solid $yellow--1;
+    }
+  }
+}

@@ -20,7 +20,7 @@ const Dashboard: React.FC = () => {
       <div className="dashboard">
         {user.role === UserRole.TEACHER && (
           <>
-            <Button>CREATE NEW QUIZ</Button>
+            <Button onClick={() => navigate(routePath.CREATE_QUIZ)}>CREATE NEW QUIZ</Button>
             <Button>MANAGE CLASS</Button>
           </>
         )}

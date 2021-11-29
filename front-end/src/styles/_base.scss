@@ -1,20 +1,8 @@
 @import '~antd/dist/antd.css';
 
-.ant-form-item-explain {
-  color: red;
-  font-size: 1.5rem;
-  margin-top: 1rem;
-}
-
-.ant-btn {
-  cursor: pointer;
-  font-size: 1.8rem;
-}
-
-.ant-form-item {
-  flex-flow: column;
-
-  .ant-form-item-label {
-    text-align: left;
-  }
+.form__title {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
 }
