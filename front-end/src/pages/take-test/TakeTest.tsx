@@ -1,14 +1,16 @@
 import { Button } from 'antd';
 import React from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { UserRole } from 'src/constants/constants';
 import routePath from 'src/constants/routePath';
 import Header from 'src/layouts/header';
 import './styles.scss';
 import quizImg from 'src/assets/images/quiz.png';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { UserRole } from 'src/constants/constants';
 import { useAppSelector } from 'src/store/hooks';
 
 const TakeTest: React.FC = () => {
+  const user = useAppSelector((user) => user.account.user);
+  const navigate = useNavigate();
   return <>
     <Header />
 
@@ -27,7 +29,7 @@ const TakeTest: React.FC = () => {
         </div>
 
         <div className='action-container'>
-          <Button>Start Quiz</Button>
+          <Button onClick={() => navigate(routePath.TEST)}>Start Quiz</Button>
         </div>
       </div>
 
@@ -50,8 +52,6 @@ const TakeTest: React.FC = () => {
         <img className="quizImage" src={quizImg} alt="logo" />
       </div>
     </div>
-
-
   </>;
 };
 
