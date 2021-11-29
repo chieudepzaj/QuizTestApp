@@ -16,18 +16,18 @@ const Quiz: React.FC = () => {
       {user.accessToken && !user.fullname && <Navigate to={routePath.PROFILE} />}
 
       <Header />
-      <div className="current">
+      <div className="test__current">
         <div className="text">Current question:</div>
         <div className="counter">
           <div className="box">4/10</div>
         </div>
       </div>
-      <div className="quest-box">
+      <div className="test__quest-box">
         Hello Worldaaaaa vavuydciscusdctdscdcbhadcbsjhdv cgs tstdvtvdvcsdvcjhsvcjhsdgcyusdvucx cuyvuysdvcyuvdcyufu
         uycuygduycuyvucve
       </div>
       <br></br>
-      <div className="answer-box">
+      <div className="test__answer-box">
         <div className="small-box">
           <div className="choice">A.</div>
           <Button onClick={() => navigate(routePath.TAKE_QUIZ)}>Choice A</Button>
@@ -47,7 +47,7 @@ const Quiz: React.FC = () => {
           <Button onClick={() => navigate(routePath.TAKE_QUIZ)}>Choice D</Button>
         </div>
       </div>
-      <div className="navi-butt">
+      <div className="test__navi-butt">
         <div className="butt-box">
           <Button onClick={() => navigate(routePath.TAKE_QUIZ)}>Previous</Button>
         </div>
