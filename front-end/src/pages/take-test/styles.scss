@@ -67,8 +67,12 @@
     }
 
     .all-quiz-info-container {
-        overflow: auto;
+        overflow: hidden;
         white-space: nowrap;
+
+        &:hover {
+        overflow: auto;
+        }
     }
 }
 // .box-text {
