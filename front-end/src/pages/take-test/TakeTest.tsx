@@ -22,7 +22,7 @@ const TakeTest: React.FC = () => {
           <img className="quizImage" src={quizImg} alt="logo" />
 
           <div className="quiz-info__text">
-            <span>Name: {info.name}</span>
+            <span className="quiz-info__title">{info.name}</span>
             <span>Level: {info.level}</span>
             <span>Number of questions: {info.numberOfQuestion}</span>
             <span>Description</span>
