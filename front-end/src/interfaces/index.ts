@@ -10,3 +10,10 @@ export interface IClass {
   name: string;
   description: string;
 }
+
+export interface IQuizInfo {
+  name: string;
+  level: string;
+  numberOfQuestion: number;
+  description: string;
+}

@@ -7,52 +7,115 @@ import quizImg from 'src/assets/images/quiz.png';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { UserRole } from 'src/constants/constants';
 import { useAppSelector } from 'src/store/hooks';
+import { IQuizInfo } from 'src/interfaces';
 
 const TakeTest: React.FC = () => {
   const user = useAppSelector((user) => user.account.user);
   const navigate = useNavigate();
-  return <>
-    <Header />
 
-    <div className='take-test__container'>
-      <div className='title new-quiz-title'>NEW TEST!</div>
+  const QuizInfo = (props: any) => {
+    const { info, testingState } = props;
 
-      <div className='new-quiz-info-container'>
-        <div className='new-quiz-info'>
+    return (
+      <div className="quiz-info-container">
+        <div className="quiz-info">
           <img className="quizImage" src={quizImg} alt="logo" />
 
-          <div className='new-quiz-info__text'>
-            <span>Name: Life</span>
-            <span>Level: Easy</span>
-            <span>Number of questions: 20</span>
+          <div className="quiz-info__text">
+            <span>Name: {info.name}</span>
+            <span>Level: {info.level}</span>
+            <span>Number of questions: {info.numberOfQuestion}</span>
+            <span>Description</span>
+            <span>{info.description}</span>
           </div>
         </div>
 
-        <div className='action-container'>
+        <div className="action-container">
           <Button onClick={() => navigate(routePath.TEST)}>Start Quiz</Button>
         </div>
       </div>
+    );
+  };
 
-      {/* <hr style={{
-        marginTop: '3rem',
-        width: '50%'
-      }} /> */}
+  return (
+    <>
+      <Header />
 
-      <div className='title other-quiz-title'>OTHER QUIZZES</div>
+      <div className="take-test__container">
+        <div className="title new-quiz-title">NEW TEST!</div>
 
-      <div className='all-quiz-info-container'>
-        <img className="quizImage" src={quizImg} alt="logo" />
-        <img className="quizImage" src={quizImg} alt="logo" />
-        <img className="quizImage" src={quizImg} alt="logo" />
-        <img className="quizImage" src={quizImg} alt="logo" />
-        <img className="quizImage" src={quizImg} alt="logo" />
-        <img className="quizImage" src={quizImg} alt="logo" />
-        <img className="quizImage" src={quizImg} alt="logo" />
-        <img className="quizImage" src={quizImg} alt="logo" />
-        <img className="quizImage" src={quizImg} alt="logo" />
+        <QuizInfo
+          info={{
+            name: 'new quiz',
+            level: 'easy',
+            numberOfQuestion: 20,
+            description: 'new quiz',
+          }}
+        />
+
+        <div className="title other-quiz-title">OTHER QUIZZES</div>
+
+        <div className="all-quiz-info-container">
+          <QuizInfo
+            info={{
+              name: 'new quiz',
+              level: 'easy',
+              numberOfQuestion: 20,
+              description: 'new quiz',
+            }}
+          />
+          <QuizInfo
+            info={{
+              name: 'new quiz',
+              level: 'easy',
+              numberOfQuestion: 20,
+              description: 'new quiz',
+            }}
+          />
+          <QuizInfo
+            info={{
+              name: 'new quiz',
+              level: 'easy',
+              numberOfQuestion: 20,
+              description: 'new quiz',
+            }}
+          />
+          <QuizInfo
+            info={{
+              name: 'new quiz',
+              level: 'easy',
+              numberOfQuestion: 20,
+              description: 'new quiz',
+            }}
+          />
+          <QuizInfo
+            info={{
+              name: 'new quiz',
+              level: 'easy',
+              numberOfQuestion: 20,
+              description: 'new quiz',
+            }}
+          />
+          <QuizInfo
+            info={{
+              name: 'new quiz',
+              level: 'easy',
+              numberOfQuestion: 20,
+              description: 'new quiz',
+            }}
+          />
+          <QuizInfo
+            info={{
+              name: 'new quiz',
+              level: 'easy',
+              numberOfQuestion: 20,
+              description: 'new quiz',
+            }}
+          />
+        </div>
       </div>
-    </div>
-  </>;
+    </>
+  );
 };
 
 export default TakeTest;
