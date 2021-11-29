@@ -4,6 +4,7 @@ import Dashboard from 'src/pages/dashboard';
 import Profile from 'src/pages/profile';
 import TakeQuiz from 'src/pages/take-quiz/TakeQuiz';
 import CreateQuiz from 'src/pages/create-quiz';
+import Quiz from 'src/pages/test/Quiz';
 
 const routers = {
   login: {
@@ -34,6 +35,12 @@ const routers = {
     exact: true,
     path: routePath.CREATE_QUIZ,
     component: CreateQuiz,
+    private: true,
+  },
+  quiz: {
+    exact: true,
+    path: routePath.QUIZ,
+    component: Quiz,
     private: true,
   },
 };
