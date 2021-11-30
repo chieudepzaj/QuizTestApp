@@ -22,9 +22,6 @@ const TakeQuiz: React.FC = () => {
           <div className="quiz-info__text">
             <span className="quiz-info__title">{info.name}</span>
             <span>
-              <strong>Level:</strong> {info.level}
-            </span>
-            <span>
               <strong>Number of questions:</strong> {info.numberOfQuestion}
             </span>
             <span>

@@ -13,7 +13,8 @@ export interface IClass {
 
 export interface IQuizInfo {
   name: string;
-  level: string;
   numberOfQuestion: number;
   description: string;
+  classID: string;
+  timeLimit: number;
 }

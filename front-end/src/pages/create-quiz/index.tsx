@@ -6,7 +6,11 @@ import './style.scss';
 import Papa from 'papaparse';
 import { UploadOutlined, PaperClipOutlined } from '@ant-design/icons';
 import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
-import { queryAllByDisplayValue } from '@testing-library/dom';
+import { addDoc, collection } from '@firebase/firestore';
+import { db } from 'src/firebase/firebase';
+import { DbsName } from 'src/constants/db';
+import { IQuizInfo } from 'src/interfaces';
+import { useAppSelector } from 'src/store/hooks';
 
 const { TextArea } = Input;
 
@@ -19,10 +23,10 @@ interface IQuizQuestion {
   correct_ans: number;
 }
 
-const CreateQuiz = () => {
+const CreateQuiz: React.FC = () => {
   const [csvfile, setCsvfile] = useState<any>();
   const [csvfileError, setCsvfileError] = useState(false);
-  let quizData: IQuizQuestion[];
+  const user = useAppSelector(state => state.account.user);
 
   const handleUploadChange = (event: any) => {
     try {
@@ -41,14 +45,31 @@ const CreateQuiz = () => {
 
     try {
       await Papa.parse(csvfile, {
-        complete: (result: any) => {
+        complete: async (result: any) => {
           try {
-            const quesData = result.data.filter(
+            const quesData: IQuizQuestion[] = result.data.filter(
               (ques: IQuizQuestion) =>
                 ques.question && ques.ans_1 && ques.ans_2 && ques.ans_3 && ques.ans_4 && ques.correct_ans,
             );
-            console.log(values);
-            console.log(quesData);
+
+            const newQuizInfo: IQuizInfo = {
+              name: values.quizName,
+              numberOfQuestion: quesData.length,
+              description: values.description,
+              classID: user.classID,
+              timeLimit: values.timeLimit,
+            };
+
+            const newQuizDocRef = await addDoc(collection(db, DbsName.QUIZ), newQuizInfo);
+            const quizID = newQuizDocRef.id;
+
+            quesData.forEach(async (ques: IQuizQuestion) => {
+              await addDoc(collection(db, DbsName.QUESTION), {
+                ...ques,
+                quizID,
+              });
+            });
+
             openCustomNotificationWithIcon(NOTIFICATION_TYPE.SUCCESS, 'Create new quiz successfully', '');
           } catch (error: any) {
             openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Error in creating new quiz', '');
@@ -80,7 +101,7 @@ const CreateQuiz = () => {
             autoComplete="off"
           >
             <Form.Item label="Quiz name" name="quizName" rules={[{ required: true, message: REQUIRED_FIELD }]}>
-              <Input onChange={() => {}} placeholder="Quiz name" />
+              <Input onChange={() => { }} placeholder="Quiz name" />
             </Form.Item>
 
             <label
@@ -137,17 +158,17 @@ const CreateQuiz = () => {
                 }),
               ]}
             >
-              <Input type="number" onChange={() => {}} placeholder="Time limit (hour)" />
+              <Input type="number" onChange={() => { }} placeholder="Time limit (hour)" />
             </Form.Item>
 
             <Form.Item label="Description" name="description" rules={[{ required: true, message: REQUIRED_FIELD }]}>
-              <TextArea onChange={() => {}} placeholder="Quiz name" />
+              <TextArea onChange={() => { }} placeholder="Quiz name" />
             </Form.Item>
 
             <Form.Item className={'action'}>
-              <div className="profile-form__btn">
-                <Button className={'sign-in-btn'} type="primary" htmlType="submit">
-                  SAVE
+              <div className="create-quiz-form__btn">
+                <Button className={'save-btn'} type="primary" htmlType="submit">
+                  CREATE NEW QUIZ
                 </Button>
               </div>
             </Form.Item>
