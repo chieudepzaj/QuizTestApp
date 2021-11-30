@@ -1,7 +1,6 @@
 import { Button } from 'antd';
 import React from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { UserRole } from 'src/constants/constants';
 import routePath from 'src/constants/routePath';
 import Header from 'src/layouts/header';
 import { useAppSelector } from 'src/store/hooks';
