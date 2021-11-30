@@ -5,6 +5,7 @@ import Profile from 'src/pages/profile';
 import TakeQuiz from 'src/pages/take-quiz/TakeQuiz';
 import CreateQuiz from 'src/pages/create-quiz';
 import Quiz from 'src/pages/test/Quiz';
+import ManageTest from 'src/pages/manageTest';
 
 const routers = {
   login: {
@@ -41,6 +42,12 @@ const routers = {
     exact: true,
     path: routePath.QUIZ,
     component: Quiz,
+    private: true,
+  },
+  manageTest: {
+    exact: true,
+    path: routePath.MANAGE_TEST,
+    component: ManageTest,
     private: true,
   },
 };
