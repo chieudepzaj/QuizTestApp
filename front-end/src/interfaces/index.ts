@@ -11,11 +11,30 @@ export interface IClass {
   description: string;
 }
 
+export interface IQuizResult {
+  date: Date;
+  maxScore: number;
+  quizID: string;
+  score: number;
+  userID: string;
+}
+
 export interface IQuizInfo {
+  id?: string;
   name: string;
   numberOfQuestion: number;
   description: string;
   classID: string;
   timeLimit: number;
   lastModify: Date;
+}
+
+export interface IQuizQuestion {
+  id?: string;
+  question: string;
+  ans_1: string;
+  ans_2: string;
+  ans_3: string;
+  ans_4: string;
+  correct_ans?: number;
 }

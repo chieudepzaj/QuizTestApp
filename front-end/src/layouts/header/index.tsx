@@ -34,9 +34,7 @@ const Header: React.FC = () => {
       <div className="header__function">
         <img onClick={() => navigate(routePath.PROFILE)} src={profileIcon} alt="logo" />
 
-        <div className="header__function__account-icon">
-          Welcome, {user.fullname}
-        </div>
+        <div className="header__function__account-icon">Welcome, {user.fullname}</div>
         <Button onClick={handleSignOut}>Logout</Button>
       </div>
     </div>
