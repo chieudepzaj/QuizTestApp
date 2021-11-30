@@ -48,13 +48,16 @@
   margin-bottom: 10rem;
   justify-content: center;
   align-items: center;
+
   .small-box {
     width: 20%;
+
     .choice {
       margin-left: 2px;
       position: absolute;
       z-index: 3;
     }
+
     .ant-btn {
       word-wrap: break-word;
       z-index: 2;
@@ -65,7 +68,14 @@
       color: #fff;
       border-radius: 0.5rem;
     }
+
     .ant-btn:hover {
+      background-color: #ffffff;
+      color: #fcc822;
+      border: solid #fcc822;
+    }
+
+    .user-answer {
       background-color: #ffffff;
       color: #fcc822;
       border: solid #fcc822;

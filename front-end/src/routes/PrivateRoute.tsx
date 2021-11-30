@@ -8,8 +8,6 @@ const PrivateRoute: React.FC<any> = ({
   Component,
   // roleAllow,
 }) => {
-  const user = useAppSelector((state) => state.account.user);
-
   return (
     <>
       {Cookies.get('accessToken') ? (

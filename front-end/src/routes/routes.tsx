@@ -4,7 +4,7 @@ import Dashboard from 'src/pages/dashboard';
 import Profile from 'src/pages/profile';
 import TakeQuiz from 'src/pages/take-quiz/TakeQuiz';
 import CreateQuiz from 'src/pages/create-quiz';
-import Quiz from 'src/pages/test/Quiz';
+import Quiz from 'src/pages/quiz';
 
 const routers = {
   login: {

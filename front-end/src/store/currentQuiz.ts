@@ -1,8 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import axiosInstance from 'src/services/axios';
-import { signInWithEmailAndPassword } from '@firebase/auth';
-import { auth } from 'src/firebase/firebase';
-import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import Cookies from 'js-cookie';
+import { cookieName } from 'src/constants/cookieNameVar';
 
 const initialState = {
   quiz: {} as any,
@@ -14,10 +12,9 @@ const quizSlice = createSlice({
   reducers: {
     handleTakeQuiz: (state, action: PayloadAction<any>) => {
       state.quiz = action.payload;
+      Cookies.set(cookieName.CURRENT_QUIZ, JSON.stringify(action.payload));
     },
-    handleEndQuiz: (state, action: PayloadAction<any>) => {
-      state = initialState;
-    },
+    handleEndQuiz: () => initialState,
   },
   extraReducers: {},
 });

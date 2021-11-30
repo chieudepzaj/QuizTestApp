@@ -4,13 +4,15 @@ import routePath from 'src/constants/routePath';
 import Header from 'src/layouts/header';
 import './styles.scss';
 import quizImg from 'src/assets/images/quiz.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { IQuizInfo, IQuizResult } from 'src/interfaces';
 import { collection, DocumentData, getDocs, Query, query, where } from '@firebase/firestore';
 import { db } from 'src/firebase/firebase';
 import { DbsName } from 'src/constants/db';
 import { handleTakeQuiz } from 'src/store/currentQuiz';
+import Cookies from 'js-cookie';
+import { cookieName } from 'src/constants/cookieNameVar';
 
 type UserQuizInfo = IQuizInfo & {
   userResult?: IQuizResult;
@@ -66,6 +68,13 @@ const TakeQuiz: React.FC = () => {
     }
   }, [user]);
 
+  useEffect(() => {
+    const currentQuiz = Cookies.get(cookieName.CURRENT_QUIZ);
+    if (currentQuiz) {
+      dispatch(handleTakeQuiz(JSON.parse(currentQuiz)));
+    }
+  });
+
   const takeQuiz = (quiz: UserQuizInfo) => {
     dispatch(handleTakeQuiz(quiz));
     navigate(routePath.QUIZ);
@@ -83,19 +92,26 @@ const TakeQuiz: React.FC = () => {
 
           <div className="quiz-info__text">
             <span className="quiz-info__title">{quiz.name}</span>
-            <span>
+            <span className="ques-info-box">
               <span className="ques-info-label">Number of questions</span> {quiz.numberOfQuestion}
             </span>
-            <span>
+            <span className="ques-info-box">
               <span className="ques-info-label">Time limit</span> {quiz.timeLimit}
             </span>
-            <span>
-              <span className="ques-info-label">Last modify</span> {quiz.lastModify}
+            <span className="ques-info-box">
+              <span className="ques-info-label">Last modify</span>
+              <span
+                style={{
+                  display: 'block',
+                }}
+              >
+                {new Date(quiz.lastModify.seconds * 1000).toString()}
+              </span>
             </span>
             <span>
               <span className="ques-info-label">Description</span>
             </span>
-            <span className="quiz-description">{quiz.description}</span>
+            <span className="quiz-description  ques-info-box">{quiz.description}</span>
           </div>
         </div>
 
@@ -108,6 +124,7 @@ const TakeQuiz: React.FC = () => {
 
   return (
     <>
+      {Cookies.get(cookieName.CURRENT_QUIZ) && <Navigate to={routePath.QUIZ} />}
       <Header />
 
       <div className="take-test__container">

@@ -38,9 +38,9 @@ const Login = () => {
     }
   };
 
-  const onChangeEmail = () => { };
+  const onChangeEmail = () => {};
 
-  const onChangePassword = () => { };
+  const onChangePassword = () => {};
 
   return (
     <>
@@ -114,10 +114,7 @@ const Login = () => {
                 }),
               ]}
             >
-              <Input.Password
-                placeholder="Password"
-                onChange={onChangePassword}
-              />
+              <Input.Password placeholder="Password" onChange={onChangePassword} />
             </Form.Item>
 
             <Form.Item className={cx('action')}>

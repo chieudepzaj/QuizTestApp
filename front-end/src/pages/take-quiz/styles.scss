@@ -29,7 +29,7 @@
   .quiz-info-container {
     display: grid;
     grid-template-columns: 50% 50%;
-    margin-bottom: 10rem;
+    margin-bottom: 7rem;
 
     .quiz-info {
       width: 100%;
@@ -53,6 +53,11 @@
           width: 30rem;
           display: inline-block;
           font-weight: 700;
+        }
+
+        .ques-info-box {
+          margin-bottom: 1rem;
+          border-bottom: 1px dashed #333;
         }
 
         .quiz-description {
