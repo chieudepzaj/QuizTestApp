@@ -36,7 +36,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src --color --max-warnings=100",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "deploy": "firebase deploy"
   },
   "eslintConfig": {
     "extends": [

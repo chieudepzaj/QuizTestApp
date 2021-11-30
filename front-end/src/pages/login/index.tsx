@@ -5,7 +5,6 @@ import logoImg from 'src/assets/images/logo.png';
 import { Button, Form, Input } from 'antd';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useAppSelector } from 'src/store/hooks';
-
 import { REQUIRED_FIELD } from 'src/constants/messages';
 import stylesSCSS from './Login.module.scss';
 import { PATTERN_VALIDATE_EMAIL } from 'src/helpers/regex';
@@ -39,9 +38,9 @@ const Login = () => {
     }
   };
 
-  const onChangeEmail = () => {};
+  const onChangeEmail = () => { };
 
-  const onChangePassword = () => {};
+  const onChangePassword = () => { };
 
   return (
     <>
@@ -57,7 +56,7 @@ const Login = () => {
           </div>
 
           <div className={cx('welcome-text', 'teacher-notice')}>
-            <span>If you are teacher, please contact with admin to get new account. Thank you.</span>
+            <span>If you are a teacher, please contact with admin to get new account. Thank you.</span>
           </div>
 
           <Form
@@ -115,7 +114,10 @@ const Login = () => {
                 }),
               ]}
             >
-              <Input onChange={onChangePassword} placeholder="Password" />
+              <Input.Password
+                placeholder="Password"
+                onChange={onChangePassword}
+              />
             </Form.Item>
 
             <Form.Item className={cx('action')}>
