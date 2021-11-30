@@ -4,10 +4,8 @@ import routePath from 'src/constants/routePath';
 import Header from 'src/layouts/header';
 import './styles.scss';
 import quizImg from 'src/assets/images/quiz.png';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { UserRole } from 'src/constants/constants';
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from 'src/store/hooks';
-import { IQuizInfo } from 'src/interfaces';
 
 const TakeQuiz: React.FC = () => {
   const user = useAppSelector((user) => user.account.user);

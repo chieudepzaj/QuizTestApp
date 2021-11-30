@@ -21,6 +21,7 @@ const Dashboard: React.FC = () => {
         {user.role === UserRole.TEACHER && (
           <>
             <Button onClick={() => navigate(routePath.CREATE_QUIZ)}>CREATE NEW QUIZ</Button>
+            <Button>MANAGE QUIZ</Button>
             <Button>MANAGE CLASS</Button>
           </>
         )}

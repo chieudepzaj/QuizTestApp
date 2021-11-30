@@ -6,6 +6,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 
   .create-quiz-form {
     width: 60rem;
@@ -17,6 +19,36 @@
       margin-bottom: 3rem;
       margin-top: 1rem;
       display: block;
+    }
+
+    .csv-input {
+      display: none;
+    }
+
+    .import-csv-label {
+      display: block;
+
+      > span {
+        display: block;
+      }
+
+      .import-csv__button {
+        display: inline-block;
+        height: 5rem;
+        border: 1px solid rgba(51, 51, 51, 0.466);
+        border-radius: 0.5rem;
+        padding: 1rem 2rem;
+
+        .import-icon {
+          margin-right: 1rem;
+
+          > svg {
+            height: 2rem;
+            width: auto;
+            transform: translateY(0.3rem);
+          }
+        }
+      }
     }
 
     input[type='file']::file-selector-button {

@@ -3,7 +3,6 @@ import { doc, getDocs, updateDoc } from 'firebase/firestore';
 import { Button, Form, Input, Select } from 'antd';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { useNavigate } from 'react-router-dom';
-import { EditOutlined } from '@ant-design/icons';
 
 import { REQUIRED_FIELD } from 'src/constants/messages';
 import { classesRef, db } from 'src/firebase/firebase';
