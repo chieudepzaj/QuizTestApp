@@ -58,6 +58,7 @@ const CreateQuiz: React.FC = () => {
               description: values.description,
               classID: user.classID,
               timeLimit: values.timeLimit,
+              lastModify: new Date(),
             };
 
             const newQuizDocRef = await addDoc(collection(db, DbsName.QUIZ), newQuizInfo);

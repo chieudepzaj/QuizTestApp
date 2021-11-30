@@ -1,15 +1,44 @@
 import { Button } from 'antd';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import routePath from 'src/constants/routePath';
 import Header from 'src/layouts/header';
 import './styles.scss';
 import quizImg from 'src/assets/images/quiz.png';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from 'src/store/hooks';
+import { IQuizInfo } from 'src/interfaces';
+import { collection, getDocs, query, where } from '@firebase/firestore';
+import { db } from 'src/firebase/firebase';
+import { DbsName } from 'src/constants/db';
 
 const TakeQuiz: React.FC = () => {
   const user = useAppSelector((user) => user.account.user);
   const navigate = useNavigate();
+  const [allQuiz, setAllQuiz] = useState<IQuizInfo[]>([]);
+
+  useEffect(() => {
+    if (user.accessToken) {
+      const getAllQuiz = async () => {
+
+        try {
+          const q = query(collection(db, DbsName.QUIZ), where("classID", "==", user.classID));
+          const querySnapshot = await getDocs(q);
+          const allQuizDoc: any[] = [];
+
+          querySnapshot.forEach((doc) => {
+            allQuizDoc.push(doc.data());
+          });
+
+          console.log(allQuizDoc);
+
+        } catch (error: any) {
+          console.error(error);
+        }
+      };
+
+      getAllQuiz();
+    }
+  }, [user]);
 
   const QuizInfo = (props: any) => {
     const { info, quizState } = props;

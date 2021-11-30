@@ -32,8 +32,6 @@ const Dashboard: React.FC = () => {
             <Button>TESTING RESULT</Button>
           </>
         )}
-
-        <Button onClick={() => navigate(routePath.PROFILE)}>MANAGE PROFILE</Button>
       </div>
     </>
   );

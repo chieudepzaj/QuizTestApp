@@ -17,4 +17,5 @@ export interface IQuizInfo {
   description: string;
   classID: string;
   timeLimit: number;
+  lastModify: Date;
 }

@@ -4,12 +4,12 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import logoImg from 'src/assets/images/logo.png';
-import profileIcon from 'src/assets/images/profile.png';
 import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
 import routePath from 'src/constants/routePath';
 import { auth } from 'src/firebase/firebase';
 import { handleLogout } from 'src/store/auth';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
+import profileIcon from 'src/assets/icons/user-profile-icon.png';
 import './styles.scss';
 
 const Header: React.FC = () => {
@@ -32,8 +32,9 @@ const Header: React.FC = () => {
       <img onClick={() => navigate(routePath.DASHBOARD)} className="header__logo" src={logoImg} alt="logo" />
 
       <div className="header__function">
+        <img onClick={() => navigate(routePath.PROFILE)} src={profileIcon} alt="logo" />
+
         <div className="header__function__account-icon">
-          <img src={profileIcon} alt="logo" />
           Welcome, {user.fullname}
         </div>
         <Button onClick={handleSignOut}>Logout</Button>
