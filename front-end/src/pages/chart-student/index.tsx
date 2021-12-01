@@ -13,13 +13,14 @@ import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
 const state = {
-  labels: ['Test 1', 'Test 2', 'Test 3', 'Test 4', 'Test 5'],
+  labels: ['Test 1', 'Test 2', 'Test 3', 'Test 4', 'Test 5', 'Test 6'],
   datasets: [
     {
+        label: "score on a scale of 100 points",
       fill: false,
-      borderColor: 'rgb(75, 192, 192)',
-      borderWidth: 0.5,
-      data: [65, 59, 80, 81, 56],
+      borderColor: 'red',
+      borderWidth: 1,
+      data: [65, 59, 80, 81, 56, 100],
     },
   ],
 };
