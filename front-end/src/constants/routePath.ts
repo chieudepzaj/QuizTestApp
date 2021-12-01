@@ -4,7 +4,7 @@ const PROFILE = '/profile';
 const TAKE_QUIZ = '/take-quiz';
 const QUIZ = '/quiz';
 const CREATE_QUIZ = '/create-quiz';
-
+const CHART_STUDENT = '/chart-student';
 export default {
   SIGN_IN,
   DASHBOARD,
@@ -12,4 +12,5 @@ export default {
   TAKE_QUIZ,
   QUIZ,
   CREATE_QUIZ,
+  CHART_STUDENT,
 };
