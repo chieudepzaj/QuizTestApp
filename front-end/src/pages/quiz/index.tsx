@@ -1,16 +1,19 @@
 import { collection, getDocs, query, where } from '@firebase/firestore';
 import { Button } from 'antd';
 import Cookies from 'js-cookie';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { cookieName } from 'src/constants/cookieNameVar';
 import { DbsName } from 'src/constants/db';
 import routePath from 'src/constants/routePath';
 import { db } from 'src/firebase/firebase';
+import { secondsToTime } from 'src/helpers/indes';
 import { IQuizInfo, IQuizQuestion } from 'src/interfaces';
 import Header from 'src/layouts/header';
+import { handleEndQuiz, handleTakeQuiz } from 'src/store/currentQuiz';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import './styles.scss';
+import clockIcon from '../../assets/icons/clock-icon.png';
 
 const getAllQuestions: any = async (quiz: any) =>
   (async (quiz) => {
@@ -22,7 +25,6 @@ const getAllQuestions: any = async (quiz: any) =>
         allQuesDoc.push({
           id: doc.id,
           ...doc.data(),
-          correct_ans: undefined,
         });
       });
 
@@ -34,13 +36,79 @@ const getAllQuestions: any = async (quiz: any) =>
 
 const Quiz: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const user = useAppSelector((state) => state.account.user);
   const quiz: IQuizInfo = useAppSelector((state) => state.quiz.quiz);
   const [allQues, setAllQues] = useState<IQuizQuestion[]>([]);
   const [currentQues, setCurrentQuest] = useState(0);
   const [currentAns, setCurrentAns] = useState<number[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isOpenScoreModal, setIsOpenScoreModal] = useState(false);
+  const scoreRef = useRef(0);
 
-  const navigate = useNavigate();
+  // Count down
+  const timeLeft = Cookies.get(cookieName.CURRENT_COUNTDOWN)
+    ? Number(Cookies.get(cookieName.CURRENT_COUNTDOWN))
+    : quiz.timeLimit * 60 * 60;
+  const [timeCountDown, setTimeCountDown] = useState({ time: secondsToTime(timeLeft), seconds: timeLeft });
+
+  const resetQuiz = () => {
+    setTimeCountDown({ time: secondsToTime(quiz.timeLimit * 60 * 60), seconds: quiz.timeLimit * 60 * 60 });
+    scoreRef.current = 0;
+    setIsOpenScoreModal(false);
+    setCurrentAns([]);
+  };
+
+  const endQuiz = () => {
+    Cookies.remove(cookieName.CURRENT_QUIZ);
+    dispatch(handleEndQuiz());
+  };
+
+  const submitQuiz = () => {
+    setIsSubmitting(true);
+
+    let score = 0;
+    allQues.forEach((ques, index) => {
+      if (Number(ques.correct_ans) === currentAns[index]) score = score + 1;
+    });
+
+    Cookies.remove(cookieName.CURRENT_ANSWER);
+    Cookies.remove(cookieName.CURRENT_COUNTDOWN);
+    setTimeCountDown({
+      time: {
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      },
+      seconds: 0,
+    });
+
+    // Save result
+    // check if alrealdy result to overrite
+
+    setIsOpenScoreModal(true);
+    scoreRef.current = score;
+
+    setIsSubmitting(false);
+  };
+
+  useEffect(() => {
+    if (timeCountDown.seconds === 0) {
+      if (!isSubmitting && Cookies.get(cookieName.CURRENT_COUNTDOWN)) submitQuiz();
+      return;
+    } else {
+      const countDownInterval = setInterval(() => {
+        const secondsLeft = timeCountDown.seconds - 1;
+        Cookies.set(cookieName.CURRENT_COUNTDOWN, `${secondsLeft}`);
+        setTimeCountDown({
+          time: secondsToTime(secondsLeft),
+          seconds: secondsLeft,
+        });
+      }, 1000);
+
+      return () => clearInterval(countDownInterval);
+    }
+  }, [timeCountDown]);
 
   useEffect(() => {
     if (Cookies.get(cookieName.CURRENT_ANSWER)) {
@@ -130,18 +198,22 @@ const Quiz: React.FC = () => {
                 Previous
               </Button>
             </div>
-            <div className="butt-box">
-              <Button
-                style={{
-                  height: '9rem',
-                  width: '9rem',
-                  backgroundColor: 'green',
-                  borderRadius: '50%',
-                }}
-              >
-                SUBMIT
-              </Button>
+
+            <div className="butt-box submit-btn">
+              <Button onClick={submitQuiz}>SUBMIT</Button>
             </div>
+
+            <div
+              style={{
+                position: 'relative',
+              }}
+            >
+              <img src={clockIcon} alt="clock-icon" />
+              <div className="time-text">
+                {timeCountDown.time.hours}:{timeCountDown.time.minutes}:{timeCountDown.time.seconds}
+              </div>
+            </div>
+
             <div className="butt-box">
               <Button
                 disabled={currentQues === allQues.length - 1 ? true : false}
@@ -152,6 +224,25 @@ const Quiz: React.FC = () => {
             </div>
           </div>
         </>
+      )}
+
+      {isOpenScoreModal && (
+        <div id="myModal" className="modal">
+          <div className="modal-content finish-quiz-modal">
+            <div className="title">YOUR SCORE</div>
+            <div className="score">
+              {scoreRef.current}/{allQues.length}
+            </div>
+            <div className="action">
+              <Button className={'redo-btn'} onClick={resetQuiz}>
+                REDO
+              </Button>
+              <Button className={'finist-btn'} onClick={endQuiz}>
+                BACK TO QUIZ PAGE
+              </Button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

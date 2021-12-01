@@ -19,7 +19,7 @@ const quizSlice = createSlice({
   extraReducers: {},
 });
 
-export const { handleTakeQuiz } = quizSlice.actions;
+export const { handleTakeQuiz, handleEndQuiz } = quizSlice.actions;
 
 const { reducer: quizReducer } = quizSlice;
 
