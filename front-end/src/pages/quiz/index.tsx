@@ -1,8 +1,8 @@
-import { collection, getDocs, query, where } from '@firebase/firestore';
+import { addDoc, collection, doc, getDocs, query, updateDoc, where } from '@firebase/firestore';
 import { Button } from 'antd';
 import Cookies from 'js-cookie';
 import React, { useEffect, useRef, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { cookieName } from 'src/constants/cookieNameVar';
 import { DbsName } from 'src/constants/db';
 import routePath from 'src/constants/routePath';
@@ -10,7 +10,7 @@ import { db } from 'src/firebase/firebase';
 import { secondsToTime } from 'src/helpers/indes';
 import { IQuizInfo, IQuizQuestion } from 'src/interfaces';
 import Header from 'src/layouts/header';
-import { handleEndQuiz, handleTakeQuiz } from 'src/store/currentQuiz';
+import { handleEndQuiz } from 'src/store/currentQuiz';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import './styles.scss';
 import clockIcon from '../../assets/icons/clock-icon.png';
@@ -36,7 +36,6 @@ const getAllQuestions: any = async (quiz: any) =>
 
 const Quiz: React.FC = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const user = useAppSelector((state) => state.account.user);
   const quiz: IQuizInfo = useAppSelector((state) => state.quiz.quiz);
   const [allQues, setAllQues] = useState<IQuizQuestion[]>([]);
@@ -57,6 +56,7 @@ const Quiz: React.FC = () => {
     scoreRef.current = 0;
     setIsOpenScoreModal(false);
     setCurrentAns([]);
+    setCurrentQuest(0);
   };
 
   const endQuiz = () => {
@@ -64,7 +64,7 @@ const Quiz: React.FC = () => {
     dispatch(handleEndQuiz());
   };
 
-  const submitQuiz = () => {
+  const submitQuiz = async () => {
     setIsSubmitting(true);
 
     let score = 0;
@@ -84,7 +84,27 @@ const Quiz: React.FC = () => {
     });
 
     // Save result
-    // check if alrealdy result to overrite
+    const resultSnapshot = await getDocs(
+      query(collection(db, DbsName.RESULT), where('quizID', '==', quiz.id), where('userID', '==', user.uid)),
+    );
+
+    if (resultSnapshot.empty) {
+      await addDoc(collection(db, DbsName.RESULT), {
+        userID: user.uid,
+        quizID: quiz.id,
+        totalScore: allQues.length,
+        score,
+      });
+    } else {
+      resultSnapshot.forEach(async (docSnap: any) => {
+        if (docSnap.id) {
+          await updateDoc(doc(db, DbsName.RESULT, docSnap.id), {
+            totalScore: allQues.length,
+            score,
+          });
+        }
+      });
+    }
 
     setIsOpenScoreModal(true);
     scoreRef.current = score;

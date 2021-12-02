@@ -42,7 +42,6 @@
         text-align: left;
         display: flex;
         flex-flow: column;
-        margin-left: 5rem;
 
         .quiz-info__title {
           font-size: 5rem;
@@ -50,14 +49,20 @@
         }
 
         .ques-info-label {
-          width: 30rem;
           display: inline-block;
           font-weight: 700;
         }
 
         .ques-info-box {
+          display: grid;
+          grid-template-columns: auto auto;
           margin-bottom: 1rem;
           border-bottom: 1px dashed #333;
+        }
+
+        .ques-info-text {
+          display: inline-block;
+          text-align: right;
         }
 
         .quiz-description {
@@ -74,9 +79,25 @@
 
     .action-container {
       display: flex;
-      flex-flow: row;
+      flex-flow: column;
       justify-content: center;
       align-items: center;
+
+      > div {
+        display: flex;
+        flex-flow: column;
+
+        .result-text {
+          margin-bottom: 2rem;
+          font-size: 2.5rem;
+
+          .result-text-score {
+            display: inline-block;
+            font-size: 3rem;
+            margin-left: 2rem;
+          }
+        }
+      }
 
       .ant-btn {
         width: 20rem;

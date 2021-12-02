@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 import { cookieName } from 'src/constants/cookieNameVar';
 
 const initialState = {
+  // eslint-disable-next-line
   quiz: {} as any,
 };
 

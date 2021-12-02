@@ -6,7 +6,7 @@ import './style.scss';
 import Papa from 'papaparse';
 import { UploadOutlined, PaperClipOutlined } from '@ant-design/icons';
 import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
-import { addDoc, collection, Timestamp } from '@firebase/firestore';
+import { addDoc, collection } from '@firebase/firestore';
 import { db } from 'src/firebase/firebase';
 import { DbsName } from 'src/constants/db';
 import { IQuizInfo, IQuizQuestion } from 'src/interfaces';

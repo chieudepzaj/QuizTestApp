@@ -14,7 +14,7 @@ export interface IClass {
 
 export interface IQuizResult {
   date: Date;
-  maxScore: number;
+  totalScore: number;
   quizID: string;
   score: number;
   userID: string;
