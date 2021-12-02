@@ -48,13 +48,16 @@
   margin-bottom: 10rem;
   justify-content: center;
   align-items: center;
+
   .small-box {
     width: 20%;
+
     .choice {
       margin-left: 2px;
       position: absolute;
       z-index: 3;
     }
+
     .ant-btn {
       word-wrap: break-word;
       z-index: 2;
@@ -65,7 +68,14 @@
       color: #fff;
       border-radius: 0.5rem;
     }
+
     .ant-btn:hover {
+      background-color: #ffffff;
+      color: #fcc822;
+      border: solid #fcc822;
+    }
+
+    .user-answer {
       background-color: #ffffff;
       color: #fcc822;
       border: solid #fcc822;
@@ -84,9 +94,30 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .time-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+  }
+
+  .submit-btn {
+    .ant-btn {
+      border-radius: 50% !important;
+      width: 13rem !important;
+      height: 13rem !important;
+      background-color: #ffffff !important;
+      color: #fcc822 !important;
+      border: solid #fcc822 !important;
+    }
+  }
+
   .butt-box {
     margin-left: auto;
     margin-right: auto;
+
     .ant-btn {
       word-wrap: break-word;
       z-index: 2;
@@ -101,6 +132,83 @@
       background-color: #ffffff;
       color: #fcc822;
       border: solid #fcc822;
+    }
+  }
+}
+
+/* The Modal (background) */
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 1000; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: hidden; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.76); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  width: 90rem;
+  height: 57rem;
+  background-color: transparent;
+  background-image: url('../../assets/images/finist-quiz.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.finish-quiz-modal {
+  color: #fff;
+
+  .title {
+    font-size: 5rem;
+    transform: translateY(3rem);
+  }
+
+  .score {
+    font-size: 9rem;
+    transform: translateY(3rem);
+  }
+
+  .action {
+    transform: translateY(10rem);
+
+    .ant-btn:first-child {
+      margin-right: 50rem;
+    }
+
+    .ant-btn {
+      border: none;
+      border-radius: 0.3rem;
+      width: 20rem;
+      height: 5rem;
+      background-color: rgb(99, 119, 211);
+      color: #fff;
     }
   }
 }

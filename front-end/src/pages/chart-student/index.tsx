@@ -16,7 +16,7 @@ const state = {
   labels: ['Test 1', 'Test 2', 'Test 3', 'Test 4', 'Test 5', 'Test 6'],
   datasets: [
     {
-        label: "score on a scale of 100 points",
+      label: 'score on a scale of 100 points',
       fill: false,
       borderColor: 'red',
       borderWidth: 1,

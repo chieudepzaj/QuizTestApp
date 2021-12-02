@@ -39,7 +39,7 @@ const getNotificationStyle = (type: NOTIFICATION_TYPE) => {
   }
 };
 
-export const openCustomNotificationWithIcon = (type: NOTIFICATION_TYPE, message: string, description: string) => {
+export const openCustomNotificationWithIcon = (type: NOTIFICATION_TYPE, message: string, description: string): void => {
   const typeStr =
     type === NOTIFICATION_TYPE.ERROR
       ? 'error'
@@ -60,7 +60,7 @@ export const openCustomNotificationWithIcon = (type: NOTIFICATION_TYPE, message:
   });
 };
 
-export const openNotificationWithIcon = (type: NOTIFICATION_TYPE, message: string, description: string) => {
+export const openNotificationWithIcon = (type: NOTIFICATION_TYPE, message: string, description: string): void => {
   const typeStr =
     type === NOTIFICATION_TYPE.ERROR
       ? 'error'

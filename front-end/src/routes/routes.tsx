@@ -4,8 +4,9 @@ import Dashboard from 'src/pages/dashboard';
 import Profile from 'src/pages/profile';
 import TakeQuiz from 'src/pages/take-quiz/TakeQuiz';
 import CreateQuiz from 'src/pages/create-quiz';
-import Quiz from 'src/pages/test/Quiz';
+import Quiz from 'src/pages/quiz';
 import ChartStudent from 'src/pages/chart-student';
+
 const routers = {
   login: {
     exact: true,

@@ -1,17 +1,17 @@
 @import '../../styles/variables';
 
 .container-chart {
-    max-width: 80%;
-    margin: auto;
-    padding: 20px;
-    margin-top: 20px;
-    
-    .info-user{
-        margin-left: 30px;
-    }
+  max-width: 80%;
+  margin: auto;
+  padding: 20px;
+  margin-top: 20px;
 
-    .chart{
-        max-height: fit-content;
-        margin-bottom: 50px;
-    }
+  .info-user {
+    margin-left: 30px;
+  }
+
+  .chart {
+    max-height: fit-content;
+    margin-bottom: 50px;
+  }
 }

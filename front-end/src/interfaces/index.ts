@@ -1,3 +1,4 @@
+import { Timestamp } from '@firebase/firestore';
 import { UserRole } from 'src/constants/constants';
 
 export interface IUserInfo {
@@ -13,7 +14,7 @@ export interface IClass {
 
 export interface IQuizResult {
   date: Date;
-  maxScore: number;
+  totalScore: number;
   quizID: string;
   score: number;
   userID: string;
@@ -26,7 +27,7 @@ export interface IQuizInfo {
   description: string;
   classID: string;
   timeLimit: number;
-  lastModify: Date;
+  lastModify: any;
 }
 
 export interface IQuizQuestion {

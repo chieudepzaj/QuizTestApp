@@ -4,13 +4,16 @@ import routePath from 'src/constants/routePath';
 import Header from 'src/layouts/header';
 import './styles.scss';
 import quizImg from 'src/assets/images/quiz.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { IQuizInfo, IQuizResult } from 'src/interfaces';
-import { collection, DocumentData, getDocs, Query, query, where } from '@firebase/firestore';
+import { collection, getDocs, query, where } from '@firebase/firestore';
 import { db } from 'src/firebase/firebase';
 import { DbsName } from 'src/constants/db';
 import { handleTakeQuiz } from 'src/store/currentQuiz';
+import Cookies from 'js-cookie';
+import { cookieName } from 'src/constants/cookieNameVar';
+import { secondsToTime } from 'src/helpers/indes';
 
 type UserQuizInfo = IQuizInfo & {
   userResult?: IQuizResult;
@@ -43,16 +46,19 @@ const TakeQuiz: React.FC = () => {
       allQuizSnapshot.forEach((doc: any) => {
         const quizUserResult = allResultDoc.filter((result) => result.quizID === doc.id);
 
+        const docData = doc.data();
+        docData.lastModify = docData.lastModify.toDate();
+
         if (quizUserResult) {
           allQuizDoc.push({
             id: doc.id,
-            ...doc.data(),
-            userResult: quizUserResult,
+            ...docData,
+            userResult: quizUserResult[0],
           });
         }
       });
 
-      allQuizDoc.sort((a: UserQuizInfo, b: UserQuizInfo) => a.lastModify.getTime() - b.lastModify.getTime());
+      allQuizDoc.sort((a: UserQuizInfo, b: UserQuizInfo) => b.lastModify.getTime() - a.lastModify.getTime());
 
       setAllQuiz(allQuizDoc);
     } catch (error: any) {
@@ -66,6 +72,13 @@ const TakeQuiz: React.FC = () => {
     }
   }, [user]);
 
+  useEffect(() => {
+    const currentQuiz = Cookies.get(cookieName.CURRENT_QUIZ);
+    if (currentQuiz) {
+      dispatch(handleTakeQuiz(JSON.parse(currentQuiz)));
+    }
+  });
+
   const takeQuiz = (quiz: UserQuizInfo) => {
     dispatch(handleTakeQuiz(quiz));
     navigate(routePath.QUIZ);
@@ -75,6 +88,7 @@ const TakeQuiz: React.FC = () => {
     quiz: UserQuizInfo;
   }> = (props) => {
     const { quiz } = props;
+    const timeLimit = secondsToTime(quiz.timeLimit * 60 * 60);
 
     return (
       <div className="quiz-info-container">
@@ -83,24 +97,45 @@ const TakeQuiz: React.FC = () => {
 
           <div className="quiz-info__text">
             <span className="quiz-info__title">{quiz.name}</span>
-            <span>
-              <span className="ques-info-label">Number of questions</span> {quiz.numberOfQuestion}
+            <span className="ques-info-box">
+              <span className="ques-info-label">Number of questions</span>
+              <span className="ques-info-text">{quiz.numberOfQuestion}</span>
             </span>
-            <span>
-              <span className="ques-info-label">Time limit</span> {quiz.timeLimit}
+            <span className="ques-info-box">
+              <span className="ques-info-label">Time limit</span>
+              <span className="ques-info-text">
+                {timeLimit.hours}h {timeLimit.minutes}m {timeLimit.seconds}s
+              </span>
             </span>
-            <span>
-              <span className="ques-info-label">Last modify</span> {quiz.lastModify}
+            <span className="ques-info-box">
+              <span className="ques-info-label">Last modify</span>
+              <span
+                className="ques-info-text"
+                style={{
+                  display: 'block',
+                }}
+              >
+                {new Date(quiz.lastModify.seconds * 1000).toString()}
+              </span>
             </span>
             <span>
               <span className="ques-info-label">Description</span>
             </span>
-            <span className="quiz-description">{quiz.description}</span>
+            <span className="quiz-description  ques-info-box">{quiz.description}</span>
           </div>
         </div>
 
         <div className="action-container">
-          <Button onClick={() => takeQuiz(quiz)}>Start Quiz</Button>
+          <div>
+            <div className="result-text">
+              Current result:
+              <div className="result-text-score">
+                {quiz.userResult?.score || quiz.userResult?.score === 0 ? quiz.userResult?.score : '--'}/
+                {quiz.userResult?.totalScore ? quiz.userResult?.totalScore : '--'}
+              </div>
+            </div>
+            <Button onClick={() => takeQuiz(quiz)}>Start Quiz</Button>
+          </div>
         </div>
       </div>
     );
@@ -108,10 +143,11 @@ const TakeQuiz: React.FC = () => {
 
   return (
     <>
+      {Cookies.get(cookieName.CURRENT_QUIZ) && <Navigate to={routePath.QUIZ} />}
       <Header />
 
       <div className="take-test__container">
-        {allQuiz[0] && allQuiz[0].userResult && (
+        {allQuiz[0] && (
           <>
             <div className="title new-quiz-title">NEW QUIZ!</div>
 
@@ -119,13 +155,19 @@ const TakeQuiz: React.FC = () => {
           </>
         )}
 
-        <div className="title other-quiz-title">OTHER QUIZZES</div>
+        {allQuiz.length > 1 && (
+          <>
+            <div className="title other-quiz-title">OTHER QUIZZES</div>
 
-        <div className="all-quiz-info-container">
-          {/* <QuizInfo
-            quiz={}
-          /> */}
-        </div>
+            <div className="all-quiz-info-container">
+              {allQuiz.map((quiz, index) => {
+                if (index === 0) return;
+
+                return <QuizInfo key={index} quiz={quiz} />;
+              })}
+            </div>
+          </>
+        )}
       </div>
     </>
   );
