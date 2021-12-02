@@ -29,7 +29,7 @@ const Dashboard: React.FC = () => {
         {user.role === UserRole.STUDENT && (
           <>
             <Button onClick={() => navigate(routePath.TAKE_QUIZ)}>TAKE TEST</Button>
-            <Button>TESTING RESULT</Button>
+            <Button onClick={() => navigate(routePath.CHART_STUDENT)}>TESTING RESULT</Button>
           </>
         )}
       </div>
