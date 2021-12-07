@@ -71,6 +71,7 @@ const ManageTest: React.FC = () => {
 
       openCustomNotificationWithIcon(NOTIFICATION_TYPE.SUCCESS, 'Delete quiz successfully', '');
     } catch (error: any) {
+      openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Delete quiz failed', '');
       console.error(error);
     }
   };
