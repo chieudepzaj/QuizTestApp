@@ -23,7 +23,6 @@ const Profile = () => {
   const [classes, setClasses] = useState<{ label: string; value: string }[]>([]);
   const [viewMode, setViewMode] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  console.log(provideProfile, viewMode);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

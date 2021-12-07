@@ -94,6 +94,7 @@ const Quiz: React.FC = () => {
         quizID: quiz.id,
         totalScore: allQues.length,
         score,
+        date: new Date(),
       });
     } else {
       resultSnapshot.forEach(async (docSnap: any) => {
@@ -101,6 +102,7 @@ const Quiz: React.FC = () => {
           await updateDoc(doc(db, DbsName.RESULT, docSnap.id), {
             totalScore: allQues.length,
             score,
+            date: new Date(),
           });
         }
       });

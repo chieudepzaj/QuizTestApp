@@ -12,7 +12,7 @@ import { handleTakeQuiz } from 'src/store/currentQuiz';
 import Cookies from 'js-cookie';
 import { cookieName } from 'src/constants/cookieNameVar';
 import { secondsToTime } from 'src/helpers/indes';
-import { doc, deleteDoc } from "firebase/firestore";
+import { doc, deleteDoc } from 'firebase/firestore';
 import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
 
 const ManageTest: React.FC = () => {
@@ -67,7 +67,7 @@ const ManageTest: React.FC = () => {
 
       deleteDoc(doc(db, DbsName.QUIZ, quiz.id));
 
-      setAllQuiz(allQuiz.filter(quizE => quizE.id !== quiz.id));
+      setAllQuiz(allQuiz.filter((quizE) => quizE.id !== quiz.id));
 
       openCustomNotificationWithIcon(NOTIFICATION_TYPE.SUCCESS, 'Delete quiz successfully', '');
     } catch (error: any) {
