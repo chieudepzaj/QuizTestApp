@@ -115,7 +115,7 @@ const TakeQuiz: React.FC = () => {
                   display: 'block',
                 }}
               >
-                {new Date(quiz.lastModify.seconds * 1000).toString()}
+                {quiz.lastModify.toString()}
               </span>
             </span>
             <span>

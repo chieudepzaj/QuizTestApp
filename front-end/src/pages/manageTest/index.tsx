@@ -1,12 +1,10 @@
 import { Button } from 'antd';
 import React, { useEffect, useState } from 'react';
-import routePath from 'src/constants/routePath';
 import Header from 'src/layouts/header';
 import './styles.scss';
 import quizImg from 'src/assets/images/quiz.png';
-import { useNavigate, Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
-import { IQuizInfo, IQuizResult } from 'src/interfaces';
+import { IQuizInfo } from 'src/interfaces';
 import { collection, getDocs, query, where } from '@firebase/firestore';
 import { db } from 'src/firebase/firebase';
 import { DbsName } from 'src/constants/db';
@@ -15,53 +13,29 @@ import Cookies from 'js-cookie';
 import { cookieName } from 'src/constants/cookieNameVar';
 import { secondsToTime } from 'src/helpers/indes';
 import { doc, deleteDoc } from "firebase/firestore";
-
-type UserQuizInfo = IQuizInfo & {
-  userResult?: IQuizResult;
-};
-
-
+import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
 
 const ManageTest: React.FC = () => {
   const user = useAppSelector((user) => user.account.user);
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [allQuiz, setAllQuiz] = useState<UserQuizInfo[]>([]);
+  const [allQuiz, setAllQuiz] = useState<IQuizInfo[]>([]);
 
-  const getAllUserQuiz = async () => {
+  const getAllQuiz = async () => {
     try {
-      /**
-       * Get all user results
-       */
-      const allResultDoc: IQuizResult[] = [];
-      const allResultSnapshot = await getDocs(query(collection(db, DbsName.RESULT)));
-
-      allResultSnapshot.forEach((doc: any) => {
-        allResultDoc.push(doc.data());
-      });
-
-      /**
-       * Get all quiz
-       */
       const allQuizSnapshot = await getDocs(query(collection(db, DbsName.QUIZ)));
 
-      const allQuizDoc: UserQuizInfo[] = [];
+      const allQuizDoc: IQuizInfo[] = [];
       allQuizSnapshot.forEach((doc: any) => {
-        const quizUserResult = allResultDoc.filter((result) => result.quizID === doc.id);
-
         const docData = doc.data();
         docData.lastModify = docData.lastModify.toDate();
 
-        if (quizUserResult) {
-          allQuizDoc.push({
-            id: doc.id,
-            ...docData,
-            userResult: quizUserResult[0],
-          });
-        }
+        allQuizDoc.push({
+          id: doc.id,
+          ...docData,
+        });
       });
 
-      allQuizDoc.sort((a: UserQuizInfo, b: UserQuizInfo) => b.lastModify.getTime() - a.lastModify.getTime());
+      allQuizDoc.sort((a: IQuizInfo, b: IQuizInfo) => b.lastModify.getTime() - a.lastModify.getTime());
 
       setAllQuiz(allQuizDoc);
     } catch (error: any) {
@@ -71,7 +45,7 @@ const ManageTest: React.FC = () => {
 
   useEffect(() => {
     if (user.accessToken) {
-      getAllUserQuiz();
+      getAllQuiz();
     }
   }, [user]);
 
@@ -80,16 +54,29 @@ const ManageTest: React.FC = () => {
     if (currentQuiz) {
       dispatch(handleTakeQuiz(JSON.parse(currentQuiz)));
     }
-  });
+  }, []);
 
-  const handleOnDeleteQuiz = (quiz: any) => {
-    alert("Quiz deleted!");
-    deleteDoc(doc(db, DbsName.QUIZ, quiz.id));
-    navigate(routePath.DASHBOARD);
+  const handleOnDeleteQuiz = async (quiz: any) => {
+    try {
+      const allQuizQuesSnapshot = await getDocs(
+        query(collection(db, DbsName.QUESTION), where('quizID', '==', quiz.id)),
+      );
+      allQuizQuesSnapshot.forEach((ques) => {
+        deleteDoc(doc(db, DbsName.QUESTION, ques.id));
+      });
+
+      deleteDoc(doc(db, DbsName.QUIZ, quiz.id));
+
+      setAllQuiz(allQuiz.filter(quizE => quizE.id !== quiz.id));
+
+      openCustomNotificationWithIcon(NOTIFICATION_TYPE.SUCCESS, 'Delete quiz successfully', '');
+    } catch (error: any) {
+      console.error(error);
+    }
   };
 
   const QuizInfo: React.FC<{
-    quiz: UserQuizInfo;
+    quiz: IQuizInfo;
   }> = (props) => {
     const { quiz } = props;
     const timeLimit = secondsToTime(quiz.timeLimit * 60 * 60);
@@ -119,7 +106,7 @@ const ManageTest: React.FC = () => {
                   display: 'block',
                 }}
               >
-                {new Date(quiz.lastModify.seconds * 1000).toString()}
+                {quiz.lastModify.toString()}
               </span>
             </span>
             <span>
@@ -142,27 +129,13 @@ const ManageTest: React.FC = () => {
     <>
       <Header />
 
-      <div className="take-test__container">
-      {allQuiz[0] && (
-          <>
-            <div className="title new-quiz-title">QUIZZES LIST</div>
-
-            <QuizInfo quiz={allQuiz[0]} />
-          </>
-        )}
-
-        {allQuiz.length > 1 && (
-          <>
-
-            <div className="all-quiz-info-container">
-              {allQuiz.map((quiz, index) => {
-                if (index === 0) return;
-
-                return <QuizInfo key={index} quiz={quiz} />;
-              })}
-            </div>
-          </>
-        )}
+      <div className="manage-test__container">
+        <div className="all-quiz-info-container">
+          <div className="title">TOTAL QUIZ: {allQuiz.length}</div>
+          {allQuiz.map((quiz, index) => {
+            return <QuizInfo key={index} quiz={quiz} />;
+          })}
+        </div>
       </div>
     </>
   );
