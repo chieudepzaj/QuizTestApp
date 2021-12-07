@@ -6,6 +6,7 @@ import TakeQuiz from 'src/pages/take-quiz/TakeQuiz';
 import CreateQuiz from 'src/pages/create-quiz';
 import Quiz from 'src/pages/quiz';
 import ChartStudent from 'src/pages/chart-student';
+import ManageTest from 'src/pages/manageTest';
 
 const routers = {
   login: {
@@ -48,6 +49,12 @@ const routers = {
     exact: true,
     path: routePath.CHART_STUDENT,
     component: ChartStudent,
+    private: true,
+  },
+  manageTest: {
+    exact: true,
+    path: routePath.MANAGE_TEST,
+    component: ManageTest,
     private: true,
   },
 };
