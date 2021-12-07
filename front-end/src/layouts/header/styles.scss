@@ -21,6 +21,13 @@
     align-items: center;
     padding-right: 5rem;
 
+    > img {
+      height: 4rem;
+      width: 4rem;
+      margin-right: 2rem;
+      cursor: pointer;
+    }
+
     &__account-icon {
       background-color: #ffff;
       margin-right: 2rem;
@@ -30,12 +37,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-
-      > img {
-        height: 2rem;
-        width: 2rem;
-        margin-right: 1rem;
-      }
     }
 
     .ant-btn,

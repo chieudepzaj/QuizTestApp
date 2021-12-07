@@ -21,7 +21,7 @@ const Dashboard: React.FC = () => {
         {user.role === UserRole.TEACHER && (
           <>
             <Button onClick={() => navigate(routePath.CREATE_QUIZ)}>CREATE NEW QUIZ</Button>
-            <Button onClick={() => navigate(routePath.MANAGE_TEST)}>MANAGE QUIZ</Button>
+            <Button>MANAGE QUIZ</Button>
             <Button>MANAGE CLASS</Button>
           </>
         )}
@@ -29,11 +29,9 @@ const Dashboard: React.FC = () => {
         {user.role === UserRole.STUDENT && (
           <>
             <Button onClick={() => navigate(routePath.TAKE_QUIZ)}>TAKE TEST</Button>
-            <Button>TESTING RESULT</Button>
+            <Button onClick={() => navigate(routePath.CHART_STUDENT)}>TESTING RESULT</Button>
           </>
         )}
-
-        <Button onClick={() => navigate(routePath.PROFILE)}>MANAGE PROFILE</Button>
       </div>
     </>
   );

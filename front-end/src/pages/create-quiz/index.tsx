@@ -9,24 +9,15 @@ import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/component
 import { addDoc, collection } from '@firebase/firestore';
 import { db } from 'src/firebase/firebase';
 import { DbsName } from 'src/constants/db';
-import { IQuizInfo } from 'src/interfaces';
+import { IQuizInfo, IQuizQuestion } from 'src/interfaces';
 import { useAppSelector } from 'src/store/hooks';
 
 const { TextArea } = Input;
 
-interface IQuizQuestion {
-  question: string;
-  ans_1: string;
-  ans_2: string;
-  ans_3: string;
-  ans_4: string;
-  correct_ans: number;
-}
-
 const CreateQuiz: React.FC = () => {
   const [csvfile, setCsvfile] = useState<any>();
   const [csvfileError, setCsvfileError] = useState(false);
-  const user = useAppSelector(state => state.account.user);
+  const user = useAppSelector((state) => state.account.user);
 
   const handleUploadChange = (event: any) => {
     try {
@@ -58,6 +49,7 @@ const CreateQuiz: React.FC = () => {
               description: values.description,
               classID: user.classID,
               timeLimit: values.timeLimit,
+              lastModify: new Date(),
             };
 
             const newQuizDocRef = await addDoc(collection(db, DbsName.QUIZ), newQuizInfo);
@@ -101,7 +93,7 @@ const CreateQuiz: React.FC = () => {
             autoComplete="off"
           >
             <Form.Item label="Quiz name" name="quizName" rules={[{ required: true, message: REQUIRED_FIELD }]}>
-              <Input onChange={() => { }} placeholder="Quiz name" />
+              <Input onChange={() => {}} placeholder="Quiz name" />
             </Form.Item>
 
             <label
@@ -158,11 +150,11 @@ const CreateQuiz: React.FC = () => {
                 }),
               ]}
             >
-              <Input type="number" onChange={() => { }} placeholder="Time limit (hour)" />
+              <Input type="number" onChange={() => {}} placeholder="Time limit (hour)" />
             </Form.Item>
 
             <Form.Item label="Description" name="description" rules={[{ required: true, message: REQUIRED_FIELD }]}>
-              <TextArea onChange={() => { }} placeholder="Quiz name" />
+              <TextArea onChange={() => {}} placeholder="Quiz name" />
             </Form.Item>
 
             <Form.Item className={'action'}>

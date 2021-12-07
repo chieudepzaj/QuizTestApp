@@ -6,6 +6,8 @@ import './styles.scss';
 import quizImg from 'src/assets/images/quiz.png';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from 'src/store/hooks';
+import { doc, getDoc } from "firebase/firestore";
+
 
 const ManageTest: React.FC = () => {
   const user = useAppSelector((user) => user.account.user);
@@ -14,6 +16,7 @@ const ManageTest: React.FC = () => {
   const handleOnDeleteQuiz = (event:any) => {
     alert("Quiz Deleted!");
     navigate(routePath.DASHBOARD);
+    
   };
 
   const QuizInfo = (props: any) => {

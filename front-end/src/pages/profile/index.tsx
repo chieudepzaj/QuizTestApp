@@ -97,7 +97,7 @@ const Profile = () => {
                   <span className="profile-form__label">Email</span> {user.email}
                 </div>
 
-                {user.role === UserRole.STUDENT ? (
+                {user.role === UserRole.STUDENT && !user.fullname ? (
                   <Form.Item label="Class" name="classID" rules={[{ required: true, message: REQUIRED_FIELD }]}>
                     <Select
                       showSearch
