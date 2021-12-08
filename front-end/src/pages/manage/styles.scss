@@ -4,22 +4,21 @@
 
   }
 .background{
-    background-color: gray;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    min-width: 100vw;
+    background-color: #acacacc2;
+    width: 100%;
     min-height: 100vh;
-.table-container {
-    
-    width: 400px;
-    height: 400px;
-    
-    
-    font-size: 2rem;
-  
-    .ant-form {
-      font-size: 2rem;
-    } 
-} 
+
+    .table-container {
+        width: 60%;
+        margin: auto;
+        margin-top: 100px;
+        padding: 5px;
+        
+        .table-content {
+            width: 100%;
+            padding: 5px;
+            justify-content: center;
+        align-items: center;
+        }
+    }
 }
