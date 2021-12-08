@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "chart.js": "^3.6.1",
-    "react-chartjs-2": "^4.0.0"
+    "react-chartjs-2": "^4.0.0",
+    "react-facebook-login": "^4.1.1"
   }
 }

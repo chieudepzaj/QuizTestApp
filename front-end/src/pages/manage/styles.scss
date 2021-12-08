@@ -1,0 +1,25 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+
+  }
+.background{
+    background-color: gray;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    min-width: 100vw;
+    min-height: 100vh;
+.table-container {
+    
+    width: 400px;
+    height: 400px;
+    
+    
+    font-size: 2rem;
+  
+    .ant-form {
+      font-size: 2rem;
+    } 
+} 
+}

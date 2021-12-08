@@ -5,6 +5,7 @@ const TAKE_QUIZ = '/take-quiz';
 const QUIZ = '/quiz';
 const CREATE_QUIZ = '/create-quiz';
 const CHART_STUDENT = '/chart-student';
+const TABLE = '/manage';
 export default {
   SIGN_IN,
   DASHBOARD,
@@ -13,4 +14,5 @@ export default {
   QUIZ,
   CREATE_QUIZ,
   CHART_STUDENT,
+  TABLE,
 };
