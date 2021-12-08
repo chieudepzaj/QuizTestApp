@@ -22,7 +22,7 @@ const Dashboard: React.FC = () => {
           <>
             <Button onClick={() => navigate(routePath.CREATE_QUIZ)}>CREATE NEW QUIZ</Button>
             <Button onClick={() => navigate(routePath.MANAGE_TEST)}>MANAGE QUIZ</Button>
-            <Button>MANAGE CLASS</Button>
+            {/* <Button>MANAGE CLASS</Button> */}
           </>
         )}
 
