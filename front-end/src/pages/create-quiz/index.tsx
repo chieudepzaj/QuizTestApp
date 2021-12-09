@@ -55,6 +55,11 @@ const CreateQuiz: React.FC = () => {
             const newQuizDocRef = await addDoc(collection(db, DbsName.QUIZ), newQuizInfo);
             const quizID = newQuizDocRef.id;
 
+            if (quesData.length <= 0) {
+              openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'No quiz are imported', '');
+              return;
+            }
+
             quesData.forEach(async (ques: IQuizQuestion) => {
               await addDoc(collection(db, DbsName.QUESTION), {
                 ...ques,
@@ -93,7 +98,7 @@ const CreateQuiz: React.FC = () => {
             autoComplete="off"
           >
             <Form.Item label="Quiz name" name="quizName" rules={[{ required: true, message: REQUIRED_FIELD }]}>
-              <Input onChange={() => {}} placeholder="Quiz name" />
+              <Input onChange={() => { }} placeholder="Quiz name" />
             </Form.Item>
 
             <label
@@ -150,11 +155,11 @@ const CreateQuiz: React.FC = () => {
                 }),
               ]}
             >
-              <Input type="number" onChange={() => {}} placeholder="Time limit (hour)" />
+              <Input type="number" onChange={() => { }} placeholder="Time limit (hour)" />
             </Form.Item>
 
             <Form.Item label="Description" name="description" rules={[{ required: true, message: REQUIRED_FIELD }]}>
-              <TextArea onChange={() => {}} placeholder="Quiz name" />
+              <TextArea onChange={() => { }} placeholder="Quiz name" />
             </Form.Item>
 
             <Form.Item className={'action'}>
