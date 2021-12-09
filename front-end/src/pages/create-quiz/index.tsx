@@ -148,9 +148,9 @@ const CreateQuiz: React.FC = () => {
                   },
                 ) => ({
                   validator(_, value) {
-                    if (value > 0) {
+                    if (value > 1/60) {
                       return Promise.resolve();
-                    } else return Promise.reject(new Error('Time limit must greater than 0.'));
+                    } else return Promise.reject(new Error('Time limit must greater than 1 minute.'));
                   },
                 }),
               ]}

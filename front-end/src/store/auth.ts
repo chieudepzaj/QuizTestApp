@@ -4,7 +4,7 @@ import { signInWithEmailAndPassword } from '@firebase/auth';
 import { auth } from 'src/firebase/firebase';
 import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
 import Cookies from 'js-cookie';
-import { cookieName } from 'src/constants/cookieNameVar';
+import { clearQuizCookies, cookieName } from 'src/constants/cookieNameVar';
 
 export const login: any = async (body: { email: string; password: string }) => {
   try {
@@ -39,18 +39,14 @@ const accountSlice = createSlice({
   reducers: {
     handleLogin: (state, action: PayloadAction<any>) => {
       state.user = action.payload;
-      Cookies.remove(cookieName.CURRENT_ANSWER);
-      Cookies.remove(cookieName.CURRENT_COUNTDOWN);
-      Cookies.remove(cookieName.CURRENT_QUIZ);
+      clearQuizCookies();
     },
     updateUserInfo: (state, action: PayloadAction<any>) => {
       state.user = { ...state.user, ...action.payload };
     },
     handleLogout: (state, action: PayloadAction<any>) => {
       state.user = action.payload;
-      Cookies.remove(cookieName.CURRENT_ANSWER);
-      Cookies.remove(cookieName.CURRENT_COUNTDOWN);
-      Cookies.remove(cookieName.CURRENT_QUIZ);
+      clearQuizCookies();
     },
   },
   extraReducers: {},
