@@ -146,6 +146,12 @@ const TakeQuiz: React.FC = () => {
       {Cookies.get(cookieName.CURRENT_QUIZ) && <Navigate to={routePath.QUIZ} />}
       <Header />
 
+      {allQuiz.length <= 0 &&
+        <div className='no-quiz-created'>
+          You have no quiz to do
+        </div>
+      }
+
       <div className="take-test__container">
         {allQuiz[0] && (
           <>

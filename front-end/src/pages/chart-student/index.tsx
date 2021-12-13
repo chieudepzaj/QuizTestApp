@@ -89,9 +89,9 @@ const ChartStudent: React.FC = () => {
       <Header />
 
       {userResultData.labels.length <= 0 && (
-        <h2>
-          <strong>You have done no test</strong>
-        </h2>
+        <div className='no-test-found'>
+          You have done no test
+        </div>
       )}
 
       {userResultData.labels.length > 0 && (
