@@ -9,7 +9,6 @@ import routePath from 'src/constants/routePath';
 import { db } from 'src/firebase/firebase';
 import { secondsToTime } from 'src/helpers/indes';
 import { IQuizInfo, IQuizQuestion } from 'src/interfaces';
-import Header from 'src/layouts/header';
 import { handleEndQuiz } from 'src/store/currentQuiz';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import './styles.scss';
@@ -170,7 +169,6 @@ const Quiz: React.FC = () => {
       {user.accessToken && !user.fullname && <Navigate to={routePath.PROFILE} />}
       {(!quiz || !quiz.name || !Cookies.get(cookieName.CURRENT_QUIZ)) && <Navigate to={routePath.TAKE_QUIZ} />}
 
-      <Header />
       {allQues.length > 0 && (
         <>
           <div className="test__current">

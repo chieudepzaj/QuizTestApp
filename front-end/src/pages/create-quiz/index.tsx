@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from 'src/layouts/header';
+import Navbar from 'src/layouts/nav-bar';
 import { Button, Form, Input } from 'antd';
 import { REQUIRED_FIELD } from 'src/constants/messages';
 import './style.scss';
@@ -81,8 +81,6 @@ const CreateQuiz: React.FC = () => {
 
   return (
     <>
-      <Header />
-
       <div className={'create-quiz-container'}>
         <div className={'create-quiz-form'}>
           <div className={'form__title'}>CREATE QUIZ</div>
@@ -98,7 +96,7 @@ const CreateQuiz: React.FC = () => {
             autoComplete="off"
           >
             <Form.Item label="Quiz name" name="quizName" rules={[{ required: true, message: REQUIRED_FIELD }]}>
-              <Input onChange={() => { }} placeholder="Quiz name" />
+              <Input onChange={() => {}} placeholder="Quiz name" />
             </Form.Item>
 
             <label
@@ -148,18 +146,18 @@ const CreateQuiz: React.FC = () => {
                   },
                 ) => ({
                   validator(_, value) {
-                    if (value > 1/60) {
+                    if (value > 1 / 60) {
                       return Promise.resolve();
                     } else return Promise.reject(new Error('Time limit must greater than 1 minute.'));
                   },
                 }),
               ]}
             >
-              <Input type="number" onChange={() => { }} placeholder="Time limit (hour)" />
+              <Input type="number" onChange={() => {}} placeholder="Time limit (hour)" />
             </Form.Item>
 
             <Form.Item label="Description" name="description" rules={[{ required: true, message: REQUIRED_FIELD }]}>
-              <TextArea onChange={() => { }} placeholder="Quiz name" />
+              <TextArea onChange={() => {}} placeholder="Quiz name" />
             </Form.Item>
 
             <Form.Item className={'action'}>

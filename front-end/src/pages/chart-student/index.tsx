@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Header from 'src/layouts/header';
 import { useAppSelector } from 'src/store/hooks';
 import { collection, doc, getDoc, getDocs, query, where } from '@firebase/firestore';
 import { classesRef, db } from 'src/firebase/firebase';
@@ -8,7 +7,7 @@ import { Line } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
 import './styles.scss';
 
-Chart.register(...registerables);
+// Chart.register(...registerables);
 
 const ChartStudent: React.FC = () => {
   const user = useAppSelector((state) => state.account.user);
@@ -62,9 +61,7 @@ const ChartStudent: React.FC = () => {
           },
         ],
       });
-    } catch (error: any) {
-      console.error(error);
-    }
+    } catch (error: any) { }
   };
 
   useEffect(() => {
@@ -74,40 +71,37 @@ const ChartStudent: React.FC = () => {
   }, [user]);
 
   const getClasses = async () => {
-    const classDocRef = doc(db, DbsName.CLASS, user.classID);
-    const classDocSnap = await getDoc(classDocRef);
+    try {
+      const classDocRef = await doc(db, DbsName.CLASS, user.classID);
+      const classDocSnap = await getDoc(classDocRef);
 
-    setUserClasses(classDocSnap.data());
+      setUserClasses(classDocSnap.data());
+    } catch (error) { }
   };
 
   useEffect(() => {
-    getClasses();
-  }, []);
+    if (user.accessToken) {
+      getClasses();
+    }
+  }, [user]);
 
   return (
     <>
-      <Header />
-
-      {userResultData.labels.length <= 0 && (
-        <div className='no-test-found'>
-          You have done no test
-        </div>
-      )}
-
-      {userResultData.labels.length > 0 && (
-        <div>
-          <div className="container-chart">
-            <h2>
-              <strong>Overall Result Chart:</strong>
-            </h2>
-            <div className="info-user">
-              <p>Name: {user.fullname}</p>
-              <p>Class:{userClasses.name} </p>
-            </div>
+      {user.accessToken && user.fullname && userClasses && (
+        <div className="container-chart">
+          <h2>
+            <strong>Overall Result Chart:</strong>
+          </h2>
+          <div className="info-user">
+            <p>Name: {user.fullname}</p>
+            <p>Class:{userClasses.name} </p>
+          </div>
+          {userResultData.labels.length <= 0 && <div className="no-test-found">You have done no test</div>}
+          {userResultData.labels.length > 0 && (
             <div className="chart">
               <Line data={userResultData}></Line>
             </div>
-          </div>
+          )}
         </div>
       )}
     </>

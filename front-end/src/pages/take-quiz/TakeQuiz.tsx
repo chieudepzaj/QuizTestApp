@@ -1,7 +1,6 @@
 import { Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 import routePath from 'src/constants/routePath';
-import Header from 'src/layouts/header';
 import './styles.scss';
 import quizImg from 'src/assets/images/quiz.png';
 import { useNavigate, Navigate } from 'react-router-dom';
@@ -144,37 +143,34 @@ const TakeQuiz: React.FC = () => {
   return (
     <>
       {Cookies.get(cookieName.CURRENT_QUIZ) && <Navigate to={routePath.QUIZ} />}
-      <Header />
 
-      {allQuiz.length <= 0 &&
-        <div className='no-quiz-created'>
-          You have no quiz to do
+      {allQuiz.length <= 0 && <div className="no-quiz-created">You have no quiz to do</div>}
+
+      {allQuiz.length > 0 && (
+        <div className="take-test__container">
+          {allQuiz[0] && (
+            <>
+              <div className="title new-quiz-title">NEW QUIZ!</div>
+
+              <QuizInfo quiz={allQuiz[0]} />
+            </>
+          )}
+
+          {allQuiz.length > 1 && (
+            <>
+              <div className="title other-quiz-title">OTHER QUIZZES</div>
+
+              <div className="all-quiz-info-container">
+                {allQuiz.map((quiz, index) => {
+                  if (index === 0) return;
+
+                  return <QuizInfo key={index} quiz={quiz} />;
+                })}
+              </div>
+            </>
+          )}
         </div>
-      }
-
-      <div className="take-test__container">
-        {allQuiz[0] && (
-          <>
-            <div className="title new-quiz-title">NEW QUIZ!</div>
-
-            <QuizInfo quiz={allQuiz[0]} />
-          </>
-        )}
-
-        {allQuiz.length > 1 && (
-          <>
-            <div className="title other-quiz-title">OTHER QUIZZES</div>
-
-            <div className="all-quiz-info-container">
-              {allQuiz.map((quiz, index) => {
-                if (index === 0) return;
-
-                return <QuizInfo key={index} quiz={quiz} />;
-              })}
-            </div>
-          </>
-        )}
-      </div>
+      )}
     </>
   );
 };

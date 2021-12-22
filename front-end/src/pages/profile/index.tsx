@@ -13,7 +13,6 @@ import './styles.scss';
 import { UserRole } from 'src/constants/constants';
 import { DbsName } from 'src/constants/db';
 import { updateUserInfo } from 'src/store/auth';
-import Header from 'src/layouts/header';
 
 const { Option } = Select;
 
@@ -60,125 +59,120 @@ const Profile = () => {
         setViewMode(true);
       }
     } catch (err) {
-      console.error(err);
       openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Error in updating profile', '');
     }
   };
 
   return (
-    <>
-      {viewMode && <Header />}
+    <div className={'profile-container'}>
+      <div className={'profile-form'}>
+        {(provideProfile || editMode) && (
+          <>
+            <div className={'form__title'}>
+              {provideProfile ? <span>Please provide your info to continue</span> : <span>Hi, {user.fullname}</span>}
+            </div>
 
-      <div className={'profile-container'}>
-        <div className={'profile-form'}>
-          {(provideProfile || editMode) && (
-            <>
-              <div className={'form__title'}>
-                {provideProfile ? <span>Please provide your info to continue</span> : <span>Hi, {user.fullname}</span>}
-              </div>
-
-              <Form
-                name="profile"
-                initialValues={{
-                  fullname: user.fullname ? user.fullname : '',
-                  classID: classes.find((classInfo) => classInfo.value === user.classID)
-                    ? classes.find((classInfo) => classInfo.value === user.classID)?.value
-                    : '',
-                }}
-                onFinish={onSubmit}
-                autoComplete="off"
-              >
-                <Form.Item label="Full name" name="fullname" rules={[{ required: true, message: REQUIRED_FIELD }]}>
-                  <Input onChange={() => {}} placeholder="Full name" />
-                </Form.Item>
-
-                <div>
-                  <span className="profile-form__label">Email</span> {user.email}
-                </div>
-
-                {user.role === UserRole.STUDENT && !user.fullname ? (
-                  <Form.Item label="Class" name="classID" rules={[{ required: true, message: REQUIRED_FIELD }]}>
-                    <Select
-                      showSearch
-                      placeholder="Select your class"
-                      optionFilterProp="children"
-                      onChange={() => {}}
-                      onFocus={() => {}}
-                      onBlur={() => {}}
-                      onSearch={() => {}}
-                      // filterOption={(input, option: any) =>
-                      //     option.children.toLowerCPase().indexOf(input.toLowerCase()) >= 0
-                      // }
-                    >
-                      {classes.map((classE) => (
-                        <Option key={classE.value} value={classE.value}>
-                          {classE.label}
-                        </Option>
-                      ))}
-                    </Select>
-                  </Form.Item>
-                ) : (
-                  <div>
-                    <span className="profile-form__label">Class</span>
-                    {classes.find((classInfo) => classInfo.value === user.classID)?.label}
-                  </div>
-                )}
-
-                <Form.Item className={'action'}>
-                  <div className="profile-form__btn">
-                    <Button className={'sign-in-btn'} type="primary" htmlType="submit">
-                      SAVE
-                    </Button>
-                  </div>
-                </Form.Item>
-              </Form>
-            </>
-          )}
-
-          {viewMode && (
-            <>
-              <div className={'form__title'}>
-                <span>Hi, {user.fullname}</span>
-              </div>
-
-              <div>
-                <span className="profile-form__label">Full name</span> {user.fullname}
-                {/* <EditOutlined className="profile-form__edit-icon"/> */}
-              </div>
+            <Form
+              name="profile"
+              initialValues={{
+                fullname: user.fullname ? user.fullname : '',
+                classID: classes.find((classInfo) => classInfo.value === user.classID)
+                  ? classes.find((classInfo) => classInfo.value === user.classID)?.value
+                  : '',
+              }}
+              onFinish={onSubmit}
+              autoComplete="off"
+            >
+              <Form.Item label="Full name" name="fullname" rules={[{ required: true, message: REQUIRED_FIELD }]}>
+                <Input onChange={() => {}} placeholder="Full name" />
+              </Form.Item>
 
               <div>
                 <span className="profile-form__label">Email</span> {user.email}
               </div>
 
-              <div>
-                <span className="profile-form__label">Class</span>
-                {classes.find((classInfo) => classInfo.value === user.classID)?.label}
-              </div>
+              {user.role === UserRole.STUDENT && !user.fullname ? (
+                <Form.Item label="Class" name="classID" rules={[{ required: true, message: REQUIRED_FIELD }]}>
+                  <Select
+                    showSearch
+                    placeholder="Select your class"
+                    optionFilterProp="children"
+                    onChange={() => {}}
+                    onFocus={() => {}}
+                    onBlur={() => {}}
+                    onSearch={() => {}}
+                    // filterOption={(input, option: any) =>
+                    //     option.children.toLowerCPase().indexOf(input.toLowerCase()) >= 0
+                    // }
+                  >
+                    {classes.map((classE) => (
+                      <Option key={classE.value} value={classE.value}>
+                        {classE.label}
+                      </Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+              ) : (
+                <div>
+                  <span className="profile-form__label">Class</span>
+                  {classes.find((classInfo) => classInfo.value === user.classID)?.label}
+                </div>
+              )}
 
-              <div className="profile-form__btn">
-                <Button
-                  className={'profile-form__home-page-btn'}
-                  type="primary"
-                  onClick={() => {
-                    setViewMode(false);
-                    setEditMode(true);
-                  }}
-                >
-                  EDIT
-                </Button>
-                <Button
-                  className={'profile-form__home-page-btn'}
-                  type="primary"
-                  onClick={() => navigate(routePath.DASHBOARD)}
-                >
-                  HOME PAGE
-                </Button>
-              </div>
-            </>
-          )}
-        </div>
+              <Form.Item className={'action'}>
+                <div className="profile-form__btn">
+                  <Button className={'sign-in-btn'} type="primary" htmlType="submit">
+                    SAVE
+                  </Button>
+                </div>
+              </Form.Item>
+            </Form>
+          </>
+        )}
+
+        {viewMode && (
+          <>
+            <div className={'form__title'}>
+              <span>Hi, {user.fullname}</span>
+            </div>
+
+            <div>
+              <span className="profile-form__label">Full name</span> {user.fullname}
+              {/* <EditOutlined className="profile-form__edit-icon"/> */}
+            </div>
+
+            <div>
+              <span className="profile-form__label">Email</span> {user.email}
+            </div>
+
+            <div>
+              <span className="profile-form__label">Class</span>
+              {classes.find((classInfo) => classInfo.value === user.classID)?.label}
+            </div>
+
+            <div className="profile-form__btn">
+              <Button
+                className={'profile-form__home-page-btn'}
+                type="primary"
+                onClick={() => {
+                  setViewMode(false);
+                  setEditMode(true);
+                }}
+              >
+                EDIT
+              </Button>
+              <Button
+                className={'profile-form__home-page-btn'}
+                type="primary"
+                onClick={() => navigate(routePath.DASHBOARD)}
+              >
+                HOME PAGE
+              </Button>
+            </div>
+          </>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 

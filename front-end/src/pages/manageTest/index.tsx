@@ -1,6 +1,5 @@
 import { Button } from 'antd';
 import React, { useEffect, useState } from 'react';
-import Header from 'src/layouts/header';
 import './styles.scss';
 import quizImg from 'src/assets/images/quiz.png';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
@@ -22,7 +21,7 @@ const ManageTest: React.FC = () => {
 
   const getAllQuiz = async () => {
     try {
-      const allQuizSnapshot = await getDocs(query(collection(db, DbsName.QUIZ)));
+      const allQuizSnapshot = await getDocs(query(collection(db, DbsName.QUIZ), where('classID', '==', user.classID)));
 
       const allQuizDoc: IQuizInfo[] = [];
       allQuizSnapshot.forEach((doc: any) => {
@@ -127,18 +126,14 @@ const ManageTest: React.FC = () => {
   };
 
   return (
-    <>
-      <Header />
-
-      <div className="manage-test__container">
-        <div className="all-quiz-info-container">
-          <div className="title">TOTAL QUIZ: {allQuiz.length}</div>
-          {allQuiz.map((quiz, index) => {
-            return <QuizInfo key={index} quiz={quiz} />;
-          })}
-        </div>
+    <div className="manage-test__container">
+      <div className="all-quiz-info-container">
+        <div className="title">TOTAL QUIZ: {allQuiz.length}</div>
+        {allQuiz.map((quiz, index) => {
+          return <QuizInfo key={index} quiz={quiz} />;
+        })}
       </div>
-    </>
+    </div>
   );
 };
 

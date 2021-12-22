@@ -1,8 +1,7 @@
 @import '../../styles/variables';
 
 .profile-container {
-  min-width: 100vw;
-  min-height: 100vh;
+  min-height: calc(100vh - $navbar-height);
   display: flex;
   justify-content: center;
   align-items: center;
