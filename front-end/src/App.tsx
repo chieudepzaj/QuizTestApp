@@ -15,13 +15,13 @@ const App: React.FC = () => {
   const [isRenderSidebar, setIsRenderSidebar] = useState(false);
 
   useEffect(() => {
-    if ([routePath.SIGN_IN].includes(location.pathname) === false) {
-      setIsRenderNavbar(true);
-    }
+    if ([routePath.SIGN_IN].includes(location.pathname)) {
+      setIsRenderNavbar(false);
+    } else setIsRenderNavbar(true);
 
-    if ([routePath.SIGN_IN, routePath.QUIZ, routePath.PROFILE].includes(location.pathname) === false) {
-      setIsRenderSidebar(true);
-    }
+    if ([routePath.SIGN_IN, routePath.QUIZ].includes(location.pathname)) {
+      setIsRenderSidebar(false);
+    } else setIsRenderSidebar(true);
   }, [location.pathname]);
 
   return (
