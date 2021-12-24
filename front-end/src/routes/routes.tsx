@@ -7,6 +7,8 @@ import CreateQuiz from 'src/pages/create-quiz';
 import Quiz from 'src/pages/quiz';
 import ChartStudent from 'src/pages/chart-student';
 import ManageTest from 'src/pages/manageTest';
+import CreateLesson from 'src/pages/create-lesson';
+
 
 const routers = {
   login: {
@@ -55,6 +57,12 @@ const routers = {
     exact: true,
     path: routePath.MANAGE_TEST,
     component: ManageTest,
+    private: true,
+  },
+  createLesson: {
+    exact: true,
+    path: routePath.CREATE_LESSON,
+    component: CreateLesson,
     private: true,
   },
 };
