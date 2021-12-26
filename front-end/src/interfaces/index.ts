@@ -39,3 +39,12 @@ export interface IQuizQuestion {
   ans_4: string;
   correct_ans?: number;
 }
+
+export interface ILessonInfo {
+  id?: string;
+  lessonName: string;
+  content: string;
+  linkYT: string;
+  classID: string;
+  lastModify: any;
+}

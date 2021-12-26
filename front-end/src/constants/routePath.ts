@@ -7,6 +7,7 @@ const CREATE_QUIZ = '/create-quiz';
 const CHART_STUDENT = '/chart-student';
 const MANAGE_TEST = '/manage-test';
 const MANAGE_CLASS = '/manage-class';
+const CREATE_LESSON = '/create-lesson';
 
 export default {
   SIGN_IN,
@@ -18,4 +19,5 @@ export default {
   CHART_STUDENT,
   MANAGE_TEST,
   MANAGE_CLASS,
+  CREATE_LESSON,
 };
