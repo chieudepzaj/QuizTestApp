@@ -13,11 +13,15 @@ import { cookieName } from 'src/constants/cookieNameVar';
 import { secondsToTime } from 'src/helpers/indes';
 import { doc, deleteDoc } from 'firebase/firestore';
 import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
+import { PlusCircleOutlined } from '@ant-design/icons';
+import CreateQuiz from './components/create-quiz';
+import QuizInfo from 'src/components/quiz-info';
 
 const ManageTest: React.FC = () => {
   const user = useAppSelector((user) => user.account.user);
   const dispatch = useAppDispatch();
   const [allQuiz, setAllQuiz] = useState<IQuizInfo[]>([]);
+  const [isOpenCreateNewQuizModal, setIsOpenCreateNewQuizModal] = useState(false);
 
   const getAllQuiz = async () => {
     try {
@@ -76,73 +80,39 @@ const ManageTest: React.FC = () => {
     }
   };
 
-  const handleOnEditQuiz = (quiz: any) => { };
+  const handleOnEditQuiz = (quiz: any) => {};
 
-  const QuizInfo: React.FC<{
-    quiz: IQuizInfo;
-  }> = (props) => {
-    const { quiz } = props;
-    const timeLimit = secondsToTime(quiz.timeLimit * 60 * 60);
-
-    return (
-      <div className="quiz-info-container">
-        <div className="quiz-info">
-          <img className="quizImage" src={quizImg} alt="logo" />
-
-          <div className="quiz-info__text">
-            <span className="quiz-info__title">{quiz.name}</span>
-            <span className="ques-info-box">
-              <span className="ques-info-label">Number of questions</span>
-              <span className="ques-info-text">{quiz.numberOfQuestion}</span>
-            </span>
-            <span className="ques-info-box">
-              <span className="ques-info-label">Time limit</span>
-              <span className="ques-info-text">
-                {timeLimit.hours}h {timeLimit.minutes}m {timeLimit.seconds}s
-              </span>
-            </span>
-            <span className="ques-info-box">
-              <span className="ques-info-label">Last modify</span>
-              <span
-                className="ques-info-text"
-                style={{
-                  display: 'block',
-                }}
-              >
-                {quiz.lastModify.toString()}
-              </span>
-            </span>
-            <span>
-              <span className="ques-info-label">Description</span>
-            </span>
-            <span className="quiz-description  ques-info-box">{quiz.description}</span>
-          </div>
-        </div>
-
-        <div className="action-container">
-          <div>
-            <Button className="edit-btn" onClick={() => handleOnEditQuiz(quiz)}>
-              Edit Quiz
-            </Button>
-          </div>
-          <div>
-            <Button className="del-btn" onClick={() => handleOnDeleteQuiz(quiz)}>
-              Delete Quiz
-            </Button>
-          </div>
-        </div>
-      </div>
-    );
-  };
+  const handleOnViewQuizResult = (quiz: any) => {};
 
   return (
     <div className="manage-test__container">
       <div className="all-quiz-info-container">
-        <div className="title">TOTAL QUIZ: {allQuiz.length}</div>
+        <Button className="add-quiz" onClick={() => setIsOpenCreateNewQuizModal(true)}>
+          Add new quiz <PlusCircleOutlined />
+        </Button>
+        <div className="title">Total quiz: {allQuiz.length}</div>
         {allQuiz.map((quiz, index) => {
-          return <QuizInfo key={index} quiz={quiz} />;
+          return (
+            <QuizInfo
+              key={index}
+              quiz={quiz}
+              actions={[
+                <Button key="quiz-result" className="result-btn" onClick={() => handleOnViewQuizResult(quiz)}>
+                  Quiz Results
+                </Button>,
+                <Button key="edit-quiz" className="edit-btn" onClick={() => handleOnEditQuiz(quiz)}>
+                  Edit Quiz
+                </Button>,
+                <Button key="delete-quiz" className="del-btn" onClick={() => handleOnDeleteQuiz(quiz)}>
+                  Delete Quiz
+                </Button>,
+              ]}
+            />
+          );
         })}
       </div>
+
+      <CreateQuiz visible={isOpenCreateNewQuizModal} setIsOpenCreateNewQuizModal={setIsOpenCreateNewQuizModal} />
     </div>
   );
 };

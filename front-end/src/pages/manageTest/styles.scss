@@ -7,9 +7,21 @@
   font-size: 1.8rem;
   padding: 3rem;
 
+  .add-quiz {
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    background-color: #3cb371;
+    color: white;
+    width: 20rem;
+    height: 5rem;
+    border: none;
+  }
+
   .title {
     font-size: 3rem;
     margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
   }
 
   .new-quiz-title {
@@ -108,12 +120,17 @@
         border-radius: 0.5rem;
       }
 
+      .result-btn {
+        background-color: green;
+      }
+
       .del-btn {
         background-color: #ed2939;
         margin-top: 1rem;
       }
 
       .edit-btn {
+        margin-top: 1rem;
         background-color: $yellow--1;
       }
     }

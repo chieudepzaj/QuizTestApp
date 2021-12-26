@@ -1,22 +1,17 @@
-import { Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 import routePath from 'src/constants/routePath';
 import './styles.scss';
-import quizImg from 'src/assets/images/quiz.png';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
-import { IQuizInfo, IQuizResult } from 'src/interfaces';
+import { IQuizResult } from 'src/interfaces';
 import { collection, getDocs, query, where } from '@firebase/firestore';
 import { db } from 'src/firebase/firebase';
 import { DbsName } from 'src/constants/db';
 import { handleTakeQuiz } from 'src/store/currentQuiz';
 import Cookies from 'js-cookie';
 import { cookieName } from 'src/constants/cookieNameVar';
-import { secondsToTime } from 'src/helpers/indes';
-
-type UserQuizInfo = IQuizInfo & {
-  userResult?: IQuizResult;
-};
+import QuizInfo, { UserQuizInfo } from 'src/components/quiz-info';
+import { Button } from 'antd';
 
 const TakeQuiz: React.FC = () => {
   const user = useAppSelector((user) => user.account.user);
@@ -83,63 +78,6 @@ const TakeQuiz: React.FC = () => {
     navigate(routePath.QUIZ);
   };
 
-  const QuizInfo: React.FC<{
-    quiz: UserQuizInfo;
-  }> = (props) => {
-    const { quiz } = props;
-    const timeLimit = secondsToTime(quiz.timeLimit * 60 * 60);
-
-    return (
-      <div className="quiz-info-container">
-        <div className="quiz-info">
-          <img className="quizImage" src={quizImg} alt="logo" />
-
-          <div className="quiz-info__text">
-            <span className="quiz-info__title">{quiz.name}</span>
-            <span className="ques-info-box">
-              <span className="ques-info-label">Number of questions</span>
-              <span className="ques-info-text">{quiz.numberOfQuestion}</span>
-            </span>
-            <span className="ques-info-box">
-              <span className="ques-info-label">Time limit</span>
-              <span className="ques-info-text">
-                {timeLimit.hours}h {timeLimit.minutes}m {timeLimit.seconds}s
-              </span>
-            </span>
-            <span className="ques-info-box">
-              <span className="ques-info-label">Last modify</span>
-              <span
-                className="ques-info-text"
-                style={{
-                  display: 'block',
-                }}
-              >
-                {quiz.lastModify.toString()}
-              </span>
-            </span>
-            <span>
-              <span className="ques-info-label">Description</span>
-            </span>
-            <span className="quiz-description  ques-info-box">{quiz.description}</span>
-          </div>
-        </div>
-
-        <div className="action-container">
-          <div>
-            <div className="result-text">
-              Current result:
-              <div className="result-text-score">
-                {quiz.userResult?.score || quiz.userResult?.score === 0 ? quiz.userResult?.score : '--'}/
-                {quiz.userResult?.totalScore ? quiz.userResult?.totalScore : '--'}
-              </div>
-            </div>
-            <Button onClick={() => takeQuiz(quiz)}>Start Quiz</Button>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <>
       {Cookies.get(cookieName.CURRENT_QUIZ) && <Navigate to={routePath.QUIZ} />}
@@ -152,7 +90,23 @@ const TakeQuiz: React.FC = () => {
             <>
               <div className="title new-quiz-title">NEW QUIZ!</div>
 
-              <QuizInfo quiz={allQuiz[0]} />
+              <QuizInfo
+                quiz={allQuiz[0]}
+                actions={[
+                  <div key="quiz-result" className="result-text">
+                    Current result:
+                    <div className="result-text-score">
+                      {allQuiz[0].userResult?.score || allQuiz[0].userResult?.score === 0
+                        ? allQuiz[0].userResult?.score
+                        : '--'}
+                      /{allQuiz[0].userResult?.totalScore ? allQuiz[0].userResult?.totalScore : '--'}
+                    </div>
+                  </div>,
+                  <Button key="start-quiz" onClick={() => takeQuiz(allQuiz[0])}>
+                    Start Quiz
+                  </Button>,
+                ]}
+              />
             </>
           )}
 
@@ -164,7 +118,24 @@ const TakeQuiz: React.FC = () => {
                 {allQuiz.map((quiz, index) => {
                   if (index === 0) return;
 
-                  return <QuizInfo key={index} quiz={quiz} />;
+                  return (
+                    <QuizInfo
+                      key={index}
+                      quiz={quiz}
+                      actions={[
+                        <div key="quiz-result" className="result-text">
+                          Current result:
+                          <div className="result-text-score">
+                            {quiz.userResult?.score || quiz.userResult?.score === 0 ? quiz.userResult?.score : '--'}/
+                            {quiz.userResult?.totalScore ? quiz.userResult?.totalScore : '--'}
+                          </div>
+                        </div>,
+                        <Button key="start-quiz" onClick={() => takeQuiz(quiz)}>
+                          Start Quiz
+                        </Button>,
+                      ]}
+                    />
+                  );
                 })}
               </div>
             </>

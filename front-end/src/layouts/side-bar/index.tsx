@@ -1,5 +1,11 @@
 import React from 'react';
-import { EditOutlined, LineChartOutlined, ProfileOutlined } from '@ant-design/icons';
+import {
+  ContactsOutlined,
+  EditOutlined,
+  LineChartOutlined,
+  ProfileOutlined,
+  SnippetsOutlined,
+} from '@ant-design/icons';
 import { Menu } from 'antd';
 import Sider from 'antd/lib/layout/Sider';
 import './styles.scss';
@@ -25,15 +31,15 @@ const Sidebar = () => {
         >
           {user.role === UserRole.TEACHER && (
             <>
-              <Menu.Item key="create-new-quiz" icon={<EditOutlined />} onClick={() => navigate(routePath.CREATE_QUIZ)}>
-                Create new quiz
-              </Menu.Item>
-
-              <Menu.Item key="manage-quiz" icon={<LineChartOutlined />} onClick={() => navigate(routePath.MANAGE_TEST)}>
+              <Menu.Item key="manage-quiz" icon={<SnippetsOutlined />} onClick={() => navigate(routePath.MANAGE_TEST)}>
                 Manage quiz
               </Menu.Item>
 
-              <Menu.Item key="testing-result" icon={<LineChartOutlined />}>
+              <Menu.Item
+                key="testing-result"
+                icon={<ContactsOutlined />}
+                onClick={() => navigate(routePath.MANAGE_CLASS)}
+              >
                 Manage class
               </Menu.Item>
 
@@ -47,6 +53,10 @@ const Sidebar = () => {
             <>
               <Menu.Item key="take-quiz" icon={<EditOutlined />} onClick={() => navigate(routePath.TAKE_QUIZ)}>
                 Take quizs
+              </Menu.Item>
+
+              <Menu.Item key="manage-quiz" icon={<LineChartOutlined />}>
+                Manage quiz
               </Menu.Item>
 
               <Menu.Item

@@ -3,10 +3,10 @@ import Login from 'src/pages/login';
 // import Dashboard from 'src/pages/dashboard';
 import Profile from 'src/pages/profile';
 import TakeQuiz from 'src/pages/take-quiz/TakeQuiz';
-import CreateQuiz from 'src/pages/create-quiz';
 import Quiz from 'src/pages/quiz';
 import ChartStudent from 'src/pages/chart-student';
 import ManageTest from 'src/pages/manageTest';
+import ManageClass from 'src/pages/manageClass';
 
 const routers = {
   login: {
@@ -33,12 +33,6 @@ const routers = {
     component: TakeQuiz,
     private: true,
   },
-  createQuiz: {
-    exact: true,
-    path: routePath.CREATE_QUIZ,
-    component: CreateQuiz,
-    private: true,
-  },
   quiz: {
     exact: true,
     path: routePath.QUIZ,
@@ -49,6 +43,12 @@ const routers = {
     exact: true,
     path: routePath.CHART_STUDENT,
     component: ChartStudent,
+    private: true,
+  },
+  manageClass: {
+    exact: true,
+    path: routePath.MANAGE_CLASS,
+    component: ManageClass,
     private: true,
   },
   manageTest: {

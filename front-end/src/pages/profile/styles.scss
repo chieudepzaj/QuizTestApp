@@ -18,6 +18,13 @@
     background-color: #fff;
     padding: 3rem;
 
+    .form__title {
+      text-align: center;
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 3rem;
+    }
+
     &__edit-icon {
       border: 1px solid #4e4b66;
       border-radius: 0.3rem;

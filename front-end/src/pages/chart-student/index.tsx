@@ -90,13 +90,17 @@ const ChartStudent: React.FC = () => {
       {user.accessToken && user.fullname && userClasses && (
         <div className="container-chart">
           <h2>
-            <strong>Overall Result Chart:</strong>
+            <strong>User infomation</strong>
           </h2>
           <div className="info-user">
             <p>Name: {user.fullname}</p>
             <p>Class:{userClasses.name} </p>
           </div>
-          {userResultData.labels.length <= 0 && <div className="no-test-found">You have done no test</div>}
+          <h2>
+            <br />
+            <strong>Overall Result Chart</strong>
+          </h2>
+          {userResultData.labels.length <= 0 && <div className="no-test-found">You haven{"'"}t done any test</div>}
           {userResultData.labels.length > 0 && (
             <div className="chart">
               <Line data={userResultData}></Line>

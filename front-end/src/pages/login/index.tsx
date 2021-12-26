@@ -77,7 +77,7 @@ const Login = () => {
                 },
               ]}
             >
-              <Input onChange={() => { }} placeholder="Email address" />
+              <Input onChange={() => {}} placeholder="Email address" />
             </Form.Item>
 
             <Form.Item
@@ -112,7 +112,7 @@ const Login = () => {
                 }),
               ]}
             >
-              <Input.Password placeholder="Password" onChange={() => { }} />
+              <Input.Password placeholder="Password" onChange={() => {}} />
             </Form.Item>
 
             <Form.Item className={cx('action')}>

@@ -1,0 +1,119 @@
+@import '../../../../styles/variables';
+
+.create-quiz-form {
+  border: 2px solid #5a586957;
+  border-radius: 1rem;
+  overflow: hidden;
+
+  .ant-modal-body {
+    overflow: auto;
+    max-height: 75vh;
+  }
+
+  .ant-form-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .ant-modal-header {
+    border: none;
+    padding-top: 3rem;
+  }
+
+  .form__title {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 500;
+  }
+
+  .upload-csv-file {
+    margin-bottom: 3rem;
+    margin-top: 1rem;
+    display: block;
+  }
+
+  .csv-input {
+    display: none !important;
+  }
+
+  .import-csv-label {
+    display: inline-block;
+
+    > span {
+      display: block;
+    }
+
+    .import-csv__button {
+      height: 5rem;
+      border: 1px solid rgba(51, 51, 51, 0.466);
+      border-radius: 0.5rem;
+      padding: 1rem 2rem;
+
+      .import-icon {
+        margin-right: 1rem;
+
+        > svg {
+          height: 2rem;
+          width: auto;
+          transform: translateY(0.3rem);
+        }
+      }
+    }
+  }
+
+  input[type='file']::file-selector-button {
+    border: 1px solid rgba(51, 51, 51, 0.486);
+    padding: 1rem;
+    border-radius: 1em;
+    background-color: #fff;
+    width: 12rem;
+  }
+
+  input[type='file']::file-selector-button:hover {
+    border: 1px solid $yellow--1;
+  }
+
+  .time-limit {
+    .ant-select {
+      height: 3rem !important;
+      width: 6rem;
+
+      .ant-select-selector {
+        font-size: 1.5rem;
+        height: 3rem !important;
+      }
+    }
+
+    .time-tag {
+      margin: 0 1rem;
+    }
+  }
+
+  .action {
+    .create-quiz-form__btn {
+      text-align: center;
+      display: flex;
+      align-items: center;
+
+      .save-btn {
+        width: 50%;
+        height: 5rem;
+        border-radius: 1rem;
+        margin-right: 1rem;
+      }
+
+      .cancel-btn {
+        width: 50%;
+        height: 5rem;
+        border-radius: 1rem;
+      }
+    }
+  }
+
+  .ant-modal-footer {
+    border: none;
+
+    .action {
+      margin-bottom: 1rem;
+    }
+  }
+}
