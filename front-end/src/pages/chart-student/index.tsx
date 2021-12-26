@@ -96,7 +96,7 @@ const ChartStudent: React.FC = () => {
             <p>Name: {user.fullname}</p>
             <p>Class:{userClasses.name} </p>
           </div>
-          {userResultData.labels.length <= 0 && <div className="no-test-found">You have done no test</div>}
+          {userResultData.labels.length <= 0 && <div className="no-test-found">You have not done any test</div>}
           {userResultData.labels.length > 0 && (
             <div className="chart">
               <Line data={userResultData}></Line>
