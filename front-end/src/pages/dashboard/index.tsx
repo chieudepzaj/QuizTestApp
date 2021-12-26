@@ -15,8 +15,6 @@ const Dashboard: React.FC = () => {
     <>
       {user.accessToken && !user.fullname && <Navigate to={routePath.PROFILE} />}
 
-      <Navigate to={routePath.TAKE_QUIZ} />
-
       <div className="dashboard">
         {user.role === UserRole.TEACHER && (
           <>

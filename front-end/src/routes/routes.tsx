@@ -1,6 +1,6 @@
 import routePath from 'src/constants/routePath';
 import Login from 'src/pages/login';
-import Dashboard from 'src/pages/dashboard';
+// import Dashboard from 'src/pages/dashboard';
 import Profile from 'src/pages/profile';
 import TakeQuiz from 'src/pages/take-quiz/TakeQuiz';
 import CreateQuiz from 'src/pages/create-quiz';
@@ -15,12 +15,12 @@ const routers = {
     component: Login,
     private: false,
   },
-  dashboard: {
-    exact: true,
-    path: routePath.DASHBOARD,
-    component: Dashboard,
-    private: true,
-  },
+  // dashboard: {
+  //   exact: true,
+  //   path: routePath.DASHBOARD,
+  //   component: Dashboard,
+  //   private: true,
+  // },
   profile: {
     exact: true,
     path: routePath.PROFILE,

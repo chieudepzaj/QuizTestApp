@@ -104,9 +104,17 @@
         width: 20rem;
         height: 5rem;
         border: none;
-        background-color: #ed2939;
         color: #fff;
         border-radius: 0.5rem;
+      }
+
+      .del-btn {
+        background-color: #ed2939;
+        margin-top: 1rem;
+      }
+
+      .edit-btn {
+        background-color: $yellow--1;
       }
     }
   }

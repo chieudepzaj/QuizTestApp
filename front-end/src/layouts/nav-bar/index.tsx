@@ -1,5 +1,5 @@
 import { signOut } from '@firebase/auth';
-import { Button, Menu, Dropdown } from 'antd';
+import { Menu, Dropdown } from 'antd';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,9 +31,6 @@ const Navbar: React.FC = () => {
     <Menu>
       <Menu.Item>
         <div onClick={handleSignOut}>Logout</div>
-      </Menu.Item>
-      <Menu.Item>
-        <div onClick={() => navigate(routePath.PROFILE)}>Profile</div>
       </Menu.Item>
     </Menu>
   );

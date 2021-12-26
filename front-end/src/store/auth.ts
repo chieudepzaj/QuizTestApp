@@ -3,8 +3,7 @@ import axiosInstance from 'src/services/axios';
 import { signInWithEmailAndPassword } from '@firebase/auth';
 import { auth } from 'src/firebase/firebase';
 import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
-import Cookies from 'js-cookie';
-import { clearQuizCookies, cookieName } from 'src/constants/cookieNameVar';
+import { clearQuizCookies } from 'src/constants/cookieNameVar';
 
 export const login: any = async (body: { email: string; password: string }) => {
   try {
@@ -39,7 +38,6 @@ const accountSlice = createSlice({
   reducers: {
     handleLogin: (state, action: PayloadAction<any>) => {
       state.user = action.payload;
-      clearQuizCookies();
     },
     updateUserInfo: (state, action: PayloadAction<any>) => {
       state.user = { ...state.user, ...action.payload };

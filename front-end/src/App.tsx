@@ -8,12 +8,16 @@ import PrivateRoute from './routes/PrivateRoute';
 import Navbar from './layouts/nav-bar';
 import Sidebar from './layouts/side-bar';
 import routePath from './constants/routePath';
+import Cookies from 'js-cookie';
+import { cookieName } from 'src/constants/cookieNameVar';
+import { clearQuizCookies } from 'src/constants/cookieNameVar';
 
 const App: React.FC = () => {
   const location = useLocation();
   const [isRenderNavbar, setIsRenderNavbar] = useState(false);
   const [isRenderSidebar, setIsRenderSidebar] = useState(false);
 
+  if (!Cookies.get(cookieName.ACCESS_TOKEN)) clearQuizCookies();
   useEffect(() => {
     if ([routePath.SIGN_IN].includes(location.pathname)) {
       setIsRenderNavbar(false);

@@ -61,7 +61,7 @@ const ChartStudent: React.FC = () => {
           },
         ],
       });
-    } catch (error: any) { }
+    } catch (error: any) {}
   };
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const ChartStudent: React.FC = () => {
       const classDocSnap = await getDoc(classDocRef);
 
       setUserClasses(classDocSnap.data());
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {

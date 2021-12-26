@@ -32,19 +32,17 @@ const Login = () => {
           openCustomNotificationWithIcon(NOTIFICATION_TYPE.SUCCESS, 'Signed up successfully', '');
         })
         .catch((error) => {
+          // eslint-disable-next-line no-console
           console.error(error.code, error.message);
           openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Signed up failed', '');
         });
     }
   };
 
-  const onChangeEmail = () => {};
-
-  const onChangePassword = () => {};
-
   return (
     <>
-      {user.user.accessToken && <Navigate to={routePath.DASHBOARD} />}
+      {user.user.accessToken && user.user.role === 0 && <Navigate to={routePath.CHART_STUDENT} />}
+      {user.user.accessToken && user.user.role === 1 && <Navigate to={routePath.MANAGE_TEST} />}
 
       <div className={cx('container')}>
         <div className={cx('form')}>
@@ -79,7 +77,7 @@ const Login = () => {
                 },
               ]}
             >
-              <Input onChange={onChangeEmail} placeholder="Email address" />
+              <Input onChange={() => { }} placeholder="Email address" />
             </Form.Item>
 
             <Form.Item
@@ -114,7 +112,7 @@ const Login = () => {
                 }),
               ]}
             >
-              <Input.Password placeholder="Password" onChange={onChangePassword} />
+              <Input.Password placeholder="Password" onChange={() => { }} />
             </Form.Item>
 
             <Form.Item className={cx('action')}>

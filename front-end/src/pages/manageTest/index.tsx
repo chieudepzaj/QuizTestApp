@@ -71,9 +71,12 @@ const ManageTest: React.FC = () => {
       openCustomNotificationWithIcon(NOTIFICATION_TYPE.SUCCESS, 'Delete quiz successfully', '');
     } catch (error: any) {
       openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Delete quiz failed', '');
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   };
+
+  const handleOnEditQuiz = (quiz: any) => { };
 
   const QuizInfo: React.FC<{
     quiz: IQuizInfo;
@@ -118,7 +121,14 @@ const ManageTest: React.FC = () => {
 
         <div className="action-container">
           <div>
-            <Button onClick={() => handleOnDeleteQuiz(quiz)}>Delete Quiz</Button>
+            <Button className="edit-btn" onClick={() => handleOnEditQuiz(quiz)}>
+              Edit Quiz
+            </Button>
+          </div>
+          <div>
+            <Button className="del-btn" onClick={() => handleOnDeleteQuiz(quiz)}>
+              Delete Quiz
+            </Button>
           </div>
         </div>
       </div>
