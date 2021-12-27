@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useState } from 'react';
 import { Button, Form, Input, Modal, Select } from 'antd';
 import { REQUIRED_FIELD } from 'src/constants/messages';
@@ -5,14 +6,13 @@ import './style.scss';
 import Papa from 'papaparse';
 import { UploadOutlined, PaperClipOutlined } from '@ant-design/icons';
 import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
-import { addDoc, collection } from '@firebase/firestore';
+import { addDoc, collection, getDocs, query, where } from '@firebase/firestore';
 import { db } from 'src/firebase/firebase';
 import { DbsName } from 'src/constants/db';
 import { IQuizInfo, IQuizQuestion } from 'src/interfaces';
 import { useAppSelector } from 'src/store/hooks';
 
 const { TextArea } = Input;
-
 const { Option } = Select;
 
 const CreateQuiz: React.FC<{
@@ -39,8 +39,22 @@ const CreateQuiz: React.FC<{
     }
   };
 
-  const handleOnCreateQuiz = useCallback(async (form: any) => {
+  const handleOnCreateQuiz = async (form: any) => {
     const values = await form.validateFields();
+    values.quizName = values.quizName.trim();
+
+    const quizSameNameSnapshot = await getDocs(
+      query(collection(db, DbsName.QUIZ), where('name', '==', values.quizName)),
+    );
+
+    if (!quizSameNameSnapshot.empty) {
+      openCustomNotificationWithIcon(
+        NOTIFICATION_TYPE.ERROR,
+        'Quiz name exists',
+        'Please choose another name for your quiz',
+      );
+      return;
+    }
 
     if (!csvfile) {
       setCsvfileError(true);
@@ -65,14 +79,17 @@ const CreateQuiz: React.FC<{
               lastModify: new Date(),
             };
 
-            const newQuizDocRef = await addDoc(collection(db, DbsName.QUIZ), newQuizInfo);
-            const quizID = newQuizDocRef.id;
-
             if (quesData.length <= 0) {
-              openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'No quiz are imported', '');
+              openCustomNotificationWithIcon(
+                NOTIFICATION_TYPE.ERROR,
+                'No quiz are imported',
+                'Your quiz is empty now. Please create at least 1 question for your quiz',
+              );
               return;
             }
 
+            const newQuizDocRef = await addDoc(collection(db, DbsName.QUIZ), newQuizInfo);
+            const quizID = newQuizDocRef.id;
             quesData.forEach(async (ques: IQuizQuestion) => {
               await addDoc(collection(db, DbsName.QUESTION), {
                 ...ques,
@@ -81,18 +98,18 @@ const CreateQuiz: React.FC<{
             });
 
             openCustomNotificationWithIcon(NOTIFICATION_TYPE.SUCCESS, 'Create new quiz successfully', '');
+            setIsOpenCreateNewQuizModal(false);
           } catch (error: any) {
             openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Error in creating new quiz', '');
+            return;
           }
         },
         header: true,
       });
-
-      setIsOpenCreateNewQuizModal(false);
     } catch (error: any) {
       openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'File uploaded error', 'Please upload file onece again');
     }
-  }, []);
+  };
 
   const renderTimeSelectOptions = (end: number) => {
     const options = [];
