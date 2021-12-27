@@ -59,8 +59,8 @@ const Sidebar = () => {
                 Take quizs
               </Menu.Item>
 
-              <Menu.Item key="manage-quiz" icon={<LineChartOutlined />}>
-                Manage quiz
+              <Menu.Item key="manage-quiz" icon={<LineChartOutlined />} onClick={() => navigate(routePath.MANAGE_TEST_STUDENT)}>
+                My quiz
               </Menu.Item>
 
               <Menu.Item

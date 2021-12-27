@@ -8,6 +8,7 @@ import ChartStudent from 'src/pages/chart-student';
 import ManageTest from 'src/pages/manageTest';
 import ManageClass from 'src/pages/manageClass';
 import CreateLesson from 'src/pages/create-lesson';
+import ManageTestStudent from 'src/pages/manageTest/index-student';
 
 const routers = {
   login: {
@@ -62,6 +63,12 @@ const routers = {
     exact: true,
     path: routePath.CREATE_LESSON,
     component: CreateLesson,
+    private: true,
+  },
+  manageTestStudent: {
+    exact: true,
+    path: routePath.MANAGE_TEST_STUDENT,
+    component: ManageTestStudent,
     private: true,
   },
 };
