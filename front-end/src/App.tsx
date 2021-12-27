@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '@fontsource/roboto';
 import 'src/styles/_app.scss';
 import 'src/styles/_base.scss';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import routers from 'src/routes/routes';
 import PrivateRoute from './routes/PrivateRoute';
 import Navbar from './layouts/nav-bar';
@@ -11,14 +11,22 @@ import routePath from './constants/routePath';
 import Cookies from 'js-cookie';
 import { cookieName } from 'src/constants/cookieNameVar';
 import { clearQuizCookies } from 'src/constants/cookieNameVar';
+import { useAppSelector } from './store/hooks';
 
 const App: React.FC = () => {
   const location = useLocation();
+  const user = useAppSelector((state) => state.account.user);
   const [isRenderNavbar, setIsRenderNavbar] = useState(false);
   const [isRenderSidebar, setIsRenderSidebar] = useState(false);
 
   if (!Cookies.get(cookieName.ACCESS_TOKEN)) clearQuizCookies();
   useEffect(() => {
+    if (user.accessToken && !user.fullname) {
+      setIsRenderNavbar(false);
+      setIsRenderSidebar(false);
+      return;
+    }
+
     if ([routePath.SIGN_IN].includes(location.pathname)) {
       setIsRenderNavbar(false);
     } else setIsRenderNavbar(true);

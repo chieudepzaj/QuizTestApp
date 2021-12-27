@@ -41,8 +41,7 @@ const Login = () => {
 
   return (
     <>
-      {user.user.accessToken && user.user.role === 0 && <Navigate to={routePath.CHART_STUDENT} />}
-      {user.user.accessToken && user.user.role === 1 && <Navigate to={routePath.MANAGE_TEST} />}
+      {user.user.accessToken && <Navigate to={routePath.DASHBOARD} />}
 
       <div className={cx('container')}>
         <div className={cx('form')}>

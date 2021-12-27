@@ -5,9 +5,11 @@ import Profile from 'src/pages/profile';
 import TakeQuiz from 'src/pages/take-quiz/TakeQuiz';
 import Quiz from 'src/pages/quiz';
 import ChartStudent from 'src/pages/chart-student';
-import ManageTest from 'src/pages/manageTest';
+import ManageTest from 'src/pages/manage-test';
 import ManageClass from 'src/pages/manageClass';
 import CreateLesson from 'src/pages/create-lesson';
+import ManageTestStudent from 'src/pages/manage-test-student';
+import Dashboard from 'src/pages/dashboard';
 
 const routers = {
   login: {
@@ -16,12 +18,12 @@ const routers = {
     component: Login,
     private: false,
   },
-  // dashboard: {
-  //   exact: true,
-  //   path: routePath.DASHBOARD,
-  //   component: Dashboard,
-  //   private: true,
-  // },
+  dashboard: {
+    exact: true,
+    path: routePath.DASHBOARD,
+    component: Dashboard,
+    private: true,
+  },
   profile: {
     exact: true,
     path: routePath.PROFILE,
@@ -62,6 +64,12 @@ const routers = {
     exact: true,
     path: routePath.CREATE_LESSON,
     component: CreateLesson,
+    private: true,
+  },
+  manageTestStudent: {
+    exact: true,
+    path: routePath.MANAGE_TEST_STUDENT,
+    component: ManageTestStudent,
     private: true,
   },
 };

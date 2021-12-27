@@ -43,8 +43,12 @@ const Sidebar = () => {
                 Manage class
               </Menu.Item>
 
-              <Menu.Item key="create-lesson" icon={<ProfileOutlined />} onClick={() => navigate(routePath.CREATE_LESSON)}>
-                Create Lesson
+              <Menu.Item
+                key="create-lesson"
+                icon={<ProfileOutlined />}
+                onClick={() => navigate(routePath.CREATE_LESSON)}
+              >
+                Manage Lesson
               </Menu.Item>
 
               <Menu.Item key="manage-profile" icon={<ProfileOutlined />} onClick={() => navigate(routePath.PROFILE)}>
@@ -59,8 +63,12 @@ const Sidebar = () => {
                 Take quizs
               </Menu.Item>
 
-              <Menu.Item key="manage-quiz" icon={<LineChartOutlined />}>
-                Manage quiz
+              <Menu.Item
+                key="manage-quiz"
+                icon={<SnippetsOutlined />}
+                onClick={() => navigate(routePath.MANAGE_TEST_STUDENT)}
+              >
+                My quiz
               </Menu.Item>
 
               <Menu.Item
