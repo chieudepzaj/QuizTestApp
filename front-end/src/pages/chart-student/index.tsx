@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useAppSelector } from 'src/store/hooks';
 import { collection, doc, getDoc, getDocs, query, where } from '@firebase/firestore';
-import { classesRef, db } from 'src/firebase/firebase';
+import { db } from 'src/firebase/firebase';
 import { DbsName } from 'src/constants/db';
 import { Line } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
 import './styles.scss';
 
-// Chart.register(...registerables);
+Chart.register(...registerables);
 
 const ChartStudent: React.FC = () => {
   const user = useAppSelector((state) => state.account.user);
