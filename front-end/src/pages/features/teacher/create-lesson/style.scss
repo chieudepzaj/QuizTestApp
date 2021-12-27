@@ -1,4 +1,4 @@
-@import '../../styles/variables';
+@import '../../../../styles/variables';
 
 .create-lesson-container {
   width: 100%;
@@ -50,7 +50,8 @@ textarea {
   border-radius: 5px;
 }
 
-textarea[type=text]:focus, textarea:focus {
+textarea[type='text']:focus,
+textarea:focus {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
   border: 1px solid rgba(81, 203, 238, 1);
 }

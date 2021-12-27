@@ -63,11 +63,7 @@ const Sidebar = () => {
                 Take quizs
               </Menu.Item>
 
-              <Menu.Item
-                key="manage-quiz"
-                icon={<SnippetsOutlined />}
-                onClick={() => navigate(routePath.MANAGE_TEST_STUDENT)}
-              >
+              <Menu.Item key="manage-quiz" icon={<SnippetsOutlined />} onClick={() => navigate(routePath.MY_TEST)}>
                 My quiz
               </Menu.Item>
 

@@ -2,13 +2,13 @@ import routePath from 'src/constants/routePath';
 import Login from 'src/pages/login';
 // import Dashboard from 'src/pages/dashboard';
 import Profile from 'src/pages/profile';
-import TakeQuiz from 'src/pages/take-quiz/TakeQuiz';
-import Quiz from 'src/pages/quiz';
-import ChartStudent from 'src/pages/chart-student';
-import ManageTest from 'src/pages/manage-test';
-import ManageClass from 'src/pages/manageClass';
-import CreateLesson from 'src/pages/create-lesson';
-import ManageTestStudent from 'src/pages/manage-test-student';
+import TakeQuiz from 'src/pages/features/student/take-quiz/TakeQuiz';
+import Quiz from 'src/pages/features/student/quiz';
+import ChartStudent from 'src/pages/features/student/chart-student';
+import ManageTestTeacher from 'src/pages/features/teacher/manage-test-teacher';
+import ManageClass from 'src/pages/features/teacher/manage-class';
+import CreateLesson from 'src/pages/features/teacher/create-lesson';
+import ManageTestStudent from 'src/pages/features/student/manage-test-student';
 import Dashboard from 'src/pages/dashboard';
 
 const routers = {
@@ -54,10 +54,10 @@ const routers = {
     component: ManageClass,
     private: true,
   },
-  manageTest: {
+  manageTestTeacher: {
     exact: true,
     path: routePath.MANAGE_TEST,
-    component: ManageTest,
+    component: ManageTestTeacher,
     private: true,
   },
   createLesson: {
@@ -68,7 +68,7 @@ const routers = {
   },
   manageTestStudent: {
     exact: true,
-    path: routePath.MANAGE_TEST_STUDENT,
+    path: routePath.MY_TEST,
     component: ManageTestStudent,
     private: true,
   },

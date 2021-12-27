@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Form, Input, Modal, Select } from 'antd';
 import { REQUIRED_FIELD } from 'src/constants/messages';
 import './style.scss';
