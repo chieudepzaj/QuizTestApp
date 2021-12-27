@@ -1,7 +1,6 @@
 import { Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 import './styles.scss';
-import quizImg from 'src/assets/images/quiz.png';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { IQuizInfo } from 'src/interfaces';
 import { collection, getDocs, query, where } from '@firebase/firestore';
@@ -10,7 +9,6 @@ import { DbsName } from 'src/constants/db';
 import { handleTakeQuiz } from 'src/store/currentQuiz';
 import Cookies from 'js-cookie';
 import { cookieName } from 'src/constants/cookieNameVar';
-import { secondsToTime } from 'src/helpers/indes';
 import { doc, deleteDoc } from 'firebase/firestore';
 import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
 import { PlusCircleOutlined } from '@ant-design/icons';

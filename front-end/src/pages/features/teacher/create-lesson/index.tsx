@@ -18,23 +18,21 @@ const CreateLesson: React.FC = () => {
   const user = useAppSelector((state) => state.account.user);
 
   const handleOnCreateLesson = async (values: any) => {
-          try {
+    try {
+      const newLessonInfo: ILessonInfo = {
+        lessonName: values.lessonName,
+        content: values.content,
+        linkYT: values.linkYT,
+        classID: user.classID,
+        lastModify: new Date(),
+      };
 
-            const newLessonInfo: ILessonInfo = {
-                lessonName: values.lessonName,
-                content: values.content,
-                linkYT: values.linkYT,
-                classID: user.classID,
-                lastModify: new Date(),
-            };
+      const newLessonDocRef = await addDoc(collection(db, DbsName.LESSON), newLessonInfo);
 
-            const newLessonDocRef = await addDoc(collection(db, DbsName.LESSON), newLessonInfo);
-
-            openCustomNotificationWithIcon(NOTIFICATION_TYPE.SUCCESS, 'Create new lesson successfully', '');
-          } catch (error: any) {
-            openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Error in creating new lesson', '');
-          }
-    
+      openCustomNotificationWithIcon(NOTIFICATION_TYPE.SUCCESS, 'Create new lesson successfully', '');
+    } catch (error: any) {
+      openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Error in creating new lesson', '');
+    }
   };
 
   return (
@@ -62,7 +60,7 @@ const CreateLesson: React.FC = () => {
             </Form.Item>
 
             <Form.Item label="Content" name="content" rules={[{ required: true, message: REQUIRED_FIELD }]}>
-                <textarea onChange={() => {}} placeholder="Please write something..." ></textarea>
+              <textarea onChange={() => {}} placeholder="Please write something..."></textarea>
             </Form.Item>
 
             <Form.Item className={'action'}>

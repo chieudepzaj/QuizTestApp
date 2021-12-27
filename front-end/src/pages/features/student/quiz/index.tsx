@@ -12,7 +12,7 @@ import { IQuizInfo, IQuizQuestion } from 'src/interfaces';
 import { handleEndQuiz } from 'src/store/currentQuiz';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import './styles.scss';
-import clockIcon from '../../assets/icons/clock-icon.png';
+import clockIcon from 'src/assets/icons/clock-icon.png';
 
 const getAllQuestions: any = async (quiz: any) =>
   (async (quiz) => {
