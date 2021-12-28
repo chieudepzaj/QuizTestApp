@@ -12,7 +12,7 @@ import { cookieName } from 'src/constants/cookieNameVar';
 import { doc, deleteDoc } from 'firebase/firestore';
 import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
 import { PlusCircleOutlined } from '@ant-design/icons';
-import CreateQuizStudent from './components/create-quiz';
+import CreateQuiz from './components/create-quiz';
 import QuizInfo from 'src/components/quiz-info';
 
 const ManageTestStudent: React.FC = () => {
@@ -23,7 +23,7 @@ const ManageTestStudent: React.FC = () => {
 
   const getAllQuiz = async () => {
     try {
-      const allQuizSnapshot = await getDocs(query(collection(db, DbsName.QUIZ), where('classID', '==', user.id)));
+      const allQuizSnapshot = await getDocs(query(collection(db, DbsName.QUIZ), where('classID', '==', user.fullname)));
 
       const allQuizDoc: IQuizInfo[] = [];
       allQuizSnapshot.forEach((doc: any) => {
@@ -80,8 +80,6 @@ const ManageTestStudent: React.FC = () => {
 
   const handleOnEditQuiz = (quiz: any) => {};
 
-  const handleOnViewQuizResult = (quiz: any) => {};
-
   return (
     <div className="manage-test__container">
       <div className="all-quiz-info-container">
@@ -95,9 +93,6 @@ const ManageTestStudent: React.FC = () => {
               key={index}
               quiz={quiz}
               actions={[
-                <Button key="quiz-result" className="result-btn" onClick={() => handleOnViewQuizResult(quiz)}>
-                  Quiz Results
-                </Button>,
                 <Button key="edit-quiz" className="edit-btn" onClick={() => handleOnEditQuiz(quiz)}>
                   Edit Quiz
                 </Button>,
@@ -110,7 +105,7 @@ const ManageTestStudent: React.FC = () => {
         })}
       </div>
 
-      <CreateQuizStudent visible={isOpenCreateNewQuizModal} setIsOpenCreateNewQuizModal={setIsOpenCreateNewQuizModal} />
+      <CreateQuiz visible={isOpenCreateNewQuizModal} setIsOpenCreateNewQuizModal={setIsOpenCreateNewQuizModal} />
     </div>
   );
 };
