@@ -76,7 +76,7 @@ const ManageTestStudent: React.FC = () => {
         <Button className="add-quiz" onClick={() => setIsOpenCreateNewQuizModal(true)}>
           Add new quiz <PlusCircleOutlined />
         </Button>
-        <div className="title">Total quiz: {allQuiz.length}</div>
+        <div className="title">My quiz: {allQuiz.length}</div>
         {allQuiz.map((quiz, index) => {
           return (
             <QuizInfo
