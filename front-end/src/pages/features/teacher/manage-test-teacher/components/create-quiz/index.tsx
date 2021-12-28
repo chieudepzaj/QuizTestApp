@@ -18,7 +18,8 @@ const { Option } = Select;
 const CreateQuiz: React.FC<{
   visible: boolean;
   setIsOpenCreateNewQuizModal: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ visible, setIsOpenCreateNewQuizModal }) => {
+  getAllQuiz: () => Promise<void>;
+}> = ({ visible, setIsOpenCreateNewQuizModal, getAllQuiz }) => {
   const [form] = Form.useForm();
   const [csvfile, setCsvfile] = useState<any>();
   const [csvfileError, setCsvfileError] = useState(false);
@@ -99,6 +100,7 @@ const CreateQuiz: React.FC<{
 
             openCustomNotificationWithIcon(NOTIFICATION_TYPE.SUCCESS, 'Create new quiz successfully', '');
             setIsOpenCreateNewQuizModal(false);
+            getAllQuiz();
           } catch (error: any) {
             openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Error in creating new quiz', '');
             return;

@@ -1,14 +1,11 @@
 import { Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 import './styles.scss';
-import { useAppDispatch, useAppSelector } from 'src/store/hooks';
+import { useAppSelector } from 'src/store/hooks';
 import { IQuizInfo } from 'src/interfaces';
 import { collection, getDocs, query, where } from '@firebase/firestore';
 import { db } from 'src/firebase/firebase';
 import { DbsName } from 'src/constants/db';
-import { handleTakeQuiz } from 'src/store/currentQuiz';
-import Cookies from 'js-cookie';
-import { cookieName } from 'src/constants/cookieNameVar';
 import { doc, deleteDoc } from 'firebase/firestore';
 import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
 import { PlusCircleOutlined } from '@ant-design/icons';
@@ -17,7 +14,6 @@ import QuizInfo from 'src/components/quiz-info';
 
 const ManageTest: React.FC = () => {
   const user = useAppSelector((user) => user.account.user);
-  const dispatch = useAppDispatch();
   const [allQuiz, setAllQuiz] = useState<IQuizInfo[]>([]);
   const [isOpenCreateNewQuizModal, setIsOpenCreateNewQuizModal] = useState(false);
 
@@ -40,6 +36,7 @@ const ManageTest: React.FC = () => {
 
       setAllQuiz(allQuizDoc);
     } catch (error: any) {
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   };
@@ -49,13 +46,6 @@ const ManageTest: React.FC = () => {
       getAllQuiz();
     }
   }, [user]);
-
-  useEffect(() => {
-    const currentQuiz = Cookies.get(cookieName.CURRENT_QUIZ);
-    if (currentQuiz) {
-      dispatch(handleTakeQuiz(JSON.parse(currentQuiz)));
-    }
-  }, []);
 
   const handleOnDeleteQuiz = async (quiz: any) => {
     try {
@@ -110,7 +100,11 @@ const ManageTest: React.FC = () => {
         })}
       </div>
 
-      <CreateQuiz visible={isOpenCreateNewQuizModal} setIsOpenCreateNewQuizModal={setIsOpenCreateNewQuizModal} />
+      <CreateQuiz
+        visible={isOpenCreateNewQuizModal}
+        setIsOpenCreateNewQuizModal={setIsOpenCreateNewQuizModal}
+        getAllQuiz={getAllQuiz}
+      />
     </div>
   );
 };
