@@ -70,8 +70,6 @@ const ManageTestStudent: React.FC = () => {
 
   const handleOnEditQuiz = (quiz: any) => {};
 
-  const handleOnViewQuizResult = (quiz: any) => {};
-
   return (
     <div className="manage-test__container">
       <div className="all-quiz-info-container">
@@ -85,9 +83,6 @@ const ManageTestStudent: React.FC = () => {
               key={index}
               quiz={quiz}
               actions={[
-                <Button key="quiz-result" className="result-btn" onClick={() => handleOnViewQuizResult(quiz)}>
-                  Quiz Results
-                </Button>,
                 <Button key="edit-quiz" className="edit-btn" onClick={() => handleOnEditQuiz(quiz)}>
                   Edit Quiz
                 </Button>,
