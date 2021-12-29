@@ -7,6 +7,7 @@ import Quiz from 'src/pages/features/student/quiz';
 import ChartStudent from 'src/pages/features/student/chart-student';
 import ManageTestTeacher from 'src/pages/features/teacher/manage-test-teacher';
 import ManageClass from 'src/pages/features/teacher/manage-class';
+import EditTest from 'src/pages/features/teacher/edit-test';
 import CreateLesson from 'src/pages/features/teacher/create-lesson';
 import ManageTestStudent from 'src/pages/features/student/manage-test-student';
 import Dashboard from 'src/pages/dashboard';
@@ -52,6 +53,12 @@ const routers = {
     exact: true,
     path: routePath.MANAGE_CLASS,
     component: ManageClass,
+    private: true,
+  },
+  editTest: {
+    exact: true,
+    path: routePath.EDIT_TEST,
+    component: EditTest,
     private: true,
   },
   manageTestTeacher: {
