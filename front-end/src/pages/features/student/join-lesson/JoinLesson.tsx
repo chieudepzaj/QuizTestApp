@@ -67,18 +67,6 @@ const JoinLesson: React.FC = () => {
     }
   }, [user]);
 
-  useEffect(() => {
-    const currentQuiz = Cookies.get(cookieName.CURRENT_QUIZ);
-    if (currentQuiz) {
-      dispatch(handleTakeQuiz(JSON.parse(currentQuiz)));
-    }
-  });
-
-  const takeQuiz = (quiz: UserLessonInfo) => {
-    dispatch(handleTakeQuiz(quiz));
-    navigate(routePath.QUIZ);
-  };
-
   return (
     <>
       {Cookies.get(cookieName.CURRENT_QUIZ) && <Navigate to={routePath.QUIZ} />}
@@ -95,7 +83,7 @@ const JoinLesson: React.FC = () => {
                 lesson={allLesson[0]}
                 actions={[
                   
-                  <Button key="start-quiz" onClick={() => takeQuiz(allLesson[0])}>
+                  <Button key="start-quiz">
                     JOIN
                   </Button>,
                 ]}
@@ -117,7 +105,7 @@ const JoinLesson: React.FC = () => {
                       lesson={quiz}
                       actions={[
                         
-                        <Button key="start-quiz" onClick={() => takeQuiz(quiz)}>
+                        <Button key="start-quiz">
                           JOIN
                         </Button>,
                       ]}
