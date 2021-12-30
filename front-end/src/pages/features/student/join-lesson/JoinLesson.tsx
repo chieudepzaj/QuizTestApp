@@ -8,7 +8,6 @@ import { IQuizResult } from 'src/interfaces';
 import { collection, getDocs, query, where } from '@firebase/firestore';
 import { db } from 'src/firebase/firebase';
 import { DbsName } from 'src/constants/db';
-import { handleTakeQuiz } from 'src/store/currentQuiz';
 import Cookies from 'js-cookie';
 import { cookieName } from 'src/constants/cookieNameVar';
 import LessonInfo, { UserLessonInfo } from 'src/components/lesson-info';
@@ -27,10 +26,6 @@ const JoinLesson: React.FC = () => {
        */
       const allResultDoc: IQuizResult[] = [];
       const allResultSnapshot = await getDocs(query(collection(db, DbsName.RESULT), where('userID', '==', user.uid)));
-
-      allResultSnapshot.forEach((doc: any) => {
-        allResultDoc.push(doc.data());
-      });
 
       /**
        * Get all quiz
@@ -67,23 +62,12 @@ const JoinLesson: React.FC = () => {
     }
   }, [user]);
 
-  useEffect(() => {
-    const currentQuiz = Cookies.get(cookieName.CURRENT_QUIZ);
-    if (currentQuiz) {
-      dispatch(handleTakeQuiz(JSON.parse(currentQuiz)));
-    }
-  });
-
-  const takeQuiz = (quiz: UserLessonInfo) => {
-    dispatch(handleTakeQuiz(quiz));
-    navigate(routePath.QUIZ);
-  };
-
+  
   return (
     <>
       {Cookies.get(cookieName.CURRENT_QUIZ) && <Navigate to={routePath.QUIZ} />}
 
-      {allLesson.length <= 0 && <div className="no-quiz-created">You have no lesson</div>}
+      {allLesson.length <= 0 && <div className="no-quiz-created">You have no lesson to join</div>}
 
       {allLesson.length > 0 && (
         <div className="take-test__container">
@@ -95,7 +79,7 @@ const JoinLesson: React.FC = () => {
                 lesson={allLesson[0]}
                 actions={[
                   
-                  <Button key="start-quiz" onClick={() => takeQuiz(allLesson[0])}>
+                  <Button key="start-quiz">
                     JOIN
                   </Button>,
                 ]}
@@ -117,7 +101,7 @@ const JoinLesson: React.FC = () => {
                       lesson={quiz}
                       actions={[
                         
-                        <Button key="start-quiz" onClick={() => takeQuiz(quiz)}>
+                        <Button key="start-quiz">
                           JOIN
                         </Button>,
                       ]}
