@@ -68,7 +68,9 @@ const ManageTest: React.FC = () => {
     }
   };
 
-  const handleOnEditQuiz = (quiz: any) => {};
+  const handleOnEditQuiz = (quiz: any) => {
+    console.log(quiz);
+  };
 
   const handleOnViewQuizResult = (quiz: any) => {};
 
