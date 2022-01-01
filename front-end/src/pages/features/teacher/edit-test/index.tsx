@@ -6,7 +6,6 @@ import { useAppSelector } from 'src/store/hooks';
 import './index.scss';
 import TextareaAutosize from 'react-textarea-autosize';
 import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
-import { notification } from 'antd';
 
 const EditTest: React.FC = () => {
   const [data, setData] = useState([
@@ -78,7 +77,6 @@ const EditTest: React.FC = () => {
       });
     } catch (error) {
       openCustomNotificationWithIcon(NOTIFICATION_TYPE.ERROR, 'Error in updating questions', '');
-
     }
   };
 
@@ -183,9 +181,9 @@ const EditTest: React.FC = () => {
           </tbody>
         </table>
         <div className="footer">
-          <div className="f-left">
-            {/* <button className="btn-add">Add new Question</button> */}
-          </div>
+          {/* <div className="f-left">
+            <button className="btn-add">Add new Question</button>
+          </div> */}
           <div className="f-right">
             <button className="btn-submit" onClick={() => submitChange()}>
               Submit
