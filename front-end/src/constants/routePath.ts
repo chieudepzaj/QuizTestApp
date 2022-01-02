@@ -3,6 +3,7 @@ const SIGN_IN = '/sign-in';
 const PROFILE = '/profile';
 const TAKE_QUIZ = '/take-quiz';
 const QUIZ = '/quiz';
+const JOIN_LESSON = '/join-lesson';
 const CREATE_QUIZ = '/create-quiz';
 const CHART_STUDENT = '/chart-student';
 const MANAGE_TEST = '/manage-test';
@@ -17,6 +18,7 @@ export default {
   PROFILE,
   TAKE_QUIZ,
   QUIZ,
+  JOIN_LESSON,
   CREATE_QUIZ,
   CHART_STUDENT,
   MANAGE_TEST,

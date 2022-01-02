@@ -10,6 +10,7 @@ import ManageClass from 'src/pages/features/teacher/manage-class';
 import CreateLesson from 'src/pages/features/teacher/create-lesson';
 import ManageTestStudent from 'src/pages/features/student/manage-test-student';
 import Dashboard from 'src/pages/dashboard';
+import JoinLesson from 'src/pages/features/student/join-lesson/JoinLesson';
 
 const routers = {
   login: {
@@ -34,6 +35,12 @@ const routers = {
     exact: true,
     path: routePath.TAKE_QUIZ,
     component: TakeQuiz,
+    private: true,
+  },
+  joinLesson: {
+    exact: true,
+    path: routePath.JOIN_LESSON,
+    component: JoinLesson,
     private: true,
   },
   quiz: {
