@@ -6,8 +6,9 @@ const QUIZ = '/quiz';
 const JOIN_LESSON = '/join-lesson';
 const CREATE_QUIZ = '/create-quiz';
 const CHART_STUDENT = '/chart-student';
-const MANAGE_TEST = '/manage-test';
-const EDIT_TEST = '/edit-test';
+const MANAGE_QUIZ = '/manage-quiz';
+const QUIZ_RESULT = '/manage-quiz/:id/result';
+const EDIT_TEST = '/manage-quiz/:id/edit';
 const MANAGE_CLASS = '/manage-class';
 const CREATE_LESSON = '/create-lesson';
 const MY_TEST = 'my-test';
@@ -22,7 +23,8 @@ export default {
   JOIN_LESSON,
   CREATE_QUIZ,
   CHART_STUDENT,
-  MANAGE_TEST,
+  MANAGE_QUIZ,
+  QUIZ_RESULT,
   EDIT_TEST,
   MANAGE_CLASS,
   CREATE_LESSON,

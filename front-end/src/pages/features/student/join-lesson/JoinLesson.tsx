@@ -8,7 +8,6 @@ import { IQuizResult } from 'src/interfaces';
 import { collection, getDocs, query, where } from '@firebase/firestore';
 import { db } from 'src/firebase/firebase';
 import { DbsName } from 'src/constants/db';
-import { handleTakeQuiz } from 'src/store/currentQuiz';
 import Cookies from 'js-cookie';
 import { cookieName } from 'src/constants/cookieNameVar';
 import LessonInfo, { UserLessonInfo } from 'src/components/lesson-info';
@@ -35,7 +34,9 @@ const JoinLesson: React.FC = () => {
       /**
        * Get all quiz
        */
-      const allLessonSnapshot = await getDocs(query(collection(db, DbsName.LESSON), where('classID', '==', user.classID)));
+      const allLessonSnapshot = await getDocs(
+        query(collection(db, DbsName.LESSON), where('classID', '==', user.classID)),
+      );
 
       const allLessonDoc: UserLessonInfo[] = [];
       allLessonSnapshot.forEach((doc: any) => {
@@ -79,15 +80,7 @@ const JoinLesson: React.FC = () => {
             <>
               <div className="title new-quiz-title">NEW LESSON!</div>
 
-              <LessonInfo
-                lesson={allLesson[0]}
-                actions={[
-                  
-                  <Button key="start-quiz">
-                    JOIN
-                  </Button>,
-                ]}
-              />
+              <LessonInfo lesson={allLesson[0]} actions={[<Button key="start-quiz">JOIN</Button>]} />
             </>
           )}
 
@@ -99,18 +92,7 @@ const JoinLesson: React.FC = () => {
                 {allLesson.map((quiz, index) => {
                   if (index === 0) return;
 
-                  return (
-                    <LessonInfo
-                      key={index}
-                      lesson={quiz}
-                      actions={[
-                        
-                        <Button key="start-quiz">
-                          JOIN
-                        </Button>,
-                      ]}
-                    />
-                  );
+                  return <LessonInfo key={index} lesson={quiz} actions={[<Button key="start-quiz">JOIN</Button>]} />;
                 })}
               </div>
             </>

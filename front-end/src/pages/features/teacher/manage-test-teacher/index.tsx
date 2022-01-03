@@ -1,7 +1,7 @@
 import { Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 import './styles.scss';
-import { useAppSelector } from 'src/store/hooks';
+import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { IQuizInfo } from 'src/interfaces';
 import { collection, getDocs, query, where } from '@firebase/firestore';
 import { db } from 'src/firebase/firebase';
@@ -11,11 +11,16 @@ import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/component
 import { PlusCircleOutlined } from '@ant-design/icons';
 import CreateQuiz from './components/create-quiz';
 import QuizInfo from 'src/components/quiz-info';
+import { useNavigate } from 'react-router-dom';
+import routePath from 'src/constants/routePath';
+import { handleManageQuiz } from 'src/store/quiz';
 
 const ManageTest: React.FC = () => {
   const user = useAppSelector((user) => user.account.user);
+  const dispatch = useAppDispatch();
   const [allQuiz, setAllQuiz] = useState<IQuizInfo[]>([]);
   const [isOpenCreateNewQuizModal, setIsOpenCreateNewQuizModal] = useState(false);
+  const navigate = useNavigate();
 
   const getAllQuiz = async () => {
     try {
@@ -68,11 +73,12 @@ const ManageTest: React.FC = () => {
     }
   };
 
-  const handleOnEditQuiz = (quiz: any) => {
-    console.log(quiz);
-  };
+  const handleOnEditQuiz = (quiz: any) => {};
 
-  const handleOnViewQuizResult = (quiz: any) => {};
+  const handleOnViewQuizResult = (quiz: any) => {
+    dispatch(handleManageQuiz(quiz));
+    navigate(routePath.QUIZ_RESULT.replace(':id', quiz.id));
+  };
 
   return (
     <div className="manage-test__container">
@@ -80,6 +86,7 @@ const ManageTest: React.FC = () => {
         <Button className="add-quiz" onClick={() => setIsOpenCreateNewQuizModal(true)}>
           Add new quiz <PlusCircleOutlined />
         </Button>
+
         <div className="title">Total quiz: {allQuiz.length}</div>
         {allQuiz.map((quiz, index) => {
           return (

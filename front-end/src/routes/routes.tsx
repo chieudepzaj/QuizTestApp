@@ -12,6 +12,7 @@ import CreateLesson from 'src/pages/features/teacher/create-lesson';
 import ManageTestStudent from 'src/pages/features/student/manage-test-student';
 import Dashboard from 'src/pages/dashboard';
 import JoinLesson from 'src/pages/features/student/join-lesson/JoinLesson';
+import QuizResult from 'src/pages/features/teacher/manage-test-teacher/components/quiz-result';
 
 const routers = {
   login: {
@@ -50,6 +51,12 @@ const routers = {
     component: Quiz,
     private: true,
   },
+  quizResult: {
+    exact: true,
+    path: routePath.QUIZ_RESULT,
+    component: QuizResult,
+    private: true,
+  },
   chartStudent: {
     exact: true,
     path: routePath.CHART_STUDENT,
@@ -70,7 +77,7 @@ const routers = {
   },
   manageTestTeacher: {
     exact: true,
-    path: routePath.MANAGE_TEST,
+    path: routePath.MANAGE_QUIZ,
     component: ManageTestTeacher,
     private: true,
   },

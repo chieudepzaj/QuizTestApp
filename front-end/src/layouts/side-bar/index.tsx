@@ -32,7 +32,7 @@ const Sidebar = () => {
         >
           {user.role === UserRole.TEACHER && (
             <>
-              <Menu.Item key="manage-quiz" icon={<SnippetsOutlined />} onClick={() => navigate(routePath.MANAGE_TEST)}>
+              <Menu.Item key="manage-quiz" icon={<SnippetsOutlined />} onClick={() => navigate(routePath.MANAGE_QUIZ)}>
                 Manage quiz
               </Menu.Item>
 
