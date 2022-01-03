@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 import './styles.scss';
@@ -14,6 +15,7 @@ import QuizInfo from 'src/components/quiz-info';
 import { useNavigate } from 'react-router-dom';
 import routePath from 'src/constants/routePath';
 import { handleManageQuiz } from 'src/store/quiz';
+import EditQuiz from 'src/pages/features/teacher/edit-quiz';
 
 const ManageTest: React.FC = () => {
   const user = useAppSelector((user) => user.account.user);
@@ -73,7 +75,10 @@ const ManageTest: React.FC = () => {
     }
   };
 
-  const handleOnEditQuiz = (quiz: any) => {};
+  const handleOnEditQuiz = (quiz: any) => {
+    dispatch(handleManageQuiz(quiz));
+    navigate(routePath.EDIT_QUIZ.replace(':id', quiz.id));
+  };
 
   const handleOnViewQuizResult = (quiz: any) => {
     dispatch(handleManageQuiz(quiz));

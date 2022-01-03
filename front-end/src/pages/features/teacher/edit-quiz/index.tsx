@@ -1,13 +1,20 @@
-import { collection, getDocs, query, where, updateDoc, doc } from 'firebase/firestore';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { collection, getDocs, query, where, updateDoc, doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { DbsName } from 'src/constants/db';
 import { db } from 'src/firebase/firebase';
-import { useAppSelector } from 'src/store/hooks';
+import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import './index.scss';
 import TextareaAutosize from 'react-textarea-autosize';
 import { NOTIFICATION_TYPE, openCustomNotificationWithIcon } from 'src/components/notification';
+import { useParams } from 'react-router-dom';
+import { handleManageQuiz } from 'src/store/quiz';
 
-const EditTest: React.FC = () => {
+const EditQuiz: React.FC = () => {
+  const quiz = useAppSelector((state) => state.quiz.manageQuizCurQuiz);
+  const { id: quizID } = useParams();
+  const dispatch = useAppDispatch();
+
   const [data, setData] = useState([
     {
       Id: '',
@@ -20,9 +27,13 @@ const EditTest: React.FC = () => {
       Edit: '',
     },
   ]);
+
   const getQuestions = async () => {
     try {
-      const allQuestionSnapshot = await getDocs(query(collection(db, DbsName.QUESTION), where('quizID', '==', 'FFVFPpKOMrJTJBQKRpGf')));
+      const allQuestionSnapshot = await getDocs(
+        query(collection(db, DbsName.QUESTION), where('quizID', '==', quiz.id)),
+      );
+
       const allQuestionData: any = [];
       allQuestionSnapshot.forEach((q: any) => {
         const questData = q.data();
@@ -39,12 +50,18 @@ const EditTest: React.FC = () => {
         allQuestionData.push(quest);
       });
       setData(allQuestionData);
-    } catch (error) { };
+    } catch (error) {}
   };
 
   useEffect(() => {
-    getQuestions();
-  }, []);
+    const getQuiz = async () => {
+      const quizRef = await doc(db, DbsName.QUIZ, `${quizID}`);
+      const quizSnap = await getDoc(quizRef);
+      dispatch(handleManageQuiz(quizSnap));
+    };
+
+    quiz.id ? getQuestions() : getQuiz();
+  }, [quiz]);
 
   // const addQuestion = () => {
   //   const table = document.getElementsByTagName("tbody");
@@ -62,15 +79,15 @@ const EditTest: React.FC = () => {
   const submitChange = async () => {
     try {
       data.forEach(async (quest) => {
-        if (quest.Edit == "1") {
+        if (quest.Edit == '1') {
           const questInfoDocRef = doc(db, DbsName.QUESTION, quest.Id);
           await updateDoc(questInfoDocRef, {
-            "question": quest.Question,
-            "ans_1": quest.Answer1,
-            "ans_2": quest.Answer2,
-            "ans_3": quest.Answer3,
-            "ans_4": quest.Answer4,
-            "correct_ans": quest.CorrectAnswer,
+            question: quest.Question,
+            ans_1: quest.Answer1,
+            ans_2: quest.Answer2,
+            ans_3: quest.Answer3,
+            ans_4: quest.Answer4,
+            correct_ans: quest.CorrectAnswer,
           });
           openCustomNotificationWithIcon(NOTIFICATION_TYPE.SUCCESS, 'Update successfully', '');
         }
@@ -85,8 +102,7 @@ const EditTest: React.FC = () => {
       <div className="container">
         <div className="title">
           <h2>
-            Edit Test:
-            <strong>sdsfsafasdf</strong>
+            Edit Quiz: <strong>{quiz.name}</strong>
           </h2>
         </div>
         <table>
@@ -195,4 +211,4 @@ const EditTest: React.FC = () => {
   );
 };
 
-export default EditTest;
+export default EditQuiz;
